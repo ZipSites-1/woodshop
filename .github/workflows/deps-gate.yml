@@ -1,0 +1,45 @@
+name: Dependency Gate
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+  merge_group: {}   # supports merge queue
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+
+jobs:
+  check-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find closing issue (PR body keywords)
+        id: find
+        run: |
+          BODY="${{ github.event.pull_request.body }}"
+          # Matches "close(s|d)", "fix(es|ed)", "resolve(s|d)" + #123
+          ISSUE=$(printf "%s" "$BODY" | \
+            perl -ne 'print "$1\n" if /(?i)(?:clos(?:e|es|ed)|fix(?:e[sd])?|resolv(?:e|es|ed))\s*:\s*#(\d+)/')
+          echo "issue=$ISSUE" >> $GITHUB_OUTPUT
+
+      - name: Skip if no closing issue
+        if: steps.find.outputs.issue == ''
+        run: echo "No closing keywords found; skipping."
+
+      - name: Fail if dependencies still open
+        if: steps.find.outputs.issue != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+          ISSUE_NUM: ${{ steps.find.outputs.issue }}
+        run: |
+          # List deps this issue is 'blocked by'
+          deps=$(gh api \
+            repos/$OWNER/$REPO/issues/$ISSUE_NUM/dependencies/blocked_by \
+            --jq '.[] | select(.state!="closed") | "\(.number) \(.title)"')
+          if [ -n "$deps" ]; then
+            echo "This PR attempts to close #$ISSUE_NUM but it is blocked by:"
+            echo "$deps"
+            exit 1
+          fi
