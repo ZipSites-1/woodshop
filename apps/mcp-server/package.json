@@ -1,9 +1,21 @@
 {
-  "name":"@woodshop/mcp-server",
-  "version":"0.0.0",
-  "type":"module",
-  "main":"dist/index.js",
-  "scripts": { "build":"tsc -p tsconfig.json", "dev":"node dist/index.js" },
-  "dependencies": { "zod":"^3.23.8" },
-  "devDependencies": { "typescript":"^5.4.0" }
+  "name": "@woodshop/mcp-server",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -b tsconfig.json",
+    "dev": "pnpm build && node dist/index.js",
+    "test": "node --test --test-reporter=spec test/*.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.0",
+    "@woodshop/schemas": "workspace:*",
+    "@woodshop/types": "workspace:*",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0"
+  }
 }

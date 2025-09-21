@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/extract_cutlist.output.json",
+  "title": "ExtractCutlistOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "part_id": { "type": "string" },
+          "name": { "type": "string" },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "length_mm": { "type": "number" },
+          "width_mm": { "type": "number" },
+          "thickness_mm": { "type": "number" },
+          "material": { "type": "string" },
+          "grain": { "type": "string" }
+        },
+        "required": [
+          "part_id",
+          "name",
+          "quantity",
+          "length_mm",
+          "width_mm",
+          "thickness_mm",
+          "material",
+          "grain"
+        ]
+      }
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "parts": { "type": "integer", "minimum": 0 },
+        "material_totals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "material": { "type": "string" },
+              "count": { "type": "integer", "minimum": 0 }
+            },
+            "required": ["material", "count"]
+          }
+        }
+      },
+      "required": ["parts", "material_totals"]
+    },
+    "seed": { "type": "integer" },
+    "engine_versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "occt": { "type": "string" },
+        "nest": { "type": "string" },
+        "cam": { "type": "string" },
+        "wood": { "type": "string" },
+        "schemas": { "type": "string" }
+      },
+      "required": ["occt", "nest", "cam", "wood", "schemas"]
+    },
+    "revision_id": { "type": "string" },
+    "inputs_hash": { "type": "string" }
+  },
+  "required": [
+    "project_id",
+    "rows",
+    "totals",
+    "seed",
+    "engine_versions",
+    "revision_id",
+    "inputs_hash"
+  ]
+}

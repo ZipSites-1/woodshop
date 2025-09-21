@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/export_artifacts.output.json",
+  "title": "ExportArtifactsOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": { "type": "string" },
+    "format": { "type": "string", "enum": ["pdf", "dxf", "svg"] },
+    "artifact_path": {
+      "type": "string",
+      "description": "Relative path to the exported artifact"
+    },
+    "artifact_sha256": {
+      "type": "string",
+      "description": "Checksum of artifact contents"
+    },
+    "bytes_written": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of bytes written to disk"
+    },
+    "seed": { "type": "integer" },
+    "engine_versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "occt": { "type": "string" },
+        "nest": { "type": "string" },
+        "cam": { "type": "string" },
+        "wood": { "type": "string" },
+        "schemas": { "type": "string" }
+      },
+      "required": ["occt", "nest", "cam", "wood", "schemas"]
+    },
+    "revision_id": { "type": "string" },
+    "inputs_hash": { "type": "string" }
+  },
+  "required": [
+    "project_id",
+    "format",
+    "artifact_path",
+    "artifact_sha256",
+    "bytes_written",
+    "seed",
+    "engine_versions",
+    "revision_id",
+    "inputs_hash"
+  ]
+}

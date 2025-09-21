@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/create_project.input.json",
+  "title": "CreateProjectInput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "units": {
+      "type": "string",
+      "description": "Measurement units for the project",
+      "enum": ["mm", "inch"]
+    },
+    "template": {
+      "type": "string",
+      "description": "Optional template or preset identifier",
+      "minLength": 1
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Deterministic seed for downstream operations",
+      "minimum": 0,
+      "default": 0
+    }
+  },
+  "required": ["units"]
+}

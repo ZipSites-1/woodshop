@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/create_project.output.json",
+  "title": "CreateProjectOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Stable identifier derived from inputs"
+    },
+    "units": {
+      "type": "string",
+      "enum": ["mm", "inch"],
+      "description": "Units echoed from input"
+    },
+    "template": {
+      "type": ["string", "null"],
+      "description": "Template selection, if any"
+    },
+    "materials": {
+      "type": "array",
+      "description": "Default material catalog for the project",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "thickness_mm": { "type": "number" },
+          "grain": { "type": "string" }
+        },
+        "required": ["name", "thickness_mm", "grain"]
+      }
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Seed used for deterministic operations"
+    },
+    "engine_versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "occt": { "type": "string" },
+        "nest": { "type": "string" },
+        "cam": { "type": "string" },
+        "wood": { "type": "string" },
+        "schemas": { "type": "string" }
+      },
+      "required": ["occt", "nest", "cam", "wood", "schemas"]
+    },
+    "revision_id": {
+      "type": "string",
+      "description": "Current git revision"
+    },
+    "inputs_hash": {
+      "type": "string",
+      "description": "SHA-256 hash of validated inputs"
+    }
+  },
+  "required": [
+    "project_id",
+    "units",
+    "template",
+    "materials",
+    "seed",
+    "engine_versions",
+    "revision_id",
+    "inputs_hash"
+  ]
+}

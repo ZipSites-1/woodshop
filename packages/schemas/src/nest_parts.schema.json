@@ -1,2 +1,0 @@
-{ "$schema":"http://json-schema.org/draft-07/schema#", "title":"nest_parts", "type":"object",
-  "properties": { "project_id":{"type":"string"},"kerf":{"type":"number"} }, "required":["project_id","kerf"] }

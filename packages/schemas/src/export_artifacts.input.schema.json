@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/export_artifacts.input.json",
+  "title": "ExportArtifactsInput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Identifier returned by create_project"
+    },
+    "format": {
+      "type": "string",
+      "enum": ["pdf", "dxf", "svg"],
+      "description": "Artifact format to export"
+    },
+    "revision_id": {
+      "type": "string",
+      "description": "Revision identifier for provenance"
+    },
+    "destination": {
+      "type": "string",
+      "description": "Optional output directory relative to repository root",
+      "minLength": 1
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Deterministic seed for export",
+      "minimum": 0,
+      "default": 0
+    }
+  },
+  "required": ["project_id", "format"]
+}

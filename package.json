@@ -1,0 +1,16 @@
+{
+  "name": "woodshop",
+  "private": true,
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "codegen:schemas": "node tools/codegen/generate-schema-types.mjs",
+    "test:mcp": "pnpm --filter @woodshop/mcp-server run test",
+    "mcp:e2e:demo": "node tools/e2e/run-mcp-demo.mjs"
+  }
+}

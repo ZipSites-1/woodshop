@@ -1,0 +1,90 @@
+{
+  "project_id": "proj_842ca66e834c",
+  "rows": [
+    {
+      "grain": "width",
+      "length_mm": 1200,
+      "material": "Backer Ply 6mm",
+      "name": "Back Panel",
+      "part_id": "proj_842ca66e834c::back_panel",
+      "quantity": 1,
+      "thickness_mm": 6,
+      "width_mm": 762
+    },
+    {
+      "grain": "width",
+      "length_mm": 1200,
+      "material": "Birch Ply 18mm",
+      "name": "Bottom",
+      "part_id": "proj_842ca66e834c::panel_bottom",
+      "quantity": 1,
+      "thickness_mm": 18,
+      "width_mm": 400
+    },
+    {
+      "grain": "length",
+      "length_mm": 762,
+      "material": "Birch Ply 18mm",
+      "name": "Side A",
+      "part_id": "proj_842ca66e834c::panel_side_a",
+      "quantity": 2,
+      "thickness_mm": 18,
+      "width_mm": 381
+    },
+    {
+      "grain": "length",
+      "length_mm": 762,
+      "material": "Birch Ply 18mm",
+      "name": "Side B",
+      "part_id": "proj_842ca66e834c::panel_side_b",
+      "quantity": 2,
+      "thickness_mm": 18,
+      "width_mm": 381
+    },
+    {
+      "grain": "width",
+      "length_mm": 1200,
+      "material": "Birch Ply 18mm",
+      "name": "Top",
+      "part_id": "proj_842ca66e834c::panel_top",
+      "quantity": 1,
+      "thickness_mm": 18,
+      "width_mm": 400
+    },
+    {
+      "grain": "width",
+      "length_mm": 1150,
+      "material": "Birch Ply 18mm",
+      "name": "Middle Shelf",
+      "part_id": "proj_842ca66e834c::shelf_mid",
+      "quantity": 1,
+      "thickness_mm": 18,
+      "width_mm": 380
+    }
+  ],
+  "totals": {
+    "material_totals": [
+      {
+        "count": 1,
+        "material": "Backer Ply 6mm"
+      },
+      {
+        "count": 7,
+        "material": "Birch Ply 18mm"
+      }
+    ],
+    "parts": 8
+  },
+  "provenance": {
+    "seed": 42,
+    "engine_versions": {
+      "cam": "0.0.0",
+      "nest": "0.0.0",
+      "occt": "0.0.0",
+      "schemas": "0.0.0",
+      "wood": "0.0.0"
+    },
+    "revision_id": "ab5b9671019349bfda7e8bdc459c11ab8d0f44ee",
+    "inputs_hash": "1e4365aee119da0d12bcf54d556dac0a8c3b79901748546c09b5f1de73ac4dae"
+  }
+}

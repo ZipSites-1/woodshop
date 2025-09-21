@@ -1,3 +1,7 @@
-export const tools = [
-  { name:"nest_parts", input_schema:{}, output_schema:{} }
-];
+import { registrySchemas } from "@woodshop/schemas";
+
+export const registry = {
+  name: "woodshop-mcp",
+  version: "0.1.0",
+  tools: registrySchemas,
+};

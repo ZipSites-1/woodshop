@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/extract_cutlist.input.json",
+  "title": "ExtractCutlistInput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Identifier returned by create_project"
+    },
+    "revision_id": {
+      "type": "string",
+      "description": "Revision to extract from",
+      "minLength": 1
+    },
+    "seed": {
+      "type": "integer",
+      "description": "Deterministic seed for ordering",
+      "minimum": 0,
+      "default": 0
+    }
+  },
+  "required": ["project_id"]
+}

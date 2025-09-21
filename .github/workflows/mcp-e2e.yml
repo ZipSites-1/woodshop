@@ -1,0 +1,44 @@
+name: MCP E2E
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'apps/mcp-server/**'
+      - 'packages/schemas/**'
+      - 'packages/types/**'
+      - 'tools/e2e/**'
+      - 'tools/codegen/**'
+      - 'README.md'
+      - '.github/workflows/mcp-e2e.yml'
+      - 'package.json'
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Generate schema types
+        run: pnpm -w run codegen:schemas
+      - name: Build MCP server
+        run: pnpm -w --filter @woodshop/mcp-server build
+      - name: Run MCP tests
+        run: pnpm -w test:mcp
+      - name: Run MCP demo
+        run: pnpm -w run mcp:e2e:demo
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-demo-artifacts
+          path: artifacts/demo
+          if-no-files-found: error

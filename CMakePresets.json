@@ -1,12 +1,23 @@
 {
   "version": 6,
   "configurePresets": [
-    { "name":"native-rel", "generator":"Ninja", "binaryDir":"build/native", "cacheVariables": { "CMAKE_BUILD_TYPE":"RelWithDebInfo" } },
-    { "name":"wasm", "generator":"Ninja", "binaryDir":"build/wasm",
-      "cacheVariables": { "CMAKE_TOOLCHAIN_FILE":"engines/occt-core/cmake/toolchains/Emscripten.cmake" } }
+    {
+      "name": "native",
+      "generator": "Ninja",
+      "binaryDir": "build/native",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo" }
+    },
+    {
+      "name": "wasm",
+      "generator": "Ninja",
+      "binaryDir": "build/wasm",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "engines/occt-core/cmake/toolchains/Emscripten.cmake"
+      }
+    }
   ],
   "buildPresets": [
-    { "name":"native", "configurePreset":"native-rel" },
-    { "name":"wasm", "configurePreset":"wasm" }
+    { "name": "native", "configurePreset": "native" },
+    { "name": "wasm",   "configurePreset": "wasm" }
   ]
 }

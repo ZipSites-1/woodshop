@@ -3,3 +3,6 @@ packages:
   - engines/*
   - packages/*
   - codex
+
+onlyBuiltDependencies:
+  - esbuild
