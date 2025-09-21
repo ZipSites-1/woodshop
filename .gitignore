@@ -3,6 +3,9 @@ pnpm-lock.yaml
 dist/
 build/
 target/
+.turbo/
+**/.turbo/
+*.tsbuildinfo
 .vscode/
 .DS_Store
 CMakeUserPresets.json

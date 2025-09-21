@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/wood_movement_check.input.json",
+  "title": "WoodMovementCheckInput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Identifier returned by create_project"
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0,
+      "description": "Deterministic seed"
+    },
+    "ambient": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "relative_humidity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "temperature_c": {
+          "type": "number",
+          "description": "Ambient temperature (Celsius)"
+        }
+      },
+      "required": ["relative_humidity", "temperature_c"]
+    },
+    "parts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "part_id": { "type": "string" },
+          "species": { "type": "string" },
+          "grain_axis": {
+            "type": "string",
+            "enum": ["length", "width", "thickness"]
+          },
+          "nominal_mm": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "length": { "type": "number", "minimum": 0 },
+              "width": { "type": "number", "minimum": 0 },
+              "thickness": { "type": "number", "minimum": 0 }
+            },
+            "required": ["length", "width", "thickness"]
+          }
+        },
+        "required": ["part_id", "species", "grain_axis", "nominal_mm"]
+      }
+    }
+  },
+  "required": ["project_id", "ambient", "parts"]
+}

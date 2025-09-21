@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/wood_movement_check.output.json",
+  "title": "WoodMovementCheckOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": { "type": "string" },
+    "ambient": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "relative_humidity": { "type": "number" },
+        "temperature_c": { "type": "number" }
+      },
+      "required": ["relative_humidity", "temperature_c"]
+    },
+    "per_part": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "part_id": { "type": "string" },
+          "species": { "type": "string" },
+          "delta_length_mm": { "type": "number" },
+          "delta_width_mm": { "type": "number" },
+          "delta_thickness_mm": { "type": "number" },
+          "warning": { "type": ["string", "null"] }
+        },
+        "required": [
+          "part_id",
+          "species",
+          "delta_length_mm",
+          "delta_width_mm",
+          "delta_thickness_mm"
+        ]
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "part_id": { "type": ["string", "null"] },
+          "severity": { "type": "string", "enum": ["info", "warning", "critical"] },
+          "message": { "type": "string" }
+        },
+        "required": ["part_id", "severity", "message"]
+      }
+    },
+    "seed": { "type": "integer" },
+    "engine_versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "occt": { "type": "string" },
+        "nest": { "type": "string" },
+        "cam": { "type": "string" },
+        "wood": { "type": "string" },
+        "schemas": { "type": "string" }
+      },
+      "required": ["occt", "nest", "cam", "wood", "schemas"]
+    },
+    "revision_id": { "type": "string" },
+    "inputs_hash": { "type": "string" }
+  },
+  "required": [
+    "project_id",
+    "ambient",
+    "per_part",
+    "warnings",
+    "seed",
+    "engine_versions",
+    "revision_id",
+    "inputs_hash"
+  ]
+}
