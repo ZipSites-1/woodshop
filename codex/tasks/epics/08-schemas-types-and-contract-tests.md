@@ -5,7 +5,7 @@
 **Dependencies (epic-level):** 00
 
 ## Tasks
-- [ ] /codex/tasks/todo/schemas-authoritative-json-and-refs.yaml
+- [x] /codex/tasks/todo/schemas-authoritative-json-and-refs.yaml
 - [ ] /codex/tasks/todo/schemas-typegen-to-packages-types.yaml
 - [ ] /codex/tasks/todo/schemas-examples-valid-invalid.yaml
 - [ ] /codex/tasks/todo/schemas-backcompat-contract-tests.yaml

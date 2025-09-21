@@ -13,7 +13,7 @@
 
 | Epic | Status | Done/Total | Notes |
 |---|---:|---:|---|
-| 00 – Foundations & Repo Health | ☐ | 0/7 | CI, caches, goldens, security baseline |
+| 00 – Foundations & Repo Health | ✔ | 7/7 | CI, caches, goldens, security baseline |
 | 01 – OCCT Core: Geometry & I/O | ☐ | 0/7 | STEP/IGES, booleans, tessellation, WASM |
 | 02 – WASM Viewer & OCCT Bindings | ☐ | 0/5 | Worker loader, previews, perf budgets |
 | 03 – Nesting Engine v1 | ☐ | 0/8 | 1D/2D, grain/kerf, deterministic |
@@ -40,13 +40,13 @@
 ### 00 — Foundations & Repo Health  (0/7)
 <details><summary>Open tasks</summary>
 
-- [ ] /codex/tasks/todo/ci-build-matrix-native-wasm-rust-ts.yaml
-- [ ] /codex/tasks/todo/ci-cache-strategy-pnpm-cargo-cmake.yaml
-- [ ] /codex/tasks/todo/artifacts-reference-projects-setup.yaml
-- [ ] /codex/tasks/todo/artifacts-byte-stability-and-seeds.yaml
-- [ ] /codex/tasks/todo/artifacts-diff-tool-and-report.yaml
-- [ ] /codex/tasks/todo/security-secrets-scan-and-policies.yaml
-- [ ] /codex/tasks/todo/security-sbom-and-dependency-pins.yaml
+- [x] /codex/tasks/todo/ci-build-matrix-native-wasm-rust-ts.yaml
+- [x] /codex/tasks/todo/ci-cache-strategy-pnpm-cargo-cmake.yaml
+- [x] /codex/tasks/todo/artifacts-reference-projects-setup.yaml
+- [x] /codex/tasks/todo/artifacts-byte-stability-and-seeds.yaml
+- [x] /codex/tasks/todo/artifacts-diff-tool-and-report.yaml
+- [x] /codex/tasks/todo/security-secrets-scan-and-policies.yaml
+- [x] /codex/tasks/todo/security-sbom-and-dependency-pins.yaml
 </details>
 
 ### 01 — OCCT Core: Geometry & I/O  (0/7)

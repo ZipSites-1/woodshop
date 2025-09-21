@@ -13,6 +13,8 @@
 - Artifact diffs pass on reference projects.
 - No secret-leak or license violations in scans.
 
+**Status:** Complete — CI matrix, caching, deterministic artifacts, security scans, and SBOM generation are in place.
+
 ## Related TODOs
 - ci-build-matrix-native-wasm-rust-ts.yaml
 - ci-cache-strategy-pnpm-cargo-cmake.yaml
