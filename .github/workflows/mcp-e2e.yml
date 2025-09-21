@@ -18,6 +18,9 @@ on:
 jobs:
   demo:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -36,9 +39,41 @@ jobs:
         run: pnpm -w test:mcp
       - name: Run MCP demo
         run: pnpm -w run mcp:e2e:demo
-      - name: Upload artifacts
+      - name: Verify artifacts
+        run: |
+          set -euo pipefail
+          files=(artifacts/demo/cutlist.json artifacts/demo/drawing.pdf artifacts/demo/layout.dxf artifacts/demo/layout.svg)
+          for file in "${files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "missing artifact: $file" >&2
+              exit 1
+            fi
+            if [ ! -s "$file" ]; then
+              echo "empty artifact: $file" >&2
+              exit 1
+            fi
+          done
+      - name: Upload cutlist
         uses: actions/upload-artifact@v4
         with:
-          name: mcp-demo-artifacts
-          path: artifacts/demo
+          name: mcp-demo-cutlist
+          path: artifacts/demo/cutlist.json
+          if-no-files-found: error
+      - name: Upload drawing
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-demo-drawing-pdf
+          path: artifacts/demo/drawing.pdf
+          if-no-files-found: error
+      - name: Upload dxf
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-demo-layout-dxf
+          path: artifacts/demo/layout.dxf
+          if-no-files-found: error
+      - name: Upload svg
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-demo-layout-svg
+          path: artifacts/demo/layout.svg
           if-no-files-found: error

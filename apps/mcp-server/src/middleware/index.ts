@@ -1,5 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { ToolSchemaPair } from "@woodshop/schemas";
+import { ZodError } from "zod";
 import { buildObjectSchema } from "./validation.js";
 import {
   attachProvenance,
@@ -7,6 +8,63 @@ import {
   ToolExecutionContext,
   WithProvenance,
 } from "./provenance.js";
+
+export interface ToolErrorPayload {
+  code: string;
+  message: string;
+  details: unknown;
+}
+
+export class ToolError extends Error {
+  readonly code: string;
+  readonly details: unknown;
+
+  constructor(payload: ToolErrorPayload) {
+    super(payload.message);
+    this.name = "ToolError";
+    this.code = payload.code;
+    this.details = payload.details;
+  }
+}
+
+function formatZodIssues(error: ZodError): Array<{ path: string; message: string }> {
+  return error.issues.map((issue) => ({
+    path: issue.path.join("."),
+    message: issue.message,
+  }));
+}
+
+function validationError(details: unknown): ToolError {
+  return new ToolError({
+    code: "INVALID_INPUT",
+    message: "Request failed schema validation.",
+    details,
+  });
+}
+
+function internalValidationError(details: unknown): ToolError {
+  return new ToolError({
+    code: "INVALID_OUTPUT",
+    message: "Tool produced data that failed schema validation.",
+    details,
+  });
+}
+
+function coerceError(error: unknown): ToolError {
+  if (error instanceof ToolError) {
+    return error;
+  }
+
+  if (error instanceof ZodError) {
+    return validationError({ issues: formatZodIssues(error) });
+  }
+
+  return new ToolError({
+    code: "UNEXPECTED_ERROR",
+    message: error instanceof Error ? error.message : "Unknown error",
+    details: {},
+  });
+}
 
 export interface ToolDefinition<I extends { seed?: number }, Core extends Record<string, unknown>> {
   name: string;
@@ -38,19 +96,46 @@ export function createValidatedTool<I extends { seed?: number }, Core extends Re
     context: ToolExecutionContext<I>;
     output: WithProvenance<Core>;
   }> {
-    const parsedInput = inputZod.parse(rawInput ?? {}) as I;
+    let parsedInput: I;
+    try {
+      parsedInput = inputZod.parse(rawInput ?? {}) as I;
+    } catch (error) {
+      if (error instanceof ZodError) {
+        throw validationError({ issues: formatZodIssues(error) });
+      }
+      throw coerceError(error);
+    }
+
     const context = buildProvenanceContext(parsedInput);
-    const coreResult = await definition.handler(parsedInput, context);
+
+    let coreResult: Core;
+    try {
+      coreResult = await definition.handler(parsedInput, context);
+    } catch (error) {
+      throw coerceError(error);
+    }
+
     const withProvenance = attachProvenance(coreResult, context);
-    const validated = outputZod.parse(withProvenance) as WithProvenance<Core>;
-    return { parsed: parsedInput, context, output: validated };
+    try {
+      const validated = outputZod.parse(withProvenance) as WithProvenance<Core>;
+      return { parsed: parsedInput, context, output: validated };
+    } catch (error) {
+      if (error instanceof ZodError) {
+        throw internalValidationError({ issues: formatZodIssues(error) });
+      }
+      throw coerceError(error);
+    }
   }
 
   return {
     name: definition.name,
     async run(input: I): Promise<WithProvenance<Core>> {
-      const { output } = await evaluate(input);
-      return output;
+      try {
+        const { output } = await evaluate(input);
+        return output;
+      } catch (error) {
+        throw coerceError(error);
+      }
     },
     register(server: McpServer): void {
       server.registerTool(
@@ -62,17 +147,35 @@ export function createValidatedTool<I extends { seed?: number }, Core extends Re
           outputSchema: outputZod.shape,
         },
         async (args) => {
-          const { context, output } = await evaluate(args ?? {});
-          const summary = definition.summarize?.(output, context) ?? defaultSummary(definition.name);
-          return {
-            content: [
-              {
-                type: "text" as const,
-                text: summary,
+          try {
+            const { context, output } = await evaluate(args ?? {});
+            const summary = definition.summarize?.(output, context) ?? defaultSummary(definition.name);
+            return {
+              content: [
+                {
+                  type: "text" as const,
+                  text: summary,
+                },
+              ],
+              structuredContent: output,
+            };
+          } catch (error) {
+            const toolError = coerceError(error);
+            return {
+              isError: true,
+              content: [
+                {
+                  type: "text" as const,
+                  text: `${definition.name} failed: ${toolError.message}`,
+                },
+              ],
+              structuredContent: {
+                code: toolError.code,
+                message: toolError.message,
+                details: toolError.details,
               },
-            ],
-            structuredContent: output,
-          };
+            };
+          }
         },
       );
     },
