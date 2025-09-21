@@ -6,7 +6,9 @@
   "additionalProperties": false,
   "properties": {
     "project_id": {
-      "type": "string",
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/projectId" }
+      ],
       "description": "Stable identifier derived from inputs"
     },
     "units": {
@@ -21,39 +23,25 @@
     "materials": {
       "type": "array",
       "description": "Default material catalog for the project",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "name": { "type": "string" },
-          "thickness_mm": { "type": "number" },
-          "grain": { "type": "string" }
-        },
-        "required": ["name", "thickness_mm", "grain"]
-      }
+      "items": { "$ref": "./common.schema.json#/$defs/materialsItem" }
     },
     "seed": {
-      "type": "integer",
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedOutput" }
+      ],
       "description": "Seed used for deterministic operations"
     },
-    "engine_versions": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "occt": { "type": "string" },
-        "nest": { "type": "string" },
-        "cam": { "type": "string" },
-        "wood": { "type": "string" },
-        "schemas": { "type": "string" }
-      },
-      "required": ["occt", "nest", "cam", "wood", "schemas"]
-    },
+    "engine_versions": { "$ref": "./common.schema.json#/$defs/engineVersions" },
     "revision_id": {
-      "type": "string",
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/revisionId" }
+      ],
       "description": "Current git revision"
     },
     "inputs_hash": {
-      "type": "string",
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/inputsHash" }
+      ],
       "description": "SHA-256 hash of validated inputs"
     }
   },

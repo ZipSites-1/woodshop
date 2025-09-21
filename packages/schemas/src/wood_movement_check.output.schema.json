@@ -5,16 +5,8 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "project_id": { "type": "string" },
-    "ambient": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "relative_humidity": { "type": "number" },
-        "temperature_c": { "type": "number" }
-      },
-      "required": ["relative_humidity", "temperature_c"]
-    },
+    "project_id": { "$ref": "./common.schema.json#/$defs/projectId" },
+    "ambient": { "$ref": "./common.schema.json#/$defs/ambient" },
     "per_part": {
       "type": "array",
       "items": {
@@ -39,32 +31,12 @@
     },
     "warnings": {
       "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "part_id": { "type": ["string", "null"] },
-          "severity": { "type": "string", "enum": ["info", "warning", "critical"] },
-          "message": { "type": "string" }
-        },
-        "required": ["part_id", "severity", "message"]
-      }
+      "items": { "$ref": "./common.schema.json#/$defs/warning" }
     },
-    "seed": { "type": "integer" },
-    "engine_versions": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "occt": { "type": "string" },
-        "nest": { "type": "string" },
-        "cam": { "type": "string" },
-        "wood": { "type": "string" },
-        "schemas": { "type": "string" }
-      },
-      "required": ["occt", "nest", "cam", "wood", "schemas"]
-    },
-    "revision_id": { "type": "string" },
-    "inputs_hash": { "type": "string" }
+    "seed": { "$ref": "./common.schema.json#/$defs/seedOutput" },
+    "engine_versions": { "$ref": "./common.schema.json#/$defs/engineVersions" },
+    "revision_id": { "$ref": "./common.schema.json#/$defs/revisionId" },
+    "inputs_hash": { "$ref": "./common.schema.json#/$defs/inputsHash" }
   },
   "required": [
     "project_id",

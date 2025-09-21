@@ -33,8 +33,78 @@ function indent(str, depth) {
     .join("\n");
 }
 
-function schemaType(schema, depth = 0) {
+function decodeJsonPointerToken(token) {
+  return token.replace(/~1/g, "/").replace(/~0/g, "~");
+}
+
+function resolveJsonPointer(target, pointer) {
+  if (!pointer || pointer === "") {
+    return target;
+  }
+  const segments = pointer.split("/").map(decodeJsonPointerToken);
+  let current = target;
+  for (const segment of segments) {
+    if (segment === "") {
+      continue;
+    }
+    if (current && typeof current === "object" && segment in current) {
+      current = current[segment];
+    } else {
+      return undefined;
+    }
+  }
+  return current;
+}
+
+function normalizeRefPath(baseFile, refPath) {
+  const baseDir = path.posix.dirname(baseFile);
+  return path.posix.normalize(path.posix.join(baseDir, refPath));
+}
+
+function resolveRef(schemaCache, baseFile, ref) {
+  let fileName = baseFile;
+  let pointer = "";
+
+  if (ref.includes("#")) {
+    const [refPath, fragment] = ref.split("#");
+    if (refPath) {
+      fileName = normalizeRefPath(baseFile, refPath);
+    }
+    pointer = fragment ?? "";
+  } else if (ref.startsWith("#")) {
+    pointer = ref.slice(1);
+  } else {
+    fileName = normalizeRefPath(baseFile, ref);
+  }
+
+  const targetSchema = schemaCache.get(fileName);
+  if (!targetSchema) {
+    throw new Error(`Unable to resolve $ref '${ref}' from '${baseFile}'.`);
+  }
+
+  const resolved = resolveJsonPointer(targetSchema, pointer);
+  if (resolved === undefined) {
+    throw new Error(`JSON pointer '#${pointer}' not found in '${fileName}'.`);
+  }
+
+  return { schema: resolved, fileName };
+}
+
+function schemaType(schema, context, depth = 0) {
   if (schema === undefined || schema === null) {
+    return "unknown";
+  }
+  if (schema.$ref) {
+    const resolved = resolveRef(context.schemaCache, context.fileName, schema.$ref);
+    return schemaType(resolved.schema, { ...context, fileName: resolved.fileName }, depth + 1);
+  }
+  if (Array.isArray(schema.allOf) && schema.allOf.length > 0) {
+    for (const candidate of schema.allOf) {
+      const candidateType = schemaType(candidate, context, depth + 1);
+      if (candidateType !== "unknown") {
+        return candidateType;
+      }
+    }
     return "unknown";
   }
   if (schema.enum && Array.isArray(schema.enum) && schema.enum.length > 0) {
@@ -43,7 +113,9 @@ function schemaType(schema, depth = 0) {
   const type = schema.type;
   if (Array.isArray(type)) {
     const uniqueTypes = Array.from(new Set(type));
-    return uniqueTypes.map((t) => schemaType({ ...schema, type: t }, depth)).join(" | ");
+    return uniqueTypes
+      .map((t) => schemaType({ ...schema, type: t }, context, depth))
+      .join(" | ");
   }
   switch (type) {
     case "string": {
@@ -60,7 +132,9 @@ function schemaType(schema, depth = 0) {
       return "null";
     }
     case "array": {
-      const itemType = schema.items ? schemaType(schema.items, depth + 1) : "unknown";
+      const itemType = schema.items
+        ? schemaType(schema.items, { ...context }, depth + 1)
+        : "unknown";
       return `Array<${itemType}>`;
     }
     case "object":
@@ -72,12 +146,12 @@ function schemaType(schema, depth = 0) {
         .map((key) => {
           const propSchema = properties[key];
           const optional = required.has(key) ? "" : "?";
-          const propType = schemaType(propSchema, depth + 1);
+          const propType = schemaType(propSchema, { ...context }, depth + 1);
           return `${JSON.stringify(key)}${optional}: ${propType};`;
         });
       let extra = "";
       if (schema.additionalProperties && typeof schema.additionalProperties === "object") {
-        extra = `[key: string]: ${schemaType(schema.additionalProperties, depth + 1)};`;
+        extra = `[key: string]: ${schemaType(schema.additionalProperties, { ...context }, depth + 1)};`;
       } else if (schema.additionalProperties !== false) {
         extra = "[key: string]: unknown;";
       }
@@ -114,15 +188,22 @@ async function main() {
 
   const declarations = [];
   const toolMap = new Map();
+  const schemaCache = new Map();
+
+  for (const file of files) {
+    const filePath = path.join(schemaDir, file);
+    const schema = JSON.parse(await fs.readFile(filePath, "utf8"));
+    schemaCache.set(file.replace(/\\/g, "/"), schema);
+  }
 
   await fs.mkdir(path.dirname(typesOutFile), { recursive: true });
   await fs.mkdir(schemaDistDir, { recursive: true });
 
   for (const file of files) {
     const filePath = path.join(schemaDir, file);
-    const schema = JSON.parse(await fs.readFile(filePath, "utf8"));
+    const schema = schemaCache.get(file.replace(/\\/g, "/"));
     const typeName = toTypeName(schema.title, file);
-    const typeBody = schemaType(schema);
+    const typeBody = schemaType(schema, { fileName: file.replace(/\\/g, "/"), schemaCache });
     const decl = schema.type === "object" || schema.properties
       ? `export interface ${typeName} ${typeBody}`
       : `export type ${typeName} = ${typeBody};`;

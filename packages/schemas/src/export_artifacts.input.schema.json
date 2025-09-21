@@ -6,7 +6,9 @@
   "additionalProperties": false,
   "properties": {
     "project_id": {
-      "type": "string",
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/projectId" }
+      ],
       "description": "Identifier returned by create_project"
     },
     "format": {
@@ -15,7 +17,9 @@
       "description": "Artifact format to export"
     },
     "revision_id": {
-      "type": "string",
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/revisionId" }
+      ],
       "description": "Revision identifier for provenance"
     },
     "destination": {
@@ -24,10 +28,10 @@
       "minLength": 1
     },
     "seed": {
-      "type": "integer",
-      "description": "Deterministic seed for export",
-      "minimum": 0,
-      "default": 0
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedInput" }
+      ],
+      "description": "Deterministic seed for export"
     }
   },
   "required": ["project_id", "format"]

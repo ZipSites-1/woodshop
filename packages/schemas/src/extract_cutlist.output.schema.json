@@ -5,35 +5,10 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "project_id": {
-      "type": "string"
-    },
+    "project_id": { "$ref": "./common.schema.json#/$defs/projectId" },
     "rows": {
       "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "part_id": { "type": "string" },
-          "name": { "type": "string" },
-          "quantity": { "type": "integer", "minimum": 1 },
-          "length_mm": { "type": "number" },
-          "width_mm": { "type": "number" },
-          "thickness_mm": { "type": "number" },
-          "material": { "type": "string" },
-          "grain": { "type": "string" }
-        },
-        "required": [
-          "part_id",
-          "name",
-          "quantity",
-          "length_mm",
-          "width_mm",
-          "thickness_mm",
-          "material",
-          "grain"
-        ]
-      }
+      "items": { "$ref": "./common.schema.json#/$defs/cutlistRow" }
     },
     "totals": {
       "type": "object",
@@ -42,34 +17,15 @@
         "parts": { "type": "integer", "minimum": 0 },
         "material_totals": {
           "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "material": { "type": "string" },
-              "count": { "type": "integer", "minimum": 0 }
-            },
-            "required": ["material", "count"]
-          }
+          "items": { "$ref": "./common.schema.json#/$defs/materialTotalsItem" }
         }
       },
       "required": ["parts", "material_totals"]
     },
-    "seed": { "type": "integer" },
-    "engine_versions": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "occt": { "type": "string" },
-        "nest": { "type": "string" },
-        "cam": { "type": "string" },
-        "wood": { "type": "string" },
-        "schemas": { "type": "string" }
-      },
-      "required": ["occt", "nest", "cam", "wood", "schemas"]
-    },
-    "revision_id": { "type": "string" },
-    "inputs_hash": { "type": "string" }
+    "seed": { "$ref": "./common.schema.json#/$defs/seedOutput" },
+    "engine_versions": { "$ref": "./common.schema.json#/$defs/engineVersions" },
+    "revision_id": { "$ref": "./common.schema.json#/$defs/revisionId" },
+    "inputs_hash": { "$ref": "./common.schema.json#/$defs/inputsHash" }
   },
   "required": [
     "project_id",

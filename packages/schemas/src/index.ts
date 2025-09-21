@@ -1,3 +1,4 @@
+import commonDefinitions from "./common.schema.json" with { type: "json" };
 import createProjectInput from "./create_project.input.schema.json" with { type: "json" };
 import createProjectOutput from "./create_project.output.schema.json" with { type: "json" };
 import extractCutlistInput from "./extract_cutlist.input.schema.json" with { type: "json" };
@@ -51,3 +52,5 @@ export const registrySchemas = Object.entries(toolSchemas)
     outputId: pair.output.$id,
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
+
+export const sharedDefinitions = commonDefinitions;

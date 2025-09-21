@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/common.json",
+  "title": "WoodshopSharedDefinitions",
+  "$defs": {
+    "projectId": {
+      "type": "string",
+      "description": "Identifier returned by create_project"
+    },
+    "seedInput": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0
+    },
+    "seedOutput": {
+      "type": "integer"
+    },
+    "engineVersions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "occt": { "type": "string" },
+        "nest": { "type": "string" },
+        "cam": { "type": "string" },
+        "wood": { "type": "string" },
+        "schemas": { "type": "string" }
+      },
+      "required": ["occt", "nest", "cam", "wood", "schemas"]
+    },
+    "revisionId": {
+      "type": "string",
+      "description": "Revision identifier for provenance"
+    },
+    "inputsHash": {
+      "type": "string",
+      "description": "Hash of validated input payload"
+    },
+    "ambient": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "relative_humidity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "temperature_c": {
+          "type": "number",
+          "description": "Ambient temperature (Celsius)"
+        }
+      },
+      "required": ["relative_humidity", "temperature_c"]
+    },
+    "materialsItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "thickness_mm": { "type": "number" },
+        "grain": { "type": "string" }
+      },
+      "required": ["name", "thickness_mm", "grain"]
+    },
+    "cutlistRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "part_id": { "type": "string" },
+        "name": { "type": "string" },
+        "quantity": { "type": "integer", "minimum": 1 },
+        "length_mm": { "type": "number" },
+        "width_mm": { "type": "number" },
+        "thickness_mm": { "type": "number" },
+        "material": { "type": "string" },
+        "grain": { "type": "string" }
+      },
+      "required": [
+        "part_id",
+        "name",
+        "quantity",
+        "length_mm",
+        "width_mm",
+        "thickness_mm",
+        "material",
+        "grain"
+      ]
+    },
+    "materialTotalsItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "material": { "type": "string" },
+        "count": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["material", "count"]
+    },
+    "nestPlacement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "part_id": { "type": "string" },
+        "instance": { "type": "integer" },
+        "x_mm": { "type": "number" },
+        "y_mm": { "type": "number" },
+        "width_mm": { "type": "number" },
+        "length_mm": { "type": "number" },
+        "rotation_deg": { "type": "number" }
+      },
+      "required": [
+        "part_id",
+        "instance",
+        "x_mm",
+        "y_mm",
+        "width_mm",
+        "length_mm",
+        "rotation_deg"
+      ]
+    },
+    "nestLayout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sheet_id": { "type": "string" },
+        "sheet_index": { "type": "integer", "minimum": 0 },
+        "utilization": { "type": "number" },
+        "used_area_mm2": { "type": "number" },
+        "svg_path": { "type": "string" },
+        "placements": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/nestPlacement" }
+        }
+      },
+      "required": [
+        "sheet_id",
+        "sheet_index",
+        "utilization",
+        "used_area_mm2",
+        "svg_path",
+        "placements"
+      ]
+    },
+    "nestOffcut": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sheet_id": { "type": "string" },
+        "area_mm2": { "type": "number" },
+        "bounding_box_mm": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "length": { "type": "number" },
+            "width": { "type": "number" }
+          },
+          "required": ["length", "width"]
+        }
+      },
+      "required": ["sheet_id", "area_mm2", "bounding_box_mm"]
+    },
+    "warning": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "part_id": { "type": ["string", "null"] },
+        "severity": { "type": "string", "enum": ["info", "warning", "critical"] },
+        "message": { "type": "string" }
+      },
+      "required": ["part_id", "severity", "message"]
+    }
+  }
+}
