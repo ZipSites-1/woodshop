@@ -1,4 +1,5 @@
 name: MCP E2E
+# Minor update for testing
 
 on:
   push:
@@ -65,14 +66,8 @@ jobs:
             echo "failed to read utilization" >&2
             exit 1
           fi
-          python3 - <<'PY' "${utilization}"
-import sys
-util = float(sys.argv[1])
-threshold = 0.58
-if util < threshold:
-    print(f"utilization {util:.3f} below threshold {threshold}", file=sys.stderr)
-    sys.exit(1)
-PY
+          python3 -c "import sys; util = float(sys.argv[1]); threshold = 0.58; if util < threshold: print(f'utilization {util:.3f} below threshold {threshold}', file=sys.stderr); sys.exit(1)" "${utilization}"
+
       - name: Upload cutlist
         uses: actions/upload-artifact@v4
         with:
