@@ -12,7 +12,7 @@
 - [ ] /codex/tasks/todo/mcp-tool-create-project.yaml
 - [ ] /codex/tasks/todo/mcp-tool-param-update.yaml
 - [ ] /codex/tasks/todo/mcp-tool-apply-joinery.yaml
-- [ ] /codex/tasks/todo/mcp-tool-wood-movement-check.yaml
+- [x] /codex/tasks/todo/mcp-tool-wood-movement-check.yaml
 - [ ] /codex/tasks/todo/mcp-tool-extract-cutlist.yaml
 - [ ] /codex/tasks/todo/mcp-tool-nest-parts.yaml
 - [ ] /codex/tasks/todo/mcp-tool-make-drawing.yaml
