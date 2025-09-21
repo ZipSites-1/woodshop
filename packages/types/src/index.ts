@@ -206,6 +206,10 @@ export interface WoodMovementCheckOutput {
   }>;
 }
 
+export type WoodshopSharedDefinitions = {
+  [key: string]: unknown;
+};
+
 export type ToolName = "create_project" | "export_artifacts" | "extract_cutlist" | "nest_parts" | "wood_movement_check";
 
 export interface ToolInputMap {

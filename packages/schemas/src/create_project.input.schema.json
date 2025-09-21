@@ -16,10 +16,10 @@
       "minLength": 1
     },
     "seed": {
-      "type": "integer",
-      "description": "Deterministic seed for downstream operations",
-      "minimum": 0,
-      "default": 0
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedInput" }
+      ],
+      "description": "Deterministic seed for downstream operations"
     }
   },
   "required": ["units"]

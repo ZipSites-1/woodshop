@@ -5,8 +5,8 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "project_id": { "type": "string" },
-    "seed": { "type": "integer", "minimum": 0, "default": 0 },
+    "project_id": { "$ref": "./common.schema.json#/$defs/projectId" },
+    "seed": { "$ref": "./common.schema.json#/$defs/seedInput" },
     "strategy": {
       "type": "string",
       "enum": ["skyline"],
