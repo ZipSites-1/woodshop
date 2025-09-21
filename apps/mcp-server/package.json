@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc -b tsconfig.json",
     "dev": "pnpm build && node dist/index.js",
+    "pretest": "pnpm run build",
     "test": "node --test --test-reporter=spec test/*.js"
   },
   "dependencies": {

@@ -55,6 +55,45 @@ test("export_artifacts writes files relative to repo", async () => {
   assert.match(data, /<svg/);
 });
 
+test("create_project rejects invalid payloads", async () => {
+  await assert.rejects(
+    () => runCreateProject({} ),
+    (error) => {
+      assert.equal(error.code, "INVALID_INPUT");
+      assert.equal(error.message, "Request failed schema validation.");
+      assert.ok(Array.isArray(error.details.issues));
+      return true;
+    },
+  );
+});
+
+test("extract_cutlist requires project_id", async () => {
+  await assert.rejects(
+    () => runExtractCutlist({ seed: 1 }),
+    (error) => {
+      assert.equal(error.code, "INVALID_INPUT");
+      assert.ok(Array.isArray(error.details.issues));
+      return true;
+    },
+  );
+});
+
+test("export_artifacts validates format enum", async () => {
+  const project = await runCreateProject({ units: "mm" });
+  await assert.rejects(
+    () =>
+      runExportArtifacts({
+        project_id: project.project_id,
+        format: "jpg",
+      }),
+    (error) => {
+      assert.equal(error.code, "INVALID_INPUT");
+      assert.ok(Array.isArray(error.details.issues));
+      return true;
+    },
+  );
+});
+
 test.after(async () => {
   await fs.rm(resolveRepoPath("artifacts/test"), { recursive: true, force: true });
 });
