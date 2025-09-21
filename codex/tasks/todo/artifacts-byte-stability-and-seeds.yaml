@@ -1,0 +1,25 @@
+slug: artifacts-byte-stability-and-seeds
+title: "Artifacts: byte-stability & seeds"
+description: Ensure byte-stability under fixed seeds.
+area: artifacts
+allowed_paths:
+  - artifacts/**
+  - ci/scripts/**
+labels:
+  - codex
+  - artifacts
+acceptance:
+  commands:
+    - "pnpm -w run e2e:demo"
+    - node ci/scripts/diff-artifacts.js artifacts/reference current/
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - artifacts-reference-projects-setup
+github:
+  blocked_by:
+    - artifacts-reference-projects-setup
+  closing_keyword: True
+created: 2025-09-21

@@ -1,0 +1,24 @@
+slug: schemas-authoritative-json-and-refs
+title: "Schemas: authoritative JSON + $refs"
+description: Author JSON Schemas; dedupe with $refs.
+area: schemas
+allowed_paths:
+  - packages/schemas/**
+labels:
+  - codex
+  - schemas
+acceptance:
+  commands:
+    - "pnpm -w run codegen:schemas"
+    - "pnpm -w test:mcp"
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+
+github:
+  blocked_by:
+
+  closing_keyword: True
+created: 2025-09-21

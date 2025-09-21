@@ -1,0 +1,24 @@
+slug: cam-contour-operation
+title: "CAM: contour operation"
+description: contour operation
+area: cam
+allowed_paths:
+  - engines/cam/src/**
+  - engines/cam/tests/**
+labels:
+  - codex
+  - cam
+acceptance:
+  commands:
+    - cargo test -p cam
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+
+github:
+  blocked_by:
+
+  closing_keyword: True
+created: 2025-09-21

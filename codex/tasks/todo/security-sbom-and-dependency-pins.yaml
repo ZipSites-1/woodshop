@@ -1,0 +1,25 @@
+slug: security-sbom-and-dependency-pins
+title: "Security: SBOM & dependency pins"
+description: SBOM on releases; pin and audit deps.
+area: security
+allowed_paths:
+  - ci/**
+  - apps/**
+  - packages/**
+labels:
+  - codex
+  - security
+acceptance:
+  commands:
+    - echo 'sbom build'
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - ci-build-matrix-native-wasm-rust-ts
+github:
+  blocked_by:
+    - ci-build-matrix-native-wasm-rust-ts
+  closing_keyword: True
+created: 2025-09-21

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 2440">
+  <rect x="0" y="0" width="1220" height="2440" fill="none" stroke="#4b5563" stroke-width="2"/>
+  <rect x="0.00" y="0.00" width="762.00" height="1200.00" fill="none" stroke="#1f2937" stroke-width="1" />
+  <rect x="763.00" y="0.00" width="380.00" height="1150.00" fill="none" stroke="#1f2937" stroke-width="1" />
+  <rect x="0.00" y="1201.00" width="381.00" height="762.00" fill="none" stroke="#1f2937" stroke-width="1" />
+  <rect x="382.00" y="1201.00" width="381.00" height="762.00" fill="none" stroke="#1f2937" stroke-width="1" />
+  <text x="381.00" y="600.00" font-size="18" text-anchor="middle" fill="#374151">back</text>
+  <text x="953.00" y="575.00" font-size="18" text-anchor="middle" fill="#374151">shelf</text>
+  <text x="190.50" y="1582.00" font-size="18" text-anchor="middle" fill="#374151">panel_a</text>
+  <text x="572.50" y="1582.00" font-size="18" text-anchor="middle" fill="#374151">panel_a</text>
+</svg>

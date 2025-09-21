@@ -1,0 +1,23 @@
+slug: security-destructive-ops-confirmation
+title: "Security: destructive ops confirmation"
+description: Require confirm before writing G‑code/overwrites.
+area: security
+allowed_paths:
+  - apps/mcp-server/**
+labels:
+  - codex
+  - security
+acceptance:
+  commands:
+    - "pnpm -w test:mcp"
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - mcp-registry-and-discovery
+github:
+  blocked_by:
+    - mcp-registry-and-discovery
+  closing_keyword: True
+created: 2025-09-21

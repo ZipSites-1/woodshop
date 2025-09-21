@@ -1,0 +1,26 @@
+slug: occt-embind-minimal-surface
+title: "OCCT: minimal Embind surface"
+description: Expose minimal WASM bindings for tessellation/AABB.
+area: occt-core
+allowed_paths:
+  - engines/occt-core/src/bindings/embind.cpp
+  - engines/occt-core/cmake/toolchains/Emscripten.cmake
+labels:
+  - codex
+  - occt-core
+acceptance:
+  commands:
+    - emcmake cmake --preset wasm
+    - cmake --build --preset wasm -j
+  tests_expect:
+    - WASM bundle loads without console errors
+  artifacts_expect:
+    - apps/web-viewer/wasm/occt/occt-core.wasm
+    - apps/web-viewer/wasm/occt/occt-core.js
+dependencies:
+  - occt-cmake-presets-relwithdebinfo
+github:
+  blocked_by:
+    - occt-cmake-presets-relwithdebinfo
+  closing_keyword: True
+created: 2025-09-21

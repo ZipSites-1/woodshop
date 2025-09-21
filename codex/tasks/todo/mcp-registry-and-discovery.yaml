@@ -1,0 +1,28 @@
+slug: mcp-registry-and-discovery
+title: "MCP: registry & discovery"
+description: Expose registry and health endpoints; verify discovery from client.
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**
+  - packages/schemas/**
+  - packages/types/**
+labels:
+  - codex
+  - mcp-server
+acceptance:
+  commands:
+    - pnpm -w build
+    - "pnpm -w test:mcp"
+  tests_expect:
+    - Contract tests pass; schema validation enforced
+  artifacts_expect:
+
+dependencies:
+  - schemas-authoritative-json-and-refs
+  - schemas-typegen-to-packages-types
+github:
+  blocked_by:
+    - schemas-authoritative-json-and-refs
+    - schemas-typegen-to-packages-types
+  closing_keyword: True
+created: 2025-09-21

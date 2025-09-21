@@ -1,0 +1,24 @@
+slug: nest-best-fit-sheets
+title: "Nest: best-fit for sheets (2D)"
+description: best-fit for sheets (2D)
+area: nest
+allowed_paths:
+  - engines/nest/src/**
+  - engines/nest/tests/**
+labels:
+  - codex
+  - nest
+acceptance:
+  commands:
+    - cargo test -p nest
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - nest-first-fit-boards
+github:
+  blocked_by:
+    - nest-first-fit-boards
+  closing_keyword: True
+created: 2025-09-21

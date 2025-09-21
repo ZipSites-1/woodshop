@@ -1,0 +1,28 @@
+title: "Schemas: examples (valid & invalid)"
+description: Add example payloads and negative cases for contract tests.
+area: schemas
+allowed_paths:
+  - packages/schemas/**
+  - packages/types/**
+  - apps/mcp-server/**
+labels:
+  - codex
+  - schemas
+  - types
+acceptance:
+  commands:
+    - "pnpm -w run codegen:schemas"
+    - "pnpm -w test:mcp"
+  tests_expect:
+    - Types compile; server uses only generated types
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://github.com/modelcontextprotocol/modelcontextprotocol
+# - https://cookbook.openai.com/examples/mcp/mcp_tool_guide
+# - https://openai.github.io/openai-agents-js/guides/mcp/

@@ -1,0 +1,25 @@
+title: "CAM: tabs & holddowns"
+description: Support tab placement and ramp‑through; ensure tab geometry preserved.
+area: cam
+allowed_paths:
+  - engines/cam/src/tabs.rs
+  - engines/cam/src/tests/
+labels:
+  - codex
+  - cam
+  - ops
+acceptance:
+  commands:
+    - cargo test -p cam
+  tests_expect:
+    - Tabs present and correct; heights respected
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://github.com/gnea/grbl
+# - https://github-wiki-see.page/m/gnea/grbl/wiki

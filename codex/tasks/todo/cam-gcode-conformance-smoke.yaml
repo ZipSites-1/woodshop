@@ -1,0 +1,24 @@
+slug: cam-gcode-conformance-smoke
+title: "CAM: G‑code conformance smoke"
+description: G‑code conformance smoke
+area: cam
+allowed_paths:
+  - engines/cam/src/**
+  - engines/cam/tests/**
+labels:
+  - codex
+  - cam
+acceptance:
+  commands:
+    - cargo test -p cam
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - cam-grbl-post-writer
+github:
+  blocked_by:
+    - cam-grbl-post-writer
+  closing_keyword: True
+created: 2025-09-21

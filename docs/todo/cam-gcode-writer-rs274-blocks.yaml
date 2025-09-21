@@ -1,0 +1,25 @@
+title: "CAM: G‑code writer (RS‑274 blocks)"
+description: Implement a G‑code builder ensuring numeric formatting, units, and modal groups are correct.
+area: cam
+allowed_paths:
+  - engines/cam/src/gcode.rs
+  - engines/cam/src/tests/gcode_roundtrip.rs
+labels:
+  - codex
+  - cam
+  - gcode
+acceptance:
+  commands:
+    - cargo test -p cam
+  tests_expect:
+    - Round‑trip parser accepts emitted blocks
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://github.com/gnea/grbl
+# - https://github-wiki-see.page/m/gnea/grbl/wiki

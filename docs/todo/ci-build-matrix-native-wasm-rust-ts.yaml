@@ -1,0 +1,27 @@
+title: "CI: build matrix (native/wasm/rust/ts)"
+description: Set up matrix jobs for native C++, WASM, Rust, and TS builds.
+area: ci-release
+allowed_paths:
+  - ci/**
+  - .github/workflows/**
+  - packages/**
+  - apps/**
+labels:
+  - codex
+  - ci
+  - release
+acceptance:
+  commands:
+    - echo 'run CI in repo'
+  tests_expect:
+    - All required checks configured and enforced
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://turborepo.com/docs/crafting-your-repository/caching
+# - https://nx.dev/concepts/decisions/why-monorepos

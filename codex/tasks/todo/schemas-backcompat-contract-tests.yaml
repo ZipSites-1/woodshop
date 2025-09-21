@@ -1,0 +1,27 @@
+slug: schemas-backcompat-contract-tests
+title: "Schemas: back-compat contract tests"
+description: Verify old payloads remain valid or flagged.
+area: schemas
+allowed_paths:
+  - apps/mcp-server/**
+  - packages/schemas/**
+  - packages/types/**
+labels:
+  - codex
+  - schemas
+acceptance:
+  commands:
+    - "pnpm -w test:mcp"
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - schemas-authoritative-json-and-refs
+  - schemas-typegen-to-packages-types
+github:
+  blocked_by:
+    - schemas-authoritative-json-and-refs
+    - schemas-typegen-to-packages-types
+  closing_keyword: True
+created: 2025-09-21

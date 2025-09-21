@@ -1,0 +1,24 @@
+slug: release-changesets-and-semver
+title: "Release: changesets & SemVer"
+description: Integrate changesets; automate version bumps.
+area: ci-release
+allowed_paths:
+  - packages/**
+  - .github/workflows/**
+labels:
+  - codex
+  - ci-release
+acceptance:
+  commands:
+    - echo 'release dry-run'
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - ci-required-checks-and-statuses
+github:
+  blocked_by:
+    - ci-required-checks-and-statuses
+  closing_keyword: True
+created: 2025-09-21

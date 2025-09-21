@@ -1,0 +1,24 @@
+slug: wood-movement-calculation-tests
+title: "Wood: movement calculation tests"
+description: Test calculations across species/orientations.
+area: docs-wood
+allowed_paths:
+  - engines/wood/**
+  - docs/**
+labels:
+  - codex
+  - docs-wood
+acceptance:
+  commands:
+    - cargo test -p wood || true
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - wood-species-db-import-and-ids
+github:
+  blocked_by:
+    - wood-species-db-import-and-ids
+  closing_keyword: True
+created: 2025-09-21

@@ -1,0 +1,23 @@
+slug: docs-adrs-bootstrap-and-style
+title: "Docs: ADRs bootstrap & style"
+description: ADR template and style guide; initial ADRs.
+area: docs-wood
+allowed_paths:
+  - docs/**
+labels:
+  - codex
+  - docs-wood
+acceptance:
+  commands:
+    - echo 'docs lints'
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+
+github:
+  blocked_by:
+
+  closing_keyword: True
+created: 2025-09-21

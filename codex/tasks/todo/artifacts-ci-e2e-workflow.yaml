@@ -1,0 +1,34 @@
+slug: artifacts-ci-e2e-workflow
+title: "Artifacts: CI E2E workflow"
+description: Run end-to-end flows and diff artifacts in CI.
+area: artifacts
+allowed_paths:
+  - ci/**
+  - .github/workflows/**
+labels:
+  - codex
+  - artifacts
+acceptance:
+  commands:
+    - echo 'run e2e in CI'
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - artifacts-reference-projects-setup
+  - mcp-tool-create-project
+  - mcp-tool-extract-cutlist
+  - mcp-tool-nest-parts
+  - mcp-tool-make-drawing
+  - mcp-tool-postprocess-grbl
+github:
+  blocked_by:
+    - artifacts-reference-projects-setup
+    - mcp-tool-create-project
+    - mcp-tool-extract-cutlist
+    - mcp-tool-nest-parts
+    - mcp-tool-make-drawing
+    - mcp-tool-postprocess-grbl
+  closing_keyword: True
+created: 2025-09-21

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/nest_parts.output.json",
+  "title": "NestPartsOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": { "type": "string" },
+    "strategy": { "type": "string" },
+    "seed": { "type": "integer" },
+    "layouts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sheet_id": { "type": "string" },
+          "sheet_index": { "type": "integer", "minimum": 0 },
+          "utilization": { "type": "number" },
+          "used_area_mm2": { "type": "number" },
+          "svg_path": { "type": "string" },
+          "placements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "part_id": { "type": "string" },
+                "instance": { "type": "integer" },
+                "x_mm": { "type": "number" },
+                "y_mm": { "type": "number" },
+                "width_mm": { "type": "number" },
+                "length_mm": { "type": "number" },
+                "rotation_deg": { "type": "number" }
+              },
+              "required": [
+                "part_id",
+                "instance",
+                "x_mm",
+                "y_mm",
+                "width_mm",
+                "length_mm",
+                "rotation_deg"
+              ]
+            }
+          }
+        },
+        "required": ["sheet_id", "sheet_index", "utilization", "used_area_mm2", "svg_path", "placements"]
+      }
+    },
+    "utilization_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total_parts_area_mm2": { "type": "number" },
+        "total_stock_area_mm2": { "type": "number" },
+        "overall_utilization": { "type": "number" }
+      },
+      "required": ["total_parts_area_mm2", "total_stock_area_mm2", "overall_utilization"]
+    },
+    "offcuts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sheet_id": { "type": "string" },
+          "area_mm2": { "type": "number" },
+          "bounding_box_mm": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "length": { "type": "number" },
+              "width": { "type": "number" }
+            },
+            "required": ["length", "width"]
+          }
+        },
+        "required": ["sheet_id", "area_mm2", "bounding_box_mm"]
+      }
+    },
+    "not_placed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "engine_versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "occt": { "type": "string" },
+        "nest": { "type": "string" },
+        "cam": { "type": "string" },
+        "wood": { "type": "string" },
+        "schemas": { "type": "string" }
+      },
+      "required": ["occt", "nest", "cam", "wood", "schemas"]
+    },
+    "revision_id": { "type": "string" },
+    "inputs_hash": { "type": "string" }
+  },
+  "required": [
+    "project_id",
+    "strategy",
+    "seed",
+    "layouts",
+    "utilization_summary",
+    "offcuts",
+    "not_placed",
+    "engine_versions",
+    "revision_id",
+    "inputs_hash"
+  ]
+}

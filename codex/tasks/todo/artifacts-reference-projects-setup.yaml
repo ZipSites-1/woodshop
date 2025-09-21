@@ -1,0 +1,25 @@
+slug: artifacts-reference-projects-setup
+title: "Artifacts: reference projects setup"
+description: Create reference projects and initial goldens.
+area: artifacts
+allowed_paths:
+  - artifacts/**
+  - ci/scripts/**
+  - apps/mcp-server/**
+labels:
+  - codex
+  - artifacts
+acceptance:
+  commands:
+    - "pnpm -w run e2e:demo"
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+
+github:
+  blocked_by:
+
+  closing_keyword: True
+created: 2025-09-21

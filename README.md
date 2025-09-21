@@ -8,6 +8,8 @@ This repository currently ships a deterministic MCP skeleton around three core t
 - `create_project` – initialize a project with deterministic IDs and materials
 - `extract_cutlist` – return a cutlist table with materials and totals
 - `export_artifacts` – write demo artifacts in PDF, DXF, and SVG formats
+- `nest_parts` – skyline nest parts onto seeded sheets with SVG layouts
+- `wood_movement_check` – estimate dimensional change and warnings by species
 
 ## Quickstart
 

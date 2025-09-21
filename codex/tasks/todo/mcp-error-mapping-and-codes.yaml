@@ -1,0 +1,26 @@
+slug: mcp-error-mapping-and-codes
+title: "MCP: error mapping & codes"
+description: Map engine errors to stable codes and categories.
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**
+  - packages/schemas/**
+  - packages/types/**
+labels:
+  - codex
+  - mcp-server
+acceptance:
+  commands:
+    - pnpm -w build
+    - "pnpm -w test:mcp"
+  tests_expect:
+    - Contract tests pass; schema validation enforced
+  artifacts_expect:
+
+dependencies:
+  - mcp-registry-and-discovery
+github:
+  blocked_by:
+    - mcp-registry-and-discovery
+  closing_keyword: True
+created: 2025-09-21

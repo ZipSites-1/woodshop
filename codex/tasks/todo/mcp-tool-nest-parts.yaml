@@ -1,0 +1,30 @@
+slug: mcp-tool-nest-parts
+title: "MCP Tool: nest_parts"
+description: Plan layouts via engines/nest; deterministic via seed.
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**
+  - packages/schemas/**
+  - packages/types/**
+labels:
+  - codex
+  - mcp-server
+acceptance:
+  commands:
+    - pnpm -w build
+    - "pnpm -w test:mcp"
+  tests_expect:
+    - Contract tests pass; schema validation enforced
+  artifacts_expect:
+
+dependencies:
+  - mcp-registry-and-discovery
+  - mcp-schema-validation-middleware
+  - nest-first-fit-boards
+github:
+  blocked_by:
+    - mcp-registry-and-discovery
+    - mcp-schema-validation-middleware
+    - nest-first-fit-boards
+  closing_keyword: True
+created: 2025-09-21

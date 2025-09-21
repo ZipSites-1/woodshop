@@ -1,0 +1,27 @@
+slug: occt-tessellation-deflection-controls
+title: "OCCT: tessellation deflection controls"
+description: Parameterize deflection/angle thresholds to viewer.
+area: occt-core
+allowed_paths:
+  - engines/occt-core/include/woodshop/geom/Tessellate.hpp
+  - engines/occt-core/src/geom/Tessellate.cpp
+  - apps/web-viewer/src/components/ViewerCanvas.tsx
+labels:
+  - codex
+  - occt-core
+acceptance:
+  commands:
+    - cmake --preset relwithdebinfo
+    - cmake --build --preset relwithdebinfo -j
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Triangle count changes with deflection setting
+  artifacts_expect:
+
+dependencies:
+  - occt-cmake-presets-relwithdebinfo
+github:
+  blocked_by:
+    - occt-cmake-presets-relwithdebinfo
+  closing_keyword: True
+created: 2025-09-21

@@ -90,18 +90,138 @@ export interface ExtractCutlistOutput {
   };
 }
 
-export type ToolName = "create_project" | "export_artifacts" | "extract_cutlist";
+export interface NestPartsInput {
+  "grain_rule"?: "strict" | "relaxed";
+  "kerf_mm"?: number;
+  "parts": Array<{
+    "allow_rotation"?: boolean;
+    "length_mm": number;
+    "part_id": string;
+    "quantity": number;
+    "width_mm": number;
+  }>;
+  "project_id": string;
+  "seed"?: number;
+  "stock": Array<{
+    "length_mm": number;
+    "quantity": number;
+    "sheet_id": string;
+    "width_mm": number;
+  }>;
+  "strategy"?: "skyline";
+}
+
+export interface NestPartsOutput {
+  "engine_versions": {
+    "cam": string;
+    "nest": string;
+    "occt": string;
+    "schemas": string;
+    "wood": string;
+  };
+  "inputs_hash": string;
+  "layouts": Array<{
+    "placements": Array<{
+      "instance": number;
+      "length_mm": number;
+      "part_id": string;
+      "rotation_deg": number;
+      "width_mm": number;
+      "x_mm": number;
+      "y_mm": number;
+    }>;
+    "sheet_id": string;
+    "sheet_index": number;
+    "svg_path": string;
+    "used_area_mm2": number;
+    "utilization": number;
+  }>;
+  "not_placed": Array<string>;
+  "offcuts": Array<{
+    "area_mm2": number;
+    "bounding_box_mm": {
+      "length": number;
+      "width": number;
+    };
+    "sheet_id": string;
+  }>;
+  "project_id": string;
+  "revision_id": string;
+  "seed": number;
+  "strategy": string;
+  "utilization_summary": {
+    "overall_utilization": number;
+    "total_parts_area_mm2": number;
+    "total_stock_area_mm2": number;
+  };
+}
+
+export interface WoodMovementCheckInput {
+  "ambient": {
+    "relative_humidity": number;
+    "temperature_c": number;
+  };
+  "parts": Array<{
+    "grain_axis": "length" | "width" | "thickness";
+    "nominal_mm": {
+      "length": number;
+      "thickness": number;
+      "width": number;
+    };
+    "part_id": string;
+    "species": string;
+  }>;
+  "project_id": string;
+  "seed"?: number;
+}
+
+export interface WoodMovementCheckOutput {
+  "ambient": {
+    "relative_humidity": number;
+    "temperature_c": number;
+  };
+  "engine_versions": {
+    "cam": string;
+    "nest": string;
+    "occt": string;
+    "schemas": string;
+    "wood": string;
+  };
+  "inputs_hash": string;
+  "per_part": Array<{
+    "delta_length_mm": number;
+    "delta_thickness_mm": number;
+    "delta_width_mm": number;
+    "part_id": string;
+    "species": string;
+    "warning"?: string | null;
+  }>;
+  "project_id": string;
+  "revision_id": string;
+  "seed": number;
+  "warnings": Array<{
+    "message": string;
+    "part_id": string | null;
+    "severity": "info" | "warning" | "critical";
+  }>;
+}
+
+export type ToolName = "create_project" | "export_artifacts" | "extract_cutlist" | "nest_parts" | "wood_movement_check";
 
 export interface ToolInputMap {
   "create_project": CreateProjectInput;
   "export_artifacts": ExportArtifactsInput;
   "extract_cutlist": ExtractCutlistInput;
+  "nest_parts": NestPartsInput;
+  "wood_movement_check": WoodMovementCheckInput;
 }
 
 export interface ToolOutputMap {
   "create_project": CreateProjectOutput;
   "export_artifacts": ExportArtifactsOutput;
   "extract_cutlist": ExtractCutlistOutput;
+  "nest_parts": NestPartsOutput;
+  "wood_movement_check": WoodMovementCheckOutput;
 }
 
 export type ProvenanceKey = "seed" | "engine_versions" | "revision_id" | "inputs_hash";

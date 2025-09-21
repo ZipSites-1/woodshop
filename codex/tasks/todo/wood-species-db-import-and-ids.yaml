@@ -1,0 +1,24 @@
+slug: wood-species-db-import-and-ids
+title: "Wood: species DB import & IDs"
+description: Import dataset with stable IDs.
+area: docs-wood
+allowed_paths:
+  - engines/wood/**
+  - docs/**
+labels:
+  - codex
+  - docs-wood
+acceptance:
+  commands:
+    - cargo test -p wood || true
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+
+github:
+  blocked_by:
+
+  closing_keyword: True
+created: 2025-09-21

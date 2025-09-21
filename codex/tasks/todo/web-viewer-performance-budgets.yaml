@@ -1,0 +1,25 @@
+slug: web-viewer-performance-budgets
+title: "Web viewer: performance budgets"
+description: Set and enforce perf budgets (size, TTI).
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/package.json
+  - apps/web-viewer/vite.config.*
+  - apps/web-viewer/src/**
+labels:
+  - codex
+  - web-viewer
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Budget reports pass in CI
+  artifacts_expect:
+
+dependencies:
+  - web-viewer-wasm-worker-loader
+github:
+  blocked_by:
+    - web-viewer-wasm-worker-loader
+  closing_keyword: True
+created: 2025-09-21

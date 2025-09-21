@@ -1,0 +1,25 @@
+title: "Web viewer: performance budgets"
+description: Set budgets and report if exceeded (build size, initial load).
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+  - apps/web-viewer/wasm/occt/**
+labels:
+  - codex
+  - web-viewer
+  - wasm
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+    - pnpm -w --filter @woodshop/web-viewer test || true
+  tests_expect:
+    - Viewer renders reference model; previews SVG/PDF
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://emscripten.org/docs/building_from_source/toolchain_what_is_needed.html

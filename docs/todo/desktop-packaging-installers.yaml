@@ -1,0 +1,26 @@
+title: "Desktop: packaging & installers"
+description: Create installers for macOS/Windows/Linux with proper icons and signing.
+area: desktop-app
+allowed_paths:
+  - apps/desktop/src/**
+  - apps/desktop/qml/**
+labels:
+  - codex
+  - desktop
+  - qt
+acceptance:
+  commands:
+    - cmake --build --preset relwithdebinfo
+    - ctest --preset relwithdebinfo
+  tests_expect:
+    - "Manual smoke: credenza demo end-to-end"
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://turborepo.com/docs/crafting-your-repository/caching
+# - https://nx.dev/concepts/decisions/why-monorepos

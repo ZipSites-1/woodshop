@@ -1,0 +1,25 @@
+slug: web-viewer-csp-and-mime-wasm
+title: "Web viewer: CSP & MIME for WASM"
+description: Set CSP headers and serve .wasm with correct MIME.
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/**
+  - infra/**
+  - .github/**
+labels:
+  - codex
+  - web-viewer
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - No CSP or MIME errors in console
+  artifacts_expect:
+
+dependencies:
+  - web-viewer-wasm-worker-loader
+github:
+  blocked_by:
+    - web-viewer-wasm-worker-loader
+  closing_keyword: True
+created: 2025-09-21

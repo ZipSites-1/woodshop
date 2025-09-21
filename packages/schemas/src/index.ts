@@ -4,6 +4,10 @@ import extractCutlistInput from "./extract_cutlist.input.schema.json" with { typ
 import extractCutlistOutput from "./extract_cutlist.output.schema.json" with { type: "json" };
 import exportArtifactsInput from "./export_artifacts.input.schema.json" with { type: "json" };
 import exportArtifactsOutput from "./export_artifacts.output.schema.json" with { type: "json" };
+import woodMovementCheckInput from "./wood_movement_check.input.schema.json" with { type: "json" };
+import woodMovementCheckOutput from "./wood_movement_check.output.schema.json" with { type: "json" };
+import nestPartsInput from "./nest_parts.input.schema.json" with { type: "json" };
+import nestPartsOutput from "./nest_parts.output.schema.json" with { type: "json" };
 
 export type JsonSchema = Record<string, unknown> & {
   $id: string;
@@ -27,6 +31,14 @@ export const toolSchemas = {
   export_artifacts: {
     input: exportArtifactsInput,
     output: exportArtifactsOutput,
+  },
+  wood_movement_check: {
+    input: woodMovementCheckInput,
+    output: woodMovementCheckOutput,
+  },
+  nest_parts: {
+    input: nestPartsInput,
+    output: nestPartsOutput,
   },
 } as const satisfies Record<string, ToolSchemaPair>;
 

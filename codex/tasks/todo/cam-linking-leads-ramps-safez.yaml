@@ -1,0 +1,28 @@
+slug: cam-linking-leads-ramps-safez
+title: "CAM: linking (leads, ramps, safe‑Z)"
+description: linking (leads, ramps, safe‑Z)
+area: cam
+allowed_paths:
+  - engines/cam/src/**
+  - engines/cam/tests/**
+labels:
+  - codex
+  - cam
+acceptance:
+  commands:
+    - cargo test -p cam
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - cam-contour-operation
+  - cam-pocket-operation
+  - cam-drill-operation
+github:
+  blocked_by:
+    - cam-contour-operation
+    - cam-pocket-operation
+    - cam-drill-operation
+  closing_keyword: True
+created: 2025-09-21

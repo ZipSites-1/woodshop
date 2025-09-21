@@ -1,0 +1,24 @@
+slug: artifacts-diff-tool-and-report
+title: "Artifacts: diff tool & report"
+description: Implement diffing with readable output and hints.
+area: artifacts
+allowed_paths:
+  - ci/scripts/**
+  - packages/**
+labels:
+  - codex
+  - artifacts
+acceptance:
+  commands:
+    - node ci/scripts/diff-artifacts.js artifacts/reference current/
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - artifacts-reference-projects-setup
+github:
+  blocked_by:
+    - artifacts-reference-projects-setup
+  closing_keyword: True
+created: 2025-09-21

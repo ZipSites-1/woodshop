@@ -1,0 +1,26 @@
+slug: cam-simulator-dryrun-collisions
+title: "CAM: simulator/dry‑run collisions"
+description: simulator/dry‑run collisions
+area: cam
+allowed_paths:
+  - engines/cam/src/**
+  - engines/cam/tests/**
+labels:
+  - codex
+  - cam
+acceptance:
+  commands:
+    - cargo test -p cam
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - cam-contour-operation
+  - cam-pocket-operation
+github:
+  blocked_by:
+    - cam-contour-operation
+    - cam-pocket-operation
+  closing_keyword: True
+created: 2025-09-21

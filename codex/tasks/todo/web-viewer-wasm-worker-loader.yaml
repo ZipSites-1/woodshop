@@ -1,0 +1,24 @@
+slug: web-viewer-wasm-worker-loader
+title: "Web viewer: WASM worker loader"
+description: Load occt-core.wasm from a worker and display progress.
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+  - apps/web-viewer/wasm/occt/**
+labels:
+  - codex
+  - web-viewer
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Viewer renders reference model
+  artifacts_expect:
+
+dependencies:
+  - occt-wasm-build-and-loader-paths
+github:
+  blocked_by:
+    - occt-wasm-build-and-loader-paths
+  closing_keyword: True
+created: 2025-09-21

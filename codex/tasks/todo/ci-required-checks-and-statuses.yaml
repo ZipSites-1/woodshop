@@ -1,0 +1,23 @@
+slug: ci-required-checks-and-statuses
+title: "CI: required checks & statuses"
+description: Require lint/test/artifact-diff before merge.
+area: ci-release
+allowed_paths:
+  - .github/**
+labels:
+  - codex
+  - ci-release
+acceptance:
+  commands:
+    - echo 'required checks'
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - ci-build-matrix-native-wasm-rust-ts
+github:
+  blocked_by:
+    - ci-build-matrix-native-wasm-rust-ts
+  closing_keyword: True
+created: 2025-09-21

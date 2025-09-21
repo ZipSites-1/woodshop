@@ -1,0 +1,24 @@
+slug: schemas-examples-valid-invalid
+title: "Schemas: examples (valid & invalid)"
+description: Add example payloads and negative cases.
+area: schemas
+allowed_paths:
+  - packages/schemas/**
+  - apps/mcp-server/**
+labels:
+  - codex
+  - schemas
+acceptance:
+  commands:
+    - "pnpm -w test:mcp"
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - schemas-authoritative-json-and-refs
+github:
+  blocked_by:
+    - schemas-authoritative-json-and-refs
+  closing_keyword: True
+created: 2025-09-21

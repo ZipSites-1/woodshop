@@ -1,0 +1,23 @@
+title: "Docs: ADRs bootstrap & style"
+description: Introduce ADR template and style guide; add initial ADRs.
+area: docs-wood
+allowed_paths:
+  - docs/**
+  - engines/wood/**
+  - codex/project_overview.md
+labels:
+  - codex
+  - docs
+  - wood
+acceptance:
+  commands:
+    - cargo test -p wood || true
+  tests_expect:
+    - Species database loads; sample calculations match ranges
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21

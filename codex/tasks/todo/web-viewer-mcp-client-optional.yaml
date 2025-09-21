@@ -1,0 +1,23 @@
+slug: web-viewer-mcp-client-optional
+title: "Web viewer: MCP client (optional)"
+description: Call MCP endpoints from browser (auth).
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+labels:
+  - codex
+  - web-viewer
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Minimal MCP call returns provenance
+  artifacts_expect:
+
+dependencies:
+  - mcp-registry-and-discovery
+github:
+  blocked_by:
+    - mcp-registry-and-discovery
+  closing_keyword: True
+created: 2025-09-21

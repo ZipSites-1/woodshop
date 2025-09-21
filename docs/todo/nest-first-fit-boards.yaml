@@ -1,0 +1,26 @@
+title: "Nest: first-fit for boards (1D)"
+description: Implement 1D first-fit strategy for board lengths with kerf and trim.
+area: nest
+allowed_paths:
+  - engines/nest/src/strategy/first_fit.rs
+  - engines/nest/src/lib.rs
+  - engines/nest/tests/
+labels:
+  - codex
+  - nest
+  - strategy
+acceptance:
+  commands:
+    - cargo test -p nest
+    - cargo bench -p nest
+  tests_expect:
+    - Golden layouts match for reference projects
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://doc.rust-lang.org/cargo/reference/workspaces.html

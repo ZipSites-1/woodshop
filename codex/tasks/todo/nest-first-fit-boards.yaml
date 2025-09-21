@@ -1,0 +1,24 @@
+slug: nest-first-fit-boards
+title: "Nest: first-fit for boards (1D)"
+description: first-fit for boards (1D)
+area: nest
+allowed_paths:
+  - engines/nest/src/**
+  - engines/nest/tests/**
+labels:
+  - codex
+  - nest
+acceptance:
+  commands:
+    - cargo test -p nest
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+
+github:
+  blocked_by:
+
+  closing_keyword: True
+created: 2025-09-21

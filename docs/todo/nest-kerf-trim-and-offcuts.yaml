@@ -1,0 +1,24 @@
+title: "Nest: kerf, trim & offcuts"
+description: Honor saw kerf and sheet trim; record offcuts with their geometry for reuse.
+area: nest
+allowed_paths:
+  - engines/nest/src/lib.rs
+  - engines/nest/src/geom.rs
+  - engines/nest/tests/
+labels:
+  - codex
+  - nest
+acceptance:
+  commands:
+    - cargo test -p nest
+  tests_expect:
+    - Offcut registry contains expected polygons
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://doc.rust-lang.org/cargo/reference/workspaces.html

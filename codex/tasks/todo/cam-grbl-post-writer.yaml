@@ -1,0 +1,24 @@
+slug: cam-grbl-post-writer
+title: "CAM: GRBL post writer"
+description: GRBL post writer
+area: cam
+allowed_paths:
+  - engines/cam/src/**
+  - engines/cam/tests/**
+labels:
+  - codex
+  - cam
+acceptance:
+  commands:
+    - cargo test -p cam
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - cam-gcode-writer-rs274-blocks
+github:
+  blocked_by:
+    - cam-gcode-writer-rs274-blocks
+  closing_keyword: True
+created: 2025-09-21

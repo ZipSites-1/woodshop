@@ -1,0 +1,27 @@
+slug: docs-project-overview-sync
+title: "Docs: project_overview sync"
+description: Keep project_overview.md in sync with schemas and module map.
+area: docs-wood
+allowed_paths:
+  - codex/project_overview.md
+  - packages/schemas/**
+  - apps/mcp-server/**
+labels:
+  - codex
+  - docs-wood
+acceptance:
+  commands:
+    - echo 'overview sync'
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - schemas-authoritative-json-and-refs
+  - mcp-registry-and-discovery
+github:
+  blocked_by:
+    - schemas-authoritative-json-and-refs
+    - mcp-registry-and-discovery
+  closing_keyword: True
+created: 2025-09-21

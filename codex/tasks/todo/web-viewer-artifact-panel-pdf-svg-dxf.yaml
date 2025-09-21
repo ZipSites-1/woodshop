@@ -1,0 +1,23 @@
+slug: web-viewer-artifact-panel-pdf-svg-dxf
+title: "Web viewer: artifact panel"
+description: List & preview artifacts via signed URLs.
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+labels:
+  - codex
+  - web-viewer
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - SVG/PDF previews open without console errors
+  artifacts_expect:
+
+dependencies:
+  - web-viewer-wasm-worker-loader
+github:
+  blocked_by:
+    - web-viewer-wasm-worker-loader
+  closing_keyword: True
+created: 2025-09-21

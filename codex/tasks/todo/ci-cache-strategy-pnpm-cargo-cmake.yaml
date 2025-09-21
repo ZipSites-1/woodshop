@@ -1,0 +1,24 @@
+slug: ci-cache-strategy-pnpm-cargo-cmake
+title: "CI: cache strategy (pnpm/cargo/cmake)"
+description: Configure caches and verify hits.
+area: ci-release
+allowed_paths:
+  - .github/workflows/**
+  - ci/**
+labels:
+  - codex
+  - ci-release
+acceptance:
+  commands:
+    - echo 'ci caches'
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - ci-build-matrix-native-wasm-rust-ts
+github:
+  blocked_by:
+    - ci-build-matrix-native-wasm-rust-ts
+  closing_keyword: True
+created: 2025-09-21

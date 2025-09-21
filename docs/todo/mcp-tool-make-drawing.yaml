@@ -1,0 +1,28 @@
+title: "MCP Tool: make_drawing"
+description: Generate views with dimensions and optional explode.
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**/*.ts
+  - packages/schemas/**/*.json
+  - packages/types/**/*.ts
+labels:
+  - codex
+  - mcp-server
+  - schema
+acceptance:
+  commands:
+    - pnpm -w build
+    - "pnpm -w test:mcp"
+  tests_expect:
+    - Contract tests pass; schema validation enforced
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://github.com/modelcontextprotocol/modelcontextprotocol
+# - https://cookbook.openai.com/examples/mcp/mcp_tool_guide
+# - https://openai.github.io/openai-agents-js/guides/mcp/

@@ -1,0 +1,27 @@
+slug: occt-step-roundtrip-tests
+title: "OCCT: STEP round-trip tests"
+description: Import→export→import comparisons with tolerance.
+area: occt-core
+allowed_paths:
+  - engines/occt-core/tests/step_roundtrip.cpp
+  - engines/occt-core/include/woodshop/io/StepIo.hpp
+  - engines/occt-core/src/io/StepIo.cpp
+labels:
+  - codex
+  - occt-core
+acceptance:
+  commands:
+    - cmake --preset relwithdebinfo
+    - cmake --build --preset relwithdebinfo -j
+    - ctest --preset relwithdebinfo --output-on-failure
+  tests_expect:
+    - Round-trip within tolerance on samples
+  artifacts_expect:
+
+dependencies:
+  - occt-cmake-presets-relwithdebinfo
+github:
+  blocked_by:
+    - occt-cmake-presets-relwithdebinfo
+  closing_keyword: True
+created: 2025-09-21

@@ -1,0 +1,28 @@
+title: "OCCT: IGES smoke tests"
+description: Add import/export smoke tests for IGES to catch regressions.
+area: occt-core
+allowed_paths:
+  - engines/occt-core/tests/iges_smoke.cpp
+  - engines/occt-core/include/woodshop/io/IgesIo.hpp
+  - engines/occt-core/src/io/IgesIo.cpp
+labels:
+  - codex
+  - occt-core
+  - iges
+acceptance:
+  commands:
+    - cmake --preset relwithdebinfo
+    - cmake --build --preset relwithdebinfo -j
+    - ctest --preset relwithdebinfo --output-on-failure
+  tests_expect:
+    - IGES import/export succeeds on fixtures
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://dev.opencascade.org/about/data_exchange
+# - https://old.opencascade.com/content/data-exchange

@@ -1,0 +1,24 @@
+slug: nest-grain-constraints-and-rotation
+title: "Nest: grain constraints & rotation"
+description: grain constraints & rotation
+area: nest
+allowed_paths:
+  - engines/nest/src/**
+  - engines/nest/tests/**
+labels:
+  - codex
+  - nest
+acceptance:
+  commands:
+    - cargo test -p nest
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+
+github:
+  blocked_by:
+
+  closing_keyword: True
+created: 2025-09-21

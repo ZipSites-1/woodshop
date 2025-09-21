@@ -1,0 +1,28 @@
+slug: mcp-tool-postprocess-grbl
+title: "MCP Tool: postprocess (GRBL)"
+description: Write GRBL G‑code with confirmation gate.
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**
+  - packages/schemas/**
+  - packages/types/**
+labels:
+  - codex
+  - mcp-server
+acceptance:
+  commands:
+    - pnpm -w build
+    - "pnpm -w test:mcp"
+  tests_expect:
+    - Contract tests pass; schema validation enforced
+  artifacts_expect:
+
+dependencies:
+  - mcp-tool-generate-toolpaths
+  - cam-grbl-post-writer
+github:
+  blocked_by:
+    - mcp-tool-generate-toolpaths
+    - cam-grbl-post-writer
+  closing_keyword: True
+created: 2025-09-21

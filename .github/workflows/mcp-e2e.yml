@@ -42,7 +42,14 @@ jobs:
       - name: Verify artifacts
         run: |
           set -euo pipefail
-          files=(artifacts/demo/cutlist.json artifacts/demo/drawing.pdf artifacts/demo/layout.dxf artifacts/demo/layout.svg)
+          files=(
+            artifacts/demo/cutlist.json
+            artifacts/demo/drawing.pdf
+            artifacts/demo/layout.dxf
+            artifacts/demo/layout.svg
+            artifacts/demo/wood_movement_report.json
+            artifacts/demo/nest_summary.json
+          )
           for file in "${files[@]}"; do
             if [ ! -f "$file" ]; then
               echo "missing artifact: $file" >&2
@@ -53,6 +60,19 @@ jobs:
               exit 1
             fi
           done
+          utilization=$(jq -r '.utilization_summary.overall_utilization' artifacts/demo/nest_summary.json)
+          if [ "${utilization}" = "null" ]; then
+            echo "failed to read utilization" >&2
+            exit 1
+          fi
+          python3 - <<'PY' "${utilization}"
+import sys
+util = float(sys.argv[1])
+threshold = 0.58
+if util < threshold:
+    print(f"utilization {util:.3f} below threshold {threshold}", file=sys.stderr)
+    sys.exit(1)
+PY
       - name: Upload cutlist
         uses: actions/upload-artifact@v4
         with:
@@ -76,4 +96,16 @@ jobs:
         with:
           name: mcp-demo-layout-svg
           path: artifacts/demo/layout.svg
+          if-no-files-found: error
+      - name: Upload wood movement report
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-demo-wood-movement
+          path: artifacts/demo/wood_movement_report.json
+          if-no-files-found: error
+      - name: Upload nest summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-demo-nest-summary
+          path: artifacts/demo/nest_summary.json
           if-no-files-found: error

@@ -1,0 +1,24 @@
+slug: schemas-typegen-to-packages-types
+title: "Schemas: typegen to packages/types"
+description: Generate TS types and publish as a package.
+area: schemas
+allowed_paths:
+  - packages/schemas/**
+  - packages/types/**
+labels:
+  - codex
+  - schemas
+acceptance:
+  commands:
+    - "pnpm -w run codegen:schemas"
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+  - schemas-authoritative-json-and-refs
+github:
+  blocked_by:
+    - schemas-authoritative-json-and-refs
+  closing_keyword: True
+created: 2025-09-21

@@ -1,0 +1,27 @@
+title: "Artifacts: byte-stability & seeds"
+description: Ensure byte-stability under fixed seeds; record seeds in metadata.
+area: artifacts
+allowed_paths:
+  - artifacts/**
+  - ci/scripts/**
+  - apps/mcp-server/**
+labels:
+  - codex
+  - artifacts
+  - ci
+acceptance:
+  commands:
+    - "pnpm -w run e2e:demo"
+    - node ci/scripts/diff-artifacts.js artifacts/reference current/
+  tests_expect:
+    - CI diff fails on drift; pass otherwise
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://turborepo.com/docs/crafting-your-repository/caching
+# - https://nx.dev/concepts/decisions/why-monorepos

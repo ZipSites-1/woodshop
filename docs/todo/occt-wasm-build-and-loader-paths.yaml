@@ -1,0 +1,28 @@
+title: "OCCT: WASM build + loader paths"
+description: Publish wasm artifacts to the web-viewer and ensure correct public paths and MIME types.
+area: occt-core
+allowed_paths:
+  - engines/occt-core/cmake/toolchains/Emscripten.cmake
+  - apps/web-viewer/wasm/occt/.keep
+  - apps/web-viewer/src/workers/occt.worker.ts
+labels:
+  - codex
+  - occt-core
+  - web-viewer
+  - wasm
+acceptance:
+  commands:
+    - emcmake cmake --preset wasm
+    - cmake --build --preset wasm -j
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Viewer loads occt-core.wasm via worker without errors
+  artifacts_expect:
+
+dependencies:
+
+out_of_scope:
+
+created: 2025-09-21
+# references:
+# - https://emscripten.org/docs/building_from_source/toolchain_what_is_needed.html

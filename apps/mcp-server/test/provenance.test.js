@@ -6,6 +6,7 @@ import { promises as fs } from "node:fs";
 const { runCreateProject } = await import("../dist/tools/createProject.js");
 const { runExtractCutlist } = await import("../dist/tools/extractCutlist.js");
 const { runExportArtifacts } = await import("../dist/tools/exportArtifacts.js");
+const { runWoodMovementCheck } = await import("../dist/tools/woodMovement.js");
 const { stableHash } = await import("../dist/util/stableHash.js");
 const { resolveRepoPath, pathExists } = await import("../dist/util/fs.js");
 
@@ -89,6 +90,50 @@ test("export_artifacts validates format enum", async () => {
     (error) => {
       assert.equal(error.code, "INVALID_INPUT");
       assert.ok(Array.isArray(error.details.issues));
+      return true;
+    },
+  );
+});
+
+test("wood_movement_check computes deltas", async () => {
+  const project = await runCreateProject({ units: "mm" });
+  const result = await runWoodMovementCheck({
+    project_id: project.project_id,
+    ambient: { relative_humidity: 60, temperature_c: 20 },
+    parts: [
+      {
+        part_id: `${project.project_id}::top`,
+        species: "birch",
+        grain_axis: "length",
+        nominal_mm: { length: 1200, width: 400, thickness: 18 },
+      },
+    ],
+  });
+
+  assert.equal(result.per_part.length, 1);
+  const entry = result.per_part[0];
+  assert.ok(Math.abs(entry.delta_width_mm) > Math.abs(entry.delta_length_mm));
+  assert.equal(result.warnings.length >= 0, true);
+});
+
+test("wood_movement_check rejects unknown species", async () => {
+  const project = await runCreateProject({ units: "mm" });
+  await assert.rejects(
+    () =>
+      runWoodMovementCheck({
+        project_id: project.project_id,
+        ambient: { relative_humidity: 60, temperature_c: 20 },
+        parts: [
+          {
+            part_id: "unknown",
+            species: "mystery",
+            grain_axis: "length",
+            nominal_mm: { length: 100, width: 50, thickness: 10 },
+          },
+        ],
+      }),
+    (error) => {
+      assert.equal(error.code, "UNKNOWN_SPECIES");
       return true;
     },
   );

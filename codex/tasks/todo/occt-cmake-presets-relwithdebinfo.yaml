@@ -1,0 +1,26 @@
+slug: occt-cmake-presets-relwithdebinfo
+title: "OCCT: CMake presets (RelWithDebInfo)"
+description: Add and validate CMakePresets for native builds.
+area: occt-core
+allowed_paths:
+  - engines/occt-core/CMakePresets.json
+  - engines/occt-core/CMakeLists.txt
+labels:
+  - codex
+  - occt-core
+acceptance:
+  commands:
+    - cmake --preset relwithdebinfo
+    - cmake --build --preset relwithdebinfo -j
+    - ctest --preset relwithdebinfo --output-on-failure
+  tests_expect:
+    - Native build and tests pass
+  artifacts_expect:
+
+dependencies:
+
+github:
+  blocked_by:
+
+  closing_keyword: True
+created: 2025-09-21

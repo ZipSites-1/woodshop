@@ -1,0 +1,24 @@
+slug: ci-build-matrix-native-wasm-rust-ts
+title: "CI: build matrix (native/wasm/rust/ts)"
+description: Matrix jobs for native C++, WASM, Rust, TS.
+area: ci-release
+allowed_paths:
+  - .github/workflows/**
+  - ci/**
+labels:
+  - codex
+  - ci-release
+acceptance:
+  commands:
+    - echo 'ci matrix'
+  tests_expect:
+
+  artifacts_expect:
+
+dependencies:
+
+github:
+  blocked_by:
+
+  closing_keyword: True
+created: 2025-09-21

@@ -1,0 +1,27 @@
+slug: occt-wasm-build-and-loader-paths
+title: "OCCT: WASM build + loader paths"
+description: Publish wasm artifacts and ensure loader paths/MIME.
+area: occt-core
+allowed_paths:
+  - engines/occt-core/cmake/toolchains/Emscripten.cmake
+  - apps/web-viewer/wasm/occt/.keep
+  - apps/web-viewer/src/workers/occt.worker.ts
+labels:
+  - codex
+  - occt-core
+acceptance:
+  commands:
+    - emcmake cmake --preset wasm
+    - cmake --build --preset wasm -j
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Viewer loads occt-core.wasm via worker
+  artifacts_expect:
+
+dependencies:
+  - occt-embind-minimal-surface
+github:
+  blocked_by:
+    - occt-embind-minimal-surface
+  closing_keyword: True
+created: 2025-09-21
