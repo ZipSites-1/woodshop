@@ -1,0 +1,37 @@
+name: build-test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    paths:
+      - '**/*.ts'
+      - '**/*.tsx'
+      - '**/*.json'
+      - '.github/workflows/build-test.yml'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Codegen schemas
+        run: pnpm -w run codegen:schemas
+      - name: Build MCP server
+        run: pnpm --filter @woodshop/mcp-server run build
+      - name: Run contract tests
+        run: pnpm -w run test:mcp
