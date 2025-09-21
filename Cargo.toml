@@ -1,0 +1,3 @@
+[workspace]
+members = ["engines/nest", "engines/cam", "engines/wood"]
+resolver = "2"

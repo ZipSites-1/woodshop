@@ -1,0 +1,1 @@
+- no panics in library code; Result<thiserror>; deterministic RNG injection

@@ -1,0 +1,1 @@
+- MCP allow-list; schema-only inputs; secret scanning; SBOM

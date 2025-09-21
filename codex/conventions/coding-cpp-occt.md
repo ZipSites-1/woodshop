@@ -1,0 +1,1 @@
+- RAII, explicit units/tolerances, no exceptions across C API; CMakePresets

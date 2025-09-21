@@ -1,0 +1,1 @@
+- checklist: schema parity, tests, determinism, perf, security, docs

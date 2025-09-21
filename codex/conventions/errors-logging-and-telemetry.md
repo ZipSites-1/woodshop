@@ -1,0 +1,1 @@
+- structured logs: tool, inputs-hash, duration; no PII by default

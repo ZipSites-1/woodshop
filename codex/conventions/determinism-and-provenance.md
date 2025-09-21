@@ -1,0 +1,1 @@
+- always echo seed/core_version/revision; stable sorts; locale/float guards

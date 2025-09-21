@@ -1,0 +1,1 @@
+- strict TS; Zod/JSON Schema at MCP boundaries; no any

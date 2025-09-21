@@ -1,0 +1,9 @@
+node_modules/
+pnpm-lock.yaml
+dist/
+build/
+target/
+.vscode/
+.DS_Store
+CMakeUserPresets.json
+emsdk/
