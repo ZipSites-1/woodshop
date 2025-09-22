@@ -17,11 +17,11 @@
 | 01 – OCCT Core: Geometry & I/O | ☐ | 0/7 | STEP/IGES, booleans, tessellation, WASM |
 | 02 – WASM Viewer & OCCT Bindings | ☐ | 0/5 | Worker loader, previews, perf budgets |
 | 03 – Nesting Engine v1 | ☐ | 0/8 | 1D/2D, grain/kerf, deterministic |
-| 04 – CAM Engine & GRBL Post | ☐ | 0/9 | contour/pocket/drill, GRBL, simulator |
+| 04 – CAM Engine & GRBL Post | ✔ | 9/9 | contour/pocket/drill, GRBL, simulator |
 | 05 – MCP Server & Tool Registry | ◐ | 1/13 | schemas, provenance, adapters, tools |
 | 06 – Desktop App: Chat & Viewer | ☐ | 0/6 | chat UI, action cards, viewer bridge |
 | 07 – Web Viewer: Artifacts & Perf | ☐ | 0/5 | previews, budgets, optional MCP |
-| 08 – Schemas, Types & Contracts | ☐ | 0/4 | source-of-truth schemas & typegen |
+| 08 – Schemas, Types & Contracts | ☐ | 1/4 | source-of-truth schemas & typegen |
 | 09 – Artifacts, Goldens & E2E CI | ☐ | 0/4 | reference runs + diffs in CI |
 | 10 – Security, Secrets & MCP Perms | ☐ | 0/4 | allow-list, confirmations, SBOM |
 | 11 – Release, Versioning & Docs | ☐ | 0/5 | changesets, changelog, ADR/docs |
@@ -84,18 +84,18 @@
 - [ ] /codex/tasks/todo/nest-benchmarks-and-thresholds.yaml
 </details>
 
-### 04 — CAM Engine & GRBL Post  (0/9)
+### 04 — CAM Engine & GRBL Post  (9/9)
 <details><summary>Open tasks</summary>
 
-- [ ] /codex/tasks/todo/cam-contour-operation.yaml
-- [ ] /codex/tasks/todo/cam-pocket-operation.yaml
-- [ ] /codex/tasks/todo/cam-drill-operation.yaml
-- [ ] /codex/tasks/todo/cam-linking-leads-ramps-safez.yaml
-- [ ] /codex/tasks/todo/cam-tabs-and-holddowns.yaml
-- [ ] /codex/tasks/todo/cam-gcode-writer-rs274-blocks.yaml
-- [ ] /codex/tasks/todo/cam-grbl-post-writer.yaml
-- [ ] /codex/tasks/todo/cam-gcode-conformance-smoke.yaml
-- [ ] /codex/tasks/todo/cam-simulator-dryrun-collisions.yaml
+- [x] /codex/tasks/todo/cam-contour-operation.yaml
+- [x] /codex/tasks/todo/cam-pocket-operation.yaml
+- [x] /codex/tasks/todo/cam-drill-operation.yaml
+- [x] /codex/tasks/todo/cam-linking-leads-ramps-safez.yaml
+- [x] /codex/tasks/todo/cam-tabs-and-holddowns.yaml
+- [x] /codex/tasks/todo/cam-gcode-writer-rs274-blocks.yaml
+- [x] /codex/tasks/todo/cam-grbl-post-writer.yaml
+- [x] /codex/tasks/todo/cam-gcode-conformance-smoke.yaml
+- [x] /codex/tasks/todo/cam-simulator-dryrun-collisions.yaml
 </details>
 
 ### 05 — MCP Server & Tool Registry  (1/13)
@@ -140,7 +140,7 @@
 ### 08 — Schemas, Types & Contract Tests  (0/4)
 <details><summary>Open tasks</summary>
 
-- [ ] /codex/tasks/todo/schemas-authoritative-json-and-refs.yaml
+- [x] /codex/tasks/todo/schemas-authoritative-json-and-refs.yaml
 - [ ] /codex/tasks/todo/schemas-typegen-to-packages-types.yaml
 - [ ] /codex/tasks/todo/schemas-examples-valid-invalid.yaml
 - [ ] /codex/tasks/todo/schemas-backcompat-contract-tests.yaml
@@ -187,7 +187,7 @@
 <details><summary>Open tasks</summary>
 
 - [ ] /codex/tasks/todo/nest-benchmarks-and-thresholds.yaml
-- [ ] /codex/tasks/todo/cam-simulator-dryrun-collisions.yaml
+- [x] /codex/tasks/todo/cam-simulator-dryrun-collisions.yaml
 - [ ] /codex/tasks/todo/web-viewer-performance-budgets.yaml
 </details>
 
