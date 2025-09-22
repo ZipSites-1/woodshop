@@ -1,0 +1,44 @@
+{
+  "project_id": "proj_demo",
+  "rows": [
+    {
+      "part_id": "proj_demo::panel_side_a",
+      "name": "Side Panel A",
+      "quantity": 2,
+      "length_mm": 762,
+      "width_mm": 381,
+      "thickness_mm": 18,
+      "material": "Birch Ply 18mm",
+      "grain": "length"
+    },
+    {
+      "part_id": "proj_demo::panel_top",
+      "name": "Top Panel",
+      "quantity": 1,
+      "length_mm": 914,
+      "width_mm": 457,
+      "thickness_mm": 18,
+      "material": "Birch Ply 18mm",
+      "grain": "width"
+    }
+  ],
+  "totals": {
+    "parts": 3,
+    "material_totals": [
+      {
+        "material": "Birch Ply 18mm",
+        "count": 3
+      }
+    ]
+  },
+  "seed": 3,
+  "engine_versions": {
+    "occt": "0.0.0",
+    "nest": "0.0.0",
+    "cam": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "revision_id": "rev_local",
+  "inputs_hash": "3f786850e387550fdab836ed7e6dc881de23001b56a5b8262b7f25f86e3cce64"
+}

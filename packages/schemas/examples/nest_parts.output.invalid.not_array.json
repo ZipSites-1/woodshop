@@ -1,0 +1,22 @@
+{
+  "project_id": "proj_demo",
+  "strategy": "skyline",
+  "seed": 11,
+  "layouts": [],
+  "utilization_summary": {
+    "total_parts_area_mm2": 0,
+    "total_stock_area_mm2": 0,
+    "overall_utilization": 0
+  },
+  "offcuts": [],
+  "not_placed": "none",
+  "engine_versions": {
+    "occt": "0.0.0",
+    "nest": "0.0.0",
+    "cam": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "revision_id": "rev_local",
+  "inputs_hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c3e5612f632d30dff43b11"
+}
