@@ -1,6 +1,0 @@
-{
-  "project_id": "proj_demo",
-  "format": "pdf",
-  "destination": "artifacts/demo",
-  "seed": 11
-}

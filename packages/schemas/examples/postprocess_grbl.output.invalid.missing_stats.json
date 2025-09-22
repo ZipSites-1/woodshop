@@ -1,0 +1,18 @@
+{
+  "project_id": "proj_demo",
+  "controller": "grbl",
+  "gcode_path": "artifacts/gcode/proj_demo/program.nc",
+  "bytes_written": 2048,
+  "line_count": 120,
+  "warnings": [],
+  "seed": 1,
+  "engine_versions": {
+    "occt": "0.0.0",
+    "nest": "0.0.0",
+    "cam": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "revision_id": "abc123",
+  "inputs_hash": "fadecafe"
+}

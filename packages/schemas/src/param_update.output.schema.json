@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/param_update.output.json",
+  "title": "ParamUpdateOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/projectId" }
+      ]
+    },
+    "revision_tag": {
+      "type": "string",
+      "description": "Deterministic token produced from the applied parameter state"
+    },
+    "next_parameters": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/projectParameters" }
+      ]
+    },
+    "applied": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "parameter": {
+            "type": "string",
+            "enum": [
+              "width_mm",
+              "height_mm",
+              "depth_mm",
+              "shelf_count",
+              "door_style",
+              "back_panel"
+            ]
+          },
+          "previous_value": {
+            "type": ["number", "string", "boolean"]
+          },
+          "next_value": {
+            "type": ["number", "string", "boolean"]
+          },
+          "delta": {
+            "type": ["number", "null"]
+          },
+          "reason": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": ["parameter", "previous_value", "next_value", "delta", "reason"]
+      }
+    },
+    "rejected": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "parameter": { "type": "string" },
+          "requested_value": { "type": ["number", "string", "boolean"] },
+          "code": { "type": "string" },
+          "message": { "type": "string" }
+        },
+        "required": ["parameter", "requested_value", "code", "message"]
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "$ref": "./common.schema.json#/$defs/warning" }
+    },
+    "notes": {
+      "type": ["string", "null"]
+    },
+    "seed": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedOutput" }
+      ]
+    },
+    "engine_versions": { "$ref": "./common.schema.json#/$defs/engineVersions" },
+    "revision_id": { "$ref": "./common.schema.json#/$defs/revisionId" },
+    "inputs_hash": { "$ref": "./common.schema.json#/$defs/inputsHash" }
+  },
+  "required": [
+    "project_id",
+    "revision_tag",
+    "next_parameters",
+    "applied",
+    "rejected",
+    "warnings",
+    "notes",
+    "seed",
+    "engine_versions",
+    "revision_id",
+    "inputs_hash"
+  ]
+}

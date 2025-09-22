@@ -1,0 +1,29 @@
+{
+  "project_id": "proj_demo",
+  "operations": [
+    {
+      "type": "dado",
+      "primary_part_id": "proj_demo::side_a",
+      "secondary_part_id": "proj_demo::shelf_1",
+      "face": "interior",
+      "offset_mm": 100,
+      "length_mm": 600,
+      "width_mm": 19,
+      "depth_mm": 6,
+      "angle_deg": null
+    },
+    {
+      "type": "tenon",
+      "primary_part_id": "proj_demo::rail_front",
+      "secondary_part_id": "proj_demo::leg_left",
+      "face": "edge",
+      "offset_mm": 40,
+      "length_mm": 50,
+      "width_mm": 19,
+      "depth_mm": 9,
+      "fasteners": [
+        { "type": "dowel", "spacing_mm": 64, "diameter_mm": 8 }
+      ]
+    }
+  ]
+}

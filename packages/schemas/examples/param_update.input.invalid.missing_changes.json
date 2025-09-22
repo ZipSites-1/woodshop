@@ -1,0 +1,11 @@
+{
+  "project_id": "proj_demo",
+  "current": {
+    "width_mm": 1100,
+    "height_mm": 2100,
+    "depth_mm": 400,
+    "shelf_count": 4,
+    "door_style": "slab",
+    "back_panel": true
+  }
+}

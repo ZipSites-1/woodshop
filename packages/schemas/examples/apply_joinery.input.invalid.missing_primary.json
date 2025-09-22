@@ -1,0 +1,13 @@
+{
+  "project_id": "proj_demo",
+  "operations": [
+    {
+      "type": "dado",
+      "face": "interior",
+      "offset_mm": 100,
+      "length_mm": 600,
+      "width_mm": 19,
+      "depth_mm": 6
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "project_id": "proj_demo",
+  "drawing_path": "artifacts/drawings/proj_demo/seed-0.pdf",
+  "bytes_written": 1024,
+  "views": [
+    { "name": "iso", "status": "generated", "dimensions": true },
+    { "name": "front", "status": "generated", "dimensions": true },
+    { "name": "right", "status": "generated", "dimensions": false }
+  ],
+  "include_dimensions": true,
+  "explode": false,
+  "sheet_size": { "width_mm": 841, "height_mm": 594 },
+  "scale": 0.5,
+  "warnings": [],
+  "seed": 0,
+  "engine_versions": {
+    "occt": "0.0.0",
+    "nest": "0.0.0",
+    "cam": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "revision_id": "abc123",
+  "inputs_hash": "cafefeed"
+}

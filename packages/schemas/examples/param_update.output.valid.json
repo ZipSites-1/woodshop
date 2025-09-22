@@ -1,0 +1,48 @@
+{
+  "project_id": "proj_demo",
+  "revision_tag": "rev_4f2a",
+  "next_parameters": {
+    "width_mm": 1200,
+    "height_mm": 2100,
+    "depth_mm": 400,
+    "shelf_count": 5,
+    "door_style": "shaker",
+    "back_panel": true
+  },
+  "applied": [
+    {
+      "parameter": "width_mm",
+      "previous_value": 1100,
+      "next_value": 1200,
+      "delta": 100,
+      "reason": "Align with alcove"
+    },
+    {
+      "parameter": "shelf_count",
+      "previous_value": 4,
+      "next_value": 5,
+      "delta": 1,
+      "reason": null
+    }
+  ],
+  "rejected": [
+    {
+      "parameter": "door_style",
+      "requested_value": "barn",
+      "code": "INVALID_ENUM",
+      "message": "Value is not in allowed set"
+    }
+  ],
+  "warnings": [],
+  "notes": null,
+  "seed": 7,
+  "engine_versions": {
+    "occt": "0.0.0",
+    "nest": "0.0.0",
+    "cam": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "revision_id": "abc123",
+  "inputs_hash": "deadbeef"
+}

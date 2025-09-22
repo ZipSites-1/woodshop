@@ -1,0 +1,60 @@
+{
+  "project_id": "proj_demo",
+  "program_id": "prog_seed1",
+  "program_path": "artifacts/toolpaths/proj_demo/seed-1.json",
+  "total_runtime_sec": 180,
+  "total_length_mm": 4200,
+  "toolpaths": [
+    {
+      "toolpath_id": "tp_profile",
+      "operation_type": "contour",
+      "operation_label": "profile",
+      "tool": {
+        "type": "end_mill",
+        "diameter_mm": 6.35,
+        "flutes": 3,
+        "identifier": "EM6",
+        "description": "1/4in end mill"
+      },
+      "length_mm": 3200,
+      "estimated_runtime_sec": 120,
+      "passes": 3,
+      "segments": [
+        { "mode": "rapid", "length_mm": 10, "feed_mm_per_min": null, "duration_sec": 0.5 },
+        { "mode": "plunge", "length_mm": 18, "feed_mm_per_min": 600, "duration_sec": 1.8 },
+        { "mode": "feed", "length_mm": 3200, "feed_mm_per_min": 1800, "duration_sec": 106.7 }
+      ],
+      "warnings": []
+    },
+    {
+      "toolpath_id": "tp_drill",
+      "operation_type": "drill",
+      "operation_label": "shelf pins",
+      "tool": {
+        "type": "drill",
+        "diameter_mm": 5,
+        "flutes": 2
+      },
+      "length_mm": 100,
+      "estimated_runtime_sec": 30,
+      "passes": 2,
+      "segments": [
+        { "mode": "rapid", "length_mm": 5, "feed_mm_per_min": null, "duration_sec": 0.2 },
+        { "mode": "feed", "length_mm": 50, "feed_mm_per_min": 300, "duration_sec": 10 }
+      ],
+      "warnings": []
+    }
+  ],
+  "preview_path": "artifacts/toolpaths/proj_demo/seed-1.preview.json",
+  "warnings": [],
+  "seed": 1,
+  "engine_versions": {
+    "occt": "0.0.0",
+    "nest": "0.0.0",
+    "cam": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "revision_id": "abc123",
+  "inputs_hash": "feedface"
+}

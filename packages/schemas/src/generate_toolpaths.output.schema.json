@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/generate_toolpaths.output.json",
+  "title": "GenerateToolpathsOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/projectId" }
+      ]
+    },
+    "program_id": { "type": "string" },
+    "program_path": { "type": "string" },
+    "total_runtime_sec": { "type": "number", "minimum": 0 },
+    "total_length_mm": { "type": "number", "minimum": 0 },
+    "toolpaths": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "toolpath_id": { "type": "string" },
+          "operation_type": { "type": "string", "enum": ["contour", "pocket", "drill"] },
+          "operation_label": { "type": "string" },
+          "tool": {
+            "allOf": [
+              { "$ref": "./common.schema.json#/$defs/toolSpecification" }
+            ]
+          },
+          "length_mm": { "type": "number", "minimum": 0 },
+          "estimated_runtime_sec": { "type": "number", "minimum": 0 },
+          "passes": { "type": "integer", "minimum": 1 },
+          "segments": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "./common.schema.json#/$defs/toolpathSegment" }
+              ]
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": { "$ref": "./common.schema.json#/$defs/warning" }
+          }
+        },
+        "required": [
+          "toolpath_id",
+          "operation_type",
+          "operation_label",
+          "tool",
+          "length_mm",
+          "estimated_runtime_sec",
+          "passes",
+          "segments",
+          "warnings"
+        ]
+      }
+    },
+    "preview_path": { "type": "string" },
+    "warnings": {
+      "type": "array",
+      "items": { "$ref": "./common.schema.json#/$defs/warning" }
+    },
+    "seed": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedOutput" }
+      ]
+    },
+    "engine_versions": { "$ref": "./common.schema.json#/$defs/engineVersions" },
+    "revision_id": { "$ref": "./common.schema.json#/$defs/revisionId" },
+    "inputs_hash": { "$ref": "./common.schema.json#/$defs/inputsHash" }
+  },
+  "required": [
+    "project_id",
+    "program_id",
+    "program_path",
+    "total_runtime_sec",
+    "total_length_mm",
+    "toolpaths",
+    "preview_path",
+    "warnings",
+    "seed",
+    "engine_versions",
+    "revision_id",
+    "inputs_hash"
+  ]
+}

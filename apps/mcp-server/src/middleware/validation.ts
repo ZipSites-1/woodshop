@@ -18,7 +18,9 @@ type SchemaWithType = JsonSchema & {
   type?: string | string[];
   $ref?: string;
   allOf?: SchemaWithType[];
+  oneOf?: SchemaWithType[];
   enum?: unknown[];
+  const?: unknown;
   default?: unknown;
   properties?: Record<string, SchemaWithType> | Record<string, unknown>;
   required?: string[] | unknown;
@@ -86,6 +88,10 @@ function mergeSchemas(base: SchemaWithType, addition: SchemaWithType): SchemaWit
 
   if (addition.enum !== undefined) {
     result.enum = addition.enum;
+  }
+
+  if (addition.const !== undefined) {
+    result.const = addition.const;
   }
 
   if (addition.default !== undefined) {
@@ -219,6 +225,25 @@ export function schemaToZod(
 
   if (schema.enum && Array.isArray(schema.enum) && schema.enum.length > 0) {
     return literalUnion(schema.enum);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(schema, "const")) {
+    const literalValue = (schema as Record<string, unknown>).const as string | number | boolean | null;
+    return z.literal(literalValue);
+  }
+
+  if (Array.isArray(schema.oneOf) && schema.oneOf.length > 0) {
+    const variants = schema.oneOf.map((variant) =>
+      schemaToZod(variant as SchemaWithType, nextDoc),
+    );
+    if (variants.length === 1) {
+      return withDefault(schema, variants[0]);
+    }
+    const [first, second, ...rest] = variants;
+    return withDefault(
+      schema,
+      z.union([first, second, ...rest] as [z.ZodTypeAny, z.ZodTypeAny, ...z.ZodTypeAny[]]),
+    );
   }
 
   const type = schema.type;
