@@ -146,7 +146,7 @@ const ArtifactPreview: React.FC<{ artifact: Artifact }> = ({ artifact }) => {
         title={`${artifact.name} preview`}
         src={artifact.href}
         style={iframeStyle}
-        sandbox="allow-same-origin"
+        sandbox="allow-same-origin allow-scripts"
       />
     );
   }

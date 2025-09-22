@@ -20,7 +20,7 @@
 | 04 – CAM Engine & GRBL Post | ✔ | 9/9 | contour/pocket/drill, GRBL, simulator |
 | 05 – MCP Server & Tool Registry | ✔ | 13/13 | schemas, provenance, adapters, tools |
 | 06 – Desktop App: Chat & Viewer | ☐ | 0/6 | chat UI, action cards, viewer bridge |
-| 07 – Web Viewer: Artifacts & Perf | ☐ | 0/5 | previews, budgets, optional MCP |
+| 07 – Web Viewer: Artifacts & Perf | ✔ | 5/5 | previews, budgets, optional MCP |
 | 08 – Schemas, Types & Contracts | ☐ | 1/4 | source-of-truth schemas & typegen |
 | 09 – Artifacts, Goldens & E2E CI | ☐ | 0/4 | reference runs + diffs in CI |
 | 10 – Security, Secrets & MCP Perms | ☐ | 0/4 | allow-list, confirmations, SBOM |
@@ -127,14 +127,14 @@
 - [ ] /codex/tasks/todo/desktop-packaging-installers.yaml
 </details>
 
-### 07 — Web Viewer: Artifacts & Performance  (0/5)
+### 07 — Web Viewer: Artifacts & Performance  (5/5)
 <details><summary>Open tasks</summary>
 
-- [ ] /codex/tasks/todo/web-viewer-wasm-worker-loader.yaml
-- [ ] /codex/tasks/todo/web-viewer-artifact-panel-pdf-svg-dxf.yaml
-- [ ] /codex/tasks/todo/web-viewer-performance-budgets.yaml
-- [ ] /codex/tasks/todo/web-viewer-mcp-client-optional.yaml
-- [ ] /codex/tasks/todo/web-viewer-csp-and-mime-wasm.yaml
+- [x] /codex/tasks/todo/web-viewer-wasm-worker-loader.yaml
+- [x] /codex/tasks/todo/web-viewer-artifact-panel-pdf-svg-dxf.yaml
+- [x] /codex/tasks/todo/web-viewer-performance-budgets.yaml
+- [x] /codex/tasks/todo/web-viewer-mcp-client-optional.yaml
+- [x] /codex/tasks/todo/web-viewer-csp-and-mime-wasm.yaml
 </details>
 
 ### 08 — Schemas, Types & Contract Tests  (0/4)
