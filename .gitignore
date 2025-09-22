@@ -10,3 +10,11 @@ target/
 .DS_Store
 CMakeUserPresets.json
 emsdk/
+
+# Web viewer embedded wasm bundle (generated during build)
+apps/web-viewer/wasm/
+*.wasm
+
+# Ephemeral demo CAM artifacts (goldens live elsewhere)
+artifacts/demo/*.nc
+artifacts/demo/*_preview.svg
