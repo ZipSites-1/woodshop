@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/analyze_geometry.output.json",
+  "title": "AnalyzeGeometryOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "label": {
+      "description": "Echoed label when supplied on input.",
+      "type": ["string", "null"]
+    },
+    "source_format": {
+      "type": "string",
+      "enum": ["step", "iges"],
+      "description": "Format that was analyzed."
+    },
+    "vertex_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "triangle_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "surface_area": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Approximate surface area derived from tessellated facets."
+    },
+    "bounding_box": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "min": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "max": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": ["min", "max"]
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "width": { "type": "number", "minimum": 0 },
+        "height": { "type": "number", "minimum": 0 },
+        "depth": { "type": "number", "minimum": 0 }
+      },
+      "required": ["width", "height", "depth"]
+    },
+    "engine_versions": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/engineVersions" }
+      ]
+    },
+    "inputs_hash": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/inputsHash" }
+      ]
+    },
+    "revision_id": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/revisionId" }
+      ]
+    },
+    "seed": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedOutput" }
+      ]
+    }
+  },
+  "required": [
+    "source_format",
+    "vertex_count",
+    "triangle_count",
+    "surface_area",
+    "bounding_box",
+    "dimensions",
+    "engine_versions",
+    "inputs_hash",
+    "revision_id",
+    "seed"
+  ]
+}

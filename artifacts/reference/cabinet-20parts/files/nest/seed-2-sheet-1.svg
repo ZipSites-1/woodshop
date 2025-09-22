@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 2440">
+  <rect x="0" y="0" width="1220" height="2440" fill="none" stroke="#4b5563" stroke-width="2"/>
+  <rect x="0.00" y="0.00" width="762.00" height="1200.00" fill="none" stroke="#1f2937" stroke-width="1" />
+  <rect x="764.00" y="0.00" width="400.00" height="1200.00" fill="none" stroke="#1f2937" stroke-width="1" />
+  <rect x="0.00" y="1202.00" width="400.00" height="1200.00" fill="none" stroke="#1f2937" stroke-width="1" />
+  <rect x="402.00" y="1202.00" width="380.00" height="1150.00" fill="none" stroke="#1f2937" stroke-width="1" />
+  <rect x="784.00" y="1202.00" width="381.00" height="762.00" fill="none" stroke="#1f2937" stroke-width="1" />
+  <text x="381.00" y="600.00" font-size="18" text-anchor="middle" fill="#374151">proj_e304c8924cb5::back_panel</text>
+  <text x="964.00" y="600.00" font-size="18" text-anchor="middle" fill="#374151">proj_e304c8924cb5::panel_bottom</text>
+  <text x="200.00" y="1802.00" font-size="18" text-anchor="middle" fill="#374151">proj_e304c8924cb5::panel_top</text>
+  <text x="592.00" y="1777.00" font-size="18" text-anchor="middle" fill="#374151">proj_e304c8924cb5::shelf_mid</text>
+  <text x="974.50" y="1583.00" font-size="18" text-anchor="middle" fill="#374151">proj_e304c8924cb5::panel_side_a</text>
+</svg>

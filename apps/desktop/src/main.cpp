@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QQuickStyle>
 
 #include <memory>
 
@@ -8,6 +9,7 @@
 
 int main(int argc, char* argv[])
 {
+  QQuickStyle::setStyle(QStringLiteral("Basic"));
   QGuiApplication app(argc, argv);
   QQmlApplicationEngine engine;
 
@@ -15,8 +17,7 @@ int main(int argc, char* argv[])
   controller->initialize();
 
   engine.rootContext()->setContextProperty("AppController", controller.get());
-  engine.addImportPath("qrc:/");
-  const QUrl mainUrl(QStringLiteral("qrc:/Main.qml"));
+  const QUrl mainUrl(QStringLiteral("qrc:/Woodshop/Desktop/qml/Main.qml"));
 
   QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed, &app, []() {
     QCoreApplication::exit(-1);

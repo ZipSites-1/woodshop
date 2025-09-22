@@ -1,0 +1,150 @@
+{
+  "project_id": "proj_e304c8924cb5",
+  "program_id": "prog_ea3f3688d2",
+  "safe_z_mm": 6,
+  "summary": {
+    "total_runtime_sec": 170.05,
+    "total_length_mm": 4836
+  },
+  "operations": [
+    {
+      "depth_mm": 18,
+      "feed_mm_per_min": 1800,
+      "name": "profile",
+      "offset_strategy": "outside",
+      "path": [
+        {
+          "x_mm": 0,
+          "y_mm": 0
+        },
+        {
+          "x_mm": 500,
+          "y_mm": 0
+        },
+        {
+          "x_mm": 500,
+          "y_mm": 300
+        },
+        {
+          "x_mm": 0,
+          "y_mm": 300
+        },
+        {
+          "x_mm": 0,
+          "y_mm": 0
+        }
+      ],
+      "plunge_mm_per_min": 600,
+      "stepdown_mm": 6,
+      "tool": {
+        "diameter_mm": 6,
+        "flutes": 3,
+        "identifier": "EM6",
+        "type": "end_mill"
+      },
+      "type": "contour"
+    },
+    {
+      "cycle": "peck",
+      "feed_mm_per_min": 480,
+      "holes": [
+        {
+          "depth_mm": 12,
+          "dwell_ms": 150,
+          "x_mm": 50,
+          "y_mm": 50
+        },
+        {
+          "depth_mm": 12,
+          "x_mm": 250,
+          "y_mm": 50
+        },
+        {
+          "depth_mm": 12,
+          "x_mm": 450,
+          "y_mm": 50
+        }
+      ],
+      "name": "dowels",
+      "tool": {
+        "diameter_mm": 5,
+        "flutes": 2,
+        "identifier": "DR5",
+        "type": "drill"
+      },
+      "type": "drill"
+    }
+  ],
+  "toolpaths": [
+    {
+      "toolpath_id": "tp_3cdcdf7920",
+      "operation_type": "contour",
+      "operation_label": "profile",
+      "tool": {
+        "diameter_mm": 6,
+        "flutes": 3,
+        "identifier": "EM6",
+        "type": "end_mill"
+      },
+      "length_mm": 4800,
+      "estimated_runtime_sec": 165.4,
+      "passes": 3,
+      "segments": [
+        {
+          "mode": "rapid",
+          "length_mm": 0,
+          "feed_mm_per_min": null,
+          "duration_sec": 0
+        },
+        {
+          "mode": "plunge",
+          "length_mm": 54,
+          "feed_mm_per_min": 600,
+          "duration_sec": 5.4
+        },
+        {
+          "mode": "feed",
+          "length_mm": 4800,
+          "feed_mm_per_min": 1800,
+          "duration_sec": 160
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "toolpath_id": "tp_e42cfe6381",
+      "operation_type": "drill",
+      "operation_label": "dowels",
+      "tool": {
+        "diameter_mm": 5,
+        "flutes": 2,
+        "identifier": "DR5",
+        "type": "drill"
+      },
+      "length_mm": 36,
+      "estimated_runtime_sec": 4.65,
+      "passes": 3,
+      "segments": [
+        {
+          "mode": "rapid",
+          "length_mm": 0,
+          "feed_mm_per_min": null,
+          "duration_sec": 0
+        },
+        {
+          "mode": "feed",
+          "length_mm": 36,
+          "feed_mm_per_min": 480,
+          "duration_sec": 4.5
+        },
+        {
+          "mode": "dwell",
+          "length_mm": 0,
+          "feed_mm_per_min": null,
+          "duration_sec": 0.15
+        }
+      ],
+      "warnings": []
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "artifact_path": "cabinet-20parts/files/export_artifacts/svg/layout.svg",
+  "artifact_sha256": "a6574c1080f53d6314b673c5ff432ebaee5bb4c7dfdff7bcc09645b23c50dfea",
+  "bytes_written": 326,
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "format": "svg",
+  "inputs_hash": "2c6c0a2d7dcc9b134106a45addc30b2b388e032ce75530040c6605cf154581c4",
+  "project_id": "proj_e304c8924cb5",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "seed": 12
+}

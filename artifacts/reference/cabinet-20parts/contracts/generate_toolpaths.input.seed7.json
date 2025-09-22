@@ -1,0 +1,84 @@
+{
+  "project_id": "proj_e304c8924cb5",
+  "seed": 7,
+  "stock": {
+    "length_mm": 1200,
+    "width_mm": 600,
+    "thickness_mm": 18,
+    "origin": {
+      "x_mm": 0,
+      "y_mm": 0,
+      "z_mm": 0
+    }
+  },
+  "safe_z_mm": 6,
+  "operations": [
+    {
+      "type": "contour",
+      "name": "profile",
+      "tool": {
+        "type": "end_mill",
+        "diameter_mm": 6,
+        "flutes": 3,
+        "identifier": "EM6"
+      },
+      "feed_mm_per_min": 1800,
+      "plunge_mm_per_min": 600,
+      "depth_mm": 18,
+      "stepdown_mm": 6,
+      "offset_strategy": "outside",
+      "path": [
+        {
+          "x_mm": 0,
+          "y_mm": 0
+        },
+        {
+          "x_mm": 500,
+          "y_mm": 0
+        },
+        {
+          "x_mm": 500,
+          "y_mm": 300
+        },
+        {
+          "x_mm": 0,
+          "y_mm": 300
+        },
+        {
+          "x_mm": 0,
+          "y_mm": 0
+        }
+      ]
+    },
+    {
+      "type": "drill",
+      "name": "dowels",
+      "tool": {
+        "type": "drill",
+        "diameter_mm": 5,
+        "flutes": 2,
+        "identifier": "DR5"
+      },
+      "feed_mm_per_min": 480,
+      "cycle": "peck",
+      "holes": [
+        {
+          "x_mm": 50,
+          "y_mm": 50,
+          "depth_mm": 12,
+          "dwell_ms": 150
+        },
+        {
+          "x_mm": 250,
+          "y_mm": 50,
+          "depth_mm": 12
+        },
+        {
+          "x_mm": 450,
+          "y_mm": 50,
+          "depth_mm": 12
+        }
+      ]
+    }
+  ]
+}

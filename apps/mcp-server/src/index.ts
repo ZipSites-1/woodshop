@@ -5,6 +5,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { logEvent } from "./util/logger.js";
 import { registerAllTools } from "./tools/index.js";
 import { getRegistryManifest } from "./registry.js";
+import { toolSchemas } from "@woodshop/schemas";
 
 const server = new McpServer({
   name: "woodshop-mcp",
@@ -47,7 +48,9 @@ function startHttpServer(): void {
       return;
     }
 
-    if (req.method === "GET" && (req.url === "/health" || req.url === "/healthz")) {
+    const url = new URL(req.url, "http://localhost");
+
+    if (req.method === "GET" && (url.pathname === "/health" || url.pathname === "/healthz")) {
       respondJson(res, 200, {
         status: "ok",
         uptime_sec: Number(process.uptime().toFixed(2)),
@@ -55,17 +58,40 @@ function startHttpServer(): void {
       return;
     }
 
-    if (req.method === "GET" && req.url === "/registry") {
+    if (req.method === "GET" && url.pathname === "/registry") {
       respondJson(res, 200, getRegistryManifest());
       return;
     }
 
-    if (req.method === "GET" && req.url === "/") {
+    if (req.method === "GET" && url.pathname === "/schemas") {
+      respondJson(res, 200, {
+        tools: Object.keys(toolSchemas).sort(),
+      });
+      return;
+    }
+
+    if (req.method === "GET" && url.pathname.startsWith("/schemas/")) {
+      const [, , tool, role] = url.pathname.split("/");
+      if (!tool || (role !== "input" && role !== "output")) {
+        respondJson(res, 404, { error: "Schema not found" });
+        return;
+      }
+      if (!Object.prototype.hasOwnProperty.call(toolSchemas, tool)) {
+        respondJson(res, 404, { error: "Unknown tool" });
+        return;
+      }
+      const entry = toolSchemas[tool as keyof typeof toolSchemas];
+      respondJson(res, 200, entry[role]);
+      return;
+    }
+
+    if (req.method === "GET" && url.pathname === "/") {
       respondJson(res, 200, {
         name: "woodshop-mcp",
         links: {
           health: "/healthz",
           registry: "/registry",
+          schemas: "/schemas",
         },
       });
       return;

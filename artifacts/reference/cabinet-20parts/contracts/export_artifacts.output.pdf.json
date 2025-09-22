@@ -1,0 +1,17 @@
+{
+  "artifact_path": "cabinet-20parts/files/export_artifacts/pdf/drawing.pdf",
+  "artifact_sha256": "00f4f9a6abad80cbcd182de8b772c5b2b66adbe5dd50b28ce30396e6f6951266",
+  "bytes_written": 606,
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "format": "pdf",
+  "inputs_hash": "fa7ab59c977a042ec3c0fbf09c03084403b3bcf371fecfa2e3eebddd837cc66e",
+  "project_id": "proj_e304c8924cb5",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "seed": 12
+}

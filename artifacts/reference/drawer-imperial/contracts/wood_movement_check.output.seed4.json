@@ -1,0 +1,74 @@
+{
+  "ambient": {
+    "relative_humidity": 55,
+    "temperature_c": 21
+  },
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "inputs_hash": "cf4083d9071484f2049aefd16a568ef1dde9413bcd224964c0dca8267af321b0",
+  "per_part": [
+    {
+      "delta_length_mm": 0.12,
+      "delta_thickness_mm": 0.008,
+      "delta_width_mm": 1.562,
+      "part_id": "proj_d58c3867f507::back_panel",
+      "species": "birch",
+      "warning": "Movement exceeds 1mm on at least one axis."
+    },
+    {
+      "delta_length_mm": 0.12,
+      "delta_thickness_mm": 0.027,
+      "delta_width_mm": 0.76,
+      "part_id": "proj_d58c3867f507::panel_bottom",
+      "species": "oak",
+      "warning": null
+    },
+    {
+      "delta_length_mm": 0.076,
+      "delta_thickness_mm": 0.024,
+      "delta_width_mm": 0.781,
+      "part_id": "proj_d58c3867f507::panel_side_a",
+      "species": "birch",
+      "warning": null
+    },
+    {
+      "delta_length_mm": 0.076,
+      "delta_thickness_mm": 0.027,
+      "delta_width_mm": 0.724,
+      "part_id": "proj_d58c3867f507::panel_side_b",
+      "species": "oak",
+      "warning": null
+    },
+    {
+      "delta_length_mm": 0.12,
+      "delta_thickness_mm": 0.024,
+      "delta_width_mm": 0.82,
+      "part_id": "proj_d58c3867f507::panel_top",
+      "species": "birch",
+      "warning": null
+    },
+    {
+      "delta_length_mm": 0.115,
+      "delta_thickness_mm": 0.027,
+      "delta_width_mm": 0.722,
+      "part_id": "proj_d58c3867f507::shelf_mid",
+      "species": "oak",
+      "warning": null
+    }
+  ],
+  "project_id": "proj_d58c3867f507",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "seed": 4,
+  "warnings": [
+    {
+      "message": "Movement exceeds 1mm on at least one axis.",
+      "part_id": "proj_d58c3867f507::back_panel",
+      "severity": "warning"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "project_id": "proj_e304c8924cb5",
+  "seed": 5,
+  "controller": "grbl",
+  "program_path": "cabinet-20parts/files/toolpaths/seed-7.json",
+  "confirm_write": true
+}

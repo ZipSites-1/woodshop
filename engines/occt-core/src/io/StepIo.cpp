@@ -32,6 +32,8 @@ void ensure_stream(StreamT& stream, const std::filesystem::path& path, const cha
     }
 }
 
+using woodshop::geom::compute_normals;
+
 } // namespace
 
 MeshModel read_step(const std::filesystem::path& path) {
@@ -51,6 +53,7 @@ MeshModel read_step(const std::filesystem::path& path) {
 
     std::size_t expectedVertices = 0;
     std::size_t expectedFaces = 0;
+    std::size_t expectedNormals = 0;
 
     while (file >> token) {
         if (token == "NAME") {
@@ -76,6 +79,14 @@ MeshModel read_step(const std::filesystem::path& path) {
                 model.mesh.indices[offset + 1] = b;
                 model.mesh.indices[offset + 2] = c;
             }
+        } else if (token == "NORMALS") {
+            file >> expectedNormals;
+            model.mesh.normals.resize(expectedNormals);
+            for (std::size_t i = 0; i < expectedNormals; ++i) {
+                double nx{}, ny{}, nz{};
+                file >> nx >> ny >> nz;
+                model.mesh.normals[i] = {nx, ny, nz};
+            }
         } else {
             // Skip unknown token line
             std::string line;
@@ -90,6 +101,10 @@ MeshModel read_step(const std::filesystem::path& path) {
         throw std::runtime_error("STEP index count mismatch");
     }
 
+    if (model.mesh.normals.size() != model.mesh.vertices.size()) {
+        model.mesh.normals = compute_normals(model.mesh);
+    }
+
     return model;
 }
 
@@ -97,7 +112,7 @@ void write_step(const MeshModel& model, const std::filesystem::path& path) {
     std::ofstream file(path, std::ios::trunc);
     ensure_stream(file, path, "create");
 
-    file << "WOODSHOP_STEP 1.0\n";
+    file << "WOODSHOP_STEP 1.1\n";
     file << "NAME " << model.name << "\n";
     file << "VERTICES " << model.mesh.vertices.size() << "\n";
     file << std::setprecision(17);
@@ -112,6 +127,13 @@ void write_step(const MeshModel& model, const std::filesystem::path& path) {
         file << model.mesh.indices[offset + 0] << ' '
              << model.mesh.indices[offset + 1] << ' '
              << model.mesh.indices[offset + 2] << '\n';
+    }
+
+    if (model.mesh.normals.size() == model.mesh.vertices.size()) {
+        file << "NORMALS " << model.mesh.normals.size() << "\n";
+        for (const auto& normal : model.mesh.normals) {
+            file << normal.x << ' ' << normal.y << ' ' << normal.z << '\n';
+        }
     }
 }
 

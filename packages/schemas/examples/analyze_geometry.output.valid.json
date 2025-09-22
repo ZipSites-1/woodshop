@@ -1,0 +1,26 @@
+{
+  "label": "sample",
+  "source_format": "step",
+  "vertex_count": 3,
+  "triangle_count": 1,
+  "surface_area": 0.5,
+  "bounding_box": {
+    "min": [0, 0, 0],
+    "max": [1, 1, 0]
+  },
+  "dimensions": {
+    "width": 1,
+    "height": 0,
+    "depth": 1
+  },
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "inputs_hash": "hash_example",
+  "revision_id": "rev_example",
+  "seed": 0
+}

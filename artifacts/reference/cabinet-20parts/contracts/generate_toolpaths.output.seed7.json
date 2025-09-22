@@ -1,0 +1,91 @@
+{
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "inputs_hash": "3a8dde1381794b09722fca95ce868f698eb0dfbb26abbfdd77e570e691eb884b",
+  "preview_path": "cabinet-20parts/files/toolpaths/seed-7.preview.json",
+  "program_id": "prog_ea3f3688d2",
+  "program_path": "cabinet-20parts/files/toolpaths/seed-7.json",
+  "project_id": "proj_e304c8924cb5",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "seed": 7,
+  "toolpaths": [
+    {
+      "estimated_runtime_sec": 165.4,
+      "length_mm": 4800,
+      "operation_label": "profile",
+      "operation_type": "contour",
+      "passes": 3,
+      "segments": [
+        {
+          "duration_sec": 0,
+          "feed_mm_per_min": null,
+          "length_mm": 0,
+          "mode": "rapid"
+        },
+        {
+          "duration_sec": 5.4,
+          "feed_mm_per_min": 600,
+          "length_mm": 54,
+          "mode": "plunge"
+        },
+        {
+          "duration_sec": 160,
+          "feed_mm_per_min": 1800,
+          "length_mm": 4800,
+          "mode": "feed"
+        }
+      ],
+      "tool": {
+        "diameter_mm": 6,
+        "flutes": 3,
+        "identifier": "EM6",
+        "type": "end_mill"
+      },
+      "toolpath_id": "tp_3cdcdf7920",
+      "warnings": []
+    },
+    {
+      "estimated_runtime_sec": 4.65,
+      "length_mm": 36,
+      "operation_label": "dowels",
+      "operation_type": "drill",
+      "passes": 3,
+      "segments": [
+        {
+          "duration_sec": 0,
+          "feed_mm_per_min": null,
+          "length_mm": 0,
+          "mode": "rapid"
+        },
+        {
+          "duration_sec": 4.5,
+          "feed_mm_per_min": 480,
+          "length_mm": 36,
+          "mode": "feed"
+        },
+        {
+          "duration_sec": 0.15,
+          "feed_mm_per_min": null,
+          "length_mm": 0,
+          "mode": "dwell"
+        }
+      ],
+      "tool": {
+        "diameter_mm": 5,
+        "flutes": 2,
+        "identifier": "DR5",
+        "type": "drill"
+      },
+      "toolpath_id": "tp_e42cfe6381",
+      "warnings": []
+    }
+  ],
+  "total_length_mm": 4836,
+  "total_runtime_sec": 170.05,
+  "warnings": []
+}

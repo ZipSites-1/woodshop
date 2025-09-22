@@ -1,0 +1,65 @@
+{
+  "project_id": "proj_e304c8924cb5",
+  "seed": 2,
+  "strategy": "skyline",
+  "kerf_mm": 2,
+  "grain_rule": "strict",
+  "parts": [
+    {
+      "part_id": "proj_e304c8924cb5::back_panel",
+      "length_mm": 1200,
+      "width_mm": 762,
+      "quantity": 1,
+      "allow_rotation": false
+    },
+    {
+      "part_id": "proj_e304c8924cb5::panel_bottom",
+      "length_mm": 1200,
+      "width_mm": 400,
+      "quantity": 1,
+      "allow_rotation": false
+    },
+    {
+      "part_id": "proj_e304c8924cb5::panel_side_a",
+      "length_mm": 762,
+      "width_mm": 381,
+      "quantity": 2,
+      "allow_rotation": false
+    },
+    {
+      "part_id": "proj_e304c8924cb5::panel_side_b",
+      "length_mm": 762,
+      "width_mm": 381,
+      "quantity": 2,
+      "allow_rotation": false
+    },
+    {
+      "part_id": "proj_e304c8924cb5::panel_top",
+      "length_mm": 1200,
+      "width_mm": 400,
+      "quantity": 1,
+      "allow_rotation": false
+    },
+    {
+      "part_id": "proj_e304c8924cb5::shelf_mid",
+      "length_mm": 1150,
+      "width_mm": 380,
+      "quantity": 1,
+      "allow_rotation": false
+    }
+  ],
+  "stock": [
+    {
+      "sheet_id": "2440x1220",
+      "length_mm": 2440,
+      "width_mm": 1220,
+      "quantity": 2
+    },
+    {
+      "sheet_id": "1820x910",
+      "length_mm": 1820,
+      "width_mm": 910,
+      "quantity": 1
+    }
+  ]
+}

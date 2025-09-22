@@ -18,3 +18,6 @@
 - [x] /codex/tasks/todo/mcp-tool-make-drawing.yaml
 - [x] /codex/tasks/todo/mcp-tool-generate-toolpaths.yaml
 - [x] /codex/tasks/todo/mcp-tool-postprocess-grbl.yaml
+
+## Notes
+- Added an `analyze_geometry` tool that parses STEP/IGES payloads, derives metrics, and exposes schemas via the registry HTTP endpoints.

@@ -1,0 +1,7 @@
+{
+  "source": {
+    "format": "step",
+    "data": "WOODSHOP_STEP 1.1\nNAME reference_panel\nVERTICES 4\n0 0 0\n1 0 0\n1 1 0\n0 1 0\nINDICES 2\n0 1 2\n0 2 3\n"
+  },
+  "label": "reference_panel"
+}

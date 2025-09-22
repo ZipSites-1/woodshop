@@ -6,6 +6,6 @@
 
 ## Tasks
 - [x] /codex/tasks/todo/schemas-authoritative-json-and-refs.yaml
-- [ ] /codex/tasks/todo/schemas-typegen-to-packages-types.yaml
-- [ ] /codex/tasks/todo/schemas-examples-valid-invalid.yaml
-- [ ] /codex/tasks/todo/schemas-backcompat-contract-tests.yaml
+- [x] /codex/tasks/todo/schemas-typegen-to-packages-types.yaml
+- [x] /codex/tasks/todo/schemas-examples-valid-invalid.yaml
+- [x] /codex/tasks/todo/schemas-backcompat-contract-tests.yaml
