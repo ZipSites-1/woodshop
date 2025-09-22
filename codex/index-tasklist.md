@@ -18,7 +18,7 @@
 | 02 – WASM Viewer & OCCT Bindings | ☐ | 0/5 | Worker loader, previews, perf budgets |
 | 03 – Nesting Engine v1 | ☐ | 0/8 | 1D/2D, grain/kerf, deterministic |
 | 04 – CAM Engine & GRBL Post | ✔ | 9/9 | contour/pocket/drill, GRBL, simulator |
-| 05 – MCP Server & Tool Registry | ◐ | 1/13 | schemas, provenance, adapters, tools |
+| 05 – MCP Server & Tool Registry | ✔ | 13/13 | schemas, provenance, adapters, tools |
 | 06 – Desktop App: Chat & Viewer | ☐ | 0/6 | chat UI, action cards, viewer bridge |
 | 07 – Web Viewer: Artifacts & Perf | ☐ | 0/5 | previews, budgets, optional MCP |
 | 08 – Schemas, Types & Contracts | ☐ | 1/4 | source-of-truth schemas & typegen |
@@ -101,19 +101,19 @@
 ### 05 — MCP Server & Tool Registry  (1/13)
 <details><summary>Open tasks</summary>
 
-- [ ] /codex/tasks/todo/mcp-registry-and-discovery.yaml
-- [ ] /codex/tasks/todo/mcp-schema-validation-middleware.yaml
-- [ ] /codex/tasks/todo/mcp-provenance-logging-seed-coreversion.yaml
-- [ ] /codex/tasks/todo/mcp-error-mapping-and-codes.yaml
-- [ ] /codex/tasks/todo/mcp-tool-create-project.yaml
-- [ ] /codex/tasks/todo/mcp-tool-param-update.yaml
-- [ ] /codex/tasks/todo/mcp-tool-apply-joinery.yaml
-- [x] /codex/tasks/todo/mcp-tool-wood-movement-check.yaml (local commit; PR pending)
-- [ ] /codex/tasks/todo/mcp-tool-extract-cutlist.yaml
-- [ ] /codex/tasks/todo/mcp-tool-nest-parts.yaml
-- [ ] /codex/tasks/todo/mcp-tool-make-drawing.yaml
-- [ ] /codex/tasks/todo/mcp-tool-generate-toolpaths.yaml
-- [ ] /codex/tasks/todo/mcp-tool-postprocess-grbl.yaml
+- [x] /codex/tasks/todo/mcp-registry-and-discovery.yaml
+- [x] /codex/tasks/todo/mcp-schema-validation-middleware.yaml
+- [x] /codex/tasks/todo/mcp-provenance-logging-seed-coreversion.yaml
+- [x] /codex/tasks/todo/mcp-error-mapping-and-codes.yaml
+- [x] /codex/tasks/todo/mcp-tool-create-project.yaml
+- [x] /codex/tasks/todo/mcp-tool-param-update.yaml
+- [x] /codex/tasks/todo/mcp-tool-apply-joinery.yaml
+- [x] /codex/tasks/todo/mcp-tool-wood-movement-check.yaml
+- [x] /codex/tasks/todo/mcp-tool-extract-cutlist.yaml
+- [x] /codex/tasks/todo/mcp-tool-nest-parts.yaml
+- [x] /codex/tasks/todo/mcp-tool-make-drawing.yaml
+- [x] /codex/tasks/todo/mcp-tool-generate-toolpaths.yaml
+- [x] /codex/tasks/todo/mcp-tool-postprocess-grbl.yaml
 </details>
 
 ### 06 — Desktop App: Chat & Viewer  (0/6)

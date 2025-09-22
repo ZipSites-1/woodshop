@@ -1,0 +1,26 @@
+{
+  "project_id": "proj_demo",
+  "operations": [
+    {
+      "operation_id": "op_missing",
+      "type": "dado",
+      "primary_part_id": "proj_demo::side_a",
+      "secondary_part_id": null,
+      "features": [],
+      "removed_volume_mm3": 0,
+      "warnings": []
+    }
+  ],
+  "impacted_parts": [],
+  "summary": "Missing preview",
+  "seed": 0,
+  "engine_versions": {
+    "occt": "0.0.0",
+    "nest": "0.0.0",
+    "cam": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "revision_id": "abc123",
+  "inputs_hash": "feed"
+}

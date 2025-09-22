@@ -1,0 +1,29 @@
+{
+  "project_id": "proj_demo",
+  "controller": "grbl",
+  "confirm_write": true,
+  "program": {
+    "program_id": "prog_seed1",
+    "total_runtime_sec": 180,
+    "total_length_mm": 4200,
+    "toolpaths": [
+      {
+        "toolpath_id": "tp_profile",
+        "operation_type": "contour",
+        "operation_label": "profile",
+        "tool": {
+          "type": "end_mill",
+          "diameter_mm": 6.35,
+          "flutes": 3
+        },
+        "segments": [
+          { "mode": "rapid", "length_mm": 10, "feed_mm_per_min": null, "duration_sec": 0.5 },
+          { "mode": "feed", "length_mm": 3200, "feed_mm_per_min": 1800, "duration_sec": 106.7 }
+        ],
+        "length_mm": 3200,
+        "estimated_runtime_sec": 120
+      }
+    ]
+  },
+  "destination": "artifacts/gcode"
+}

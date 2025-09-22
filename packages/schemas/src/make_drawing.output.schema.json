@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/make_drawing.output.json",
+  "title": "MakeDrawingOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/projectId" }
+      ]
+    },
+    "drawing_path": {
+      "type": "string",
+      "description": "Repository-relative path to the generated drawing"
+    },
+    "bytes_written": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "views": {
+      "type": "array",
+      "items": { "$ref": "./common.schema.json#/$defs/drawingView" }
+    },
+    "include_dimensions": { "type": "boolean" },
+    "explode": { "type": "boolean" },
+    "sheet_size": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "width_mm": { "type": "number" },
+        "height_mm": { "type": "number" }
+      },
+      "required": ["width_mm", "height_mm"]
+    },
+    "scale": { "type": "number" },
+    "warnings": {
+      "type": "array",
+      "items": { "$ref": "./common.schema.json#/$defs/warning" }
+    },
+    "seed": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedOutput" }
+      ]
+    },
+    "engine_versions": { "$ref": "./common.schema.json#/$defs/engineVersions" },
+    "revision_id": { "$ref": "./common.schema.json#/$defs/revisionId" },
+    "inputs_hash": { "$ref": "./common.schema.json#/$defs/inputsHash" }
+  },
+  "required": [
+    "project_id",
+    "drawing_path",
+    "bytes_written",
+    "views",
+    "include_dimensions",
+    "explode",
+    "sheet_size",
+    "scale",
+    "warnings",
+    "seed",
+    "engine_versions",
+    "revision_id",
+    "inputs_hash"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "project_id": "proj_demo",
+  "views": ["iso", "front", "right"],
+  "include_dimensions": true,
+  "explode": false,
+  "sheet_size": { "width_mm": 841, "height_mm": 594 },
+  "scale": 0.5,
+  "title": "Demo Cabinet"
+}

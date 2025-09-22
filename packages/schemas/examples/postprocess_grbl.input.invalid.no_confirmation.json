@@ -1,0 +1,6 @@
+{
+  "project_id": "proj_demo",
+  "controller": "grbl",
+  "program_path": "artifacts/toolpaths/proj_demo/seed-1.json",
+  "confirm_write": false
+}

@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/generate_toolpaths.input.json",
+  "title": "GenerateToolpathsInput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/projectId" }
+      ]
+    },
+    "seed": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedInput" }
+      ]
+    },
+    "safe_z_mm": {
+      "type": "number",
+      "minimum": 0,
+      "default": 5
+    },
+    "stock": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "length_mm": { "type": "number", "minimum": 1 },
+        "width_mm": { "type": "number", "minimum": 1 },
+        "thickness_mm": { "type": "number", "minimum": 1 },
+        "origin": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "x_mm": { "type": "number" },
+            "y_mm": { "type": "number" },
+            "z_mm": { "type": "number" }
+          },
+          "required": ["x_mm", "y_mm", "z_mm"]
+        }
+      },
+      "required": ["length_mm", "width_mm", "thickness_mm", "origin"]
+    },
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "type": { "const": "contour" },
+              "name": { "type": "string" },
+              "tool": {
+                "allOf": [
+                  { "$ref": "./common.schema.json#/$defs/toolSpecification" }
+                ]
+              },
+              "feed_mm_per_min": { "type": "number", "minimum": 0 },
+              "plunge_mm_per_min": { "type": "number", "minimum": 0 },
+              "depth_mm": { "type": "number", "minimum": 0 },
+              "stepdown_mm": { "type": "number", "minimum": 0.01 },
+              "offset_strategy": {
+                "type": "string",
+                "enum": ["outside", "inside", "on"]
+              },
+              "path": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "allOf": [
+                    { "$ref": "./common.schema.json#/$defs/vector2" }
+                  ]
+                }
+              },
+              "tabs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "position_mm": {
+                      "allOf": [
+                        { "$ref": "./common.schema.json#/$defs/vector2" }
+                      ]
+                    },
+                    "width_mm": { "type": "number", "minimum": 0 },
+                    "height_mm": { "type": "number", "minimum": 0 }
+                  },
+                  "required": ["position_mm", "width_mm", "height_mm"]
+                }
+              }
+            },
+            "required": [
+              "type",
+              "name",
+              "tool",
+              "feed_mm_per_min",
+              "plunge_mm_per_min",
+              "depth_mm",
+              "stepdown_mm",
+              "offset_strategy",
+              "path"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "type": { "const": "pocket" },
+              "name": { "type": "string" },
+              "tool": {
+                "allOf": [
+                  { "$ref": "./common.schema.json#/$defs/toolSpecification" }
+                ]
+              },
+              "feed_mm_per_min": { "type": "number", "minimum": 0 },
+              "plunge_mm_per_min": { "type": "number", "minimum": 0 },
+              "depth_mm": { "type": "number", "minimum": 0 },
+              "stepover_mm": { "type": "number", "minimum": 0 },
+              "strategy": { "type": "string", "enum": ["zigzag", "spiral"] },
+              "boundary": {
+                "type": "array",
+                "minItems": 3,
+                "items": {
+                  "allOf": [
+                    { "$ref": "./common.schema.json#/$defs/vector2" }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "type",
+              "name",
+              "tool",
+              "feed_mm_per_min",
+              "plunge_mm_per_min",
+              "depth_mm",
+              "stepover_mm",
+              "strategy",
+              "boundary"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string" },
+              "type": { "const": "drill" },
+              "name": { "type": "string" },
+              "tool": {
+                "allOf": [
+                  { "$ref": "./common.schema.json#/$defs/toolSpecification" }
+                ]
+              },
+              "feed_mm_per_min": { "type": "number", "minimum": 0 },
+              "cycle": { "type": "string", "enum": ["drill", "peck"] },
+              "holes": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "x_mm": { "type": "number" },
+                    "y_mm": { "type": "number" },
+                    "depth_mm": { "type": "number", "minimum": 0 },
+                    "dwell_ms": { "type": "number", "minimum": 0 }
+                  },
+                  "required": ["x_mm", "y_mm", "depth_mm"]
+                }
+              }
+            },
+            "required": [
+              "type",
+              "name",
+              "tool",
+              "feed_mm_per_min",
+              "cycle",
+              "holes"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "required": ["project_id", "stock", "operations"]
+}

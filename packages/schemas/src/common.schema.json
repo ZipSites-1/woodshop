@@ -166,6 +166,93 @@
         "message": { "type": "string" }
       },
       "required": ["part_id", "severity", "message"]
+    },
+    "projectParameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "width_mm": { "type": "number", "minimum": 300, "maximum": 3600 },
+        "height_mm": { "type": "number", "minimum": 300, "maximum": 2500 },
+        "depth_mm": { "type": "number", "minimum": 200, "maximum": 1000 },
+        "shelf_count": { "type": "integer", "minimum": 0, "maximum": 20 },
+        "door_style": { "type": "string", "enum": ["slab", "shaker", "louver"] },
+        "back_panel": { "type": "boolean" }
+      },
+      "required": [
+        "width_mm",
+        "height_mm",
+        "depth_mm",
+        "shelf_count",
+        "door_style",
+        "back_panel"
+      ]
+    },
+    "vector2": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x_mm": { "type": "number" },
+        "y_mm": { "type": "number" }
+      },
+      "required": ["x_mm", "y_mm"]
+    },
+    "toolSpecification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": "string", "enum": ["end_mill", "ball_mill", "drill"] },
+        "diameter_mm": { "type": "number", "minimum": 0 },
+        "flutes": { "type": "integer", "minimum": 1 },
+        "identifier": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["type", "diameter_mm", "flutes"]
+    },
+    "joineryFeature": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "feature_type": { "type": "string", "enum": ["dado", "rabbet", "mortise", "tenon", "lap", "dowel"] },
+        "part_id": { "type": "string" },
+        "length_mm": { "type": "number" },
+        "width_mm": { "type": "number" },
+        "depth_mm": { "type": "number" },
+        "offset_mm": { "type": "number" },
+        "angle_deg": { "type": ["number", "null"] }
+      },
+      "required": [
+        "feature_type",
+        "part_id",
+        "length_mm",
+        "width_mm",
+        "depth_mm",
+        "offset_mm",
+        "angle_deg"
+      ]
+    },
+    "toolpathSegment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["rapid", "plunge", "feed", "dwell"]
+        },
+        "length_mm": { "type": "number", "minimum": 0 },
+        "feed_mm_per_min": { "type": ["number", "null"] },
+        "duration_sec": { "type": ["number", "null"] }
+      },
+      "required": ["mode", "length_mm", "feed_mm_per_min", "duration_sec"]
+    },
+    "drawingView": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "status": { "type": "string", "enum": ["generated", "skipped"] },
+        "dimensions": { "type": "boolean" }
+      },
+      "required": ["name", "status", "dimensions"]
     }
   }
 }

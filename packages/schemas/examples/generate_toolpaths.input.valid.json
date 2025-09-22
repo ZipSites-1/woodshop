@@ -1,0 +1,51 @@
+{
+  "project_id": "proj_demo",
+  "seed": 1,
+  "safe_z_mm": 5,
+  "stock": {
+    "length_mm": 1200,
+    "width_mm": 600,
+    "thickness_mm": 18,
+    "origin": { "x_mm": 0, "y_mm": 0, "z_mm": 0 }
+  },
+  "operations": [
+    {
+      "type": "contour",
+      "name": "profile",
+      "tool": {
+        "type": "end_mill",
+        "diameter_mm": 6.35,
+        "flutes": 3,
+        "identifier": "EM6",
+        "description": "1/4in end mill"
+      },
+      "feed_mm_per_min": 1800,
+      "plunge_mm_per_min": 600,
+      "depth_mm": 18,
+      "stepdown_mm": 6,
+      "offset_strategy": "outside",
+      "path": [
+        { "x_mm": 50, "y_mm": 50 },
+        { "x_mm": 1150, "y_mm": 50 },
+        { "x_mm": 1150, "y_mm": 550 },
+        { "x_mm": 50, "y_mm": 550 },
+        { "x_mm": 50, "y_mm": 50 }
+      ]
+    },
+    {
+      "type": "drill",
+      "name": "shelf pins",
+      "tool": {
+        "type": "drill",
+        "diameter_mm": 5,
+        "flutes": 2
+      },
+      "feed_mm_per_min": 300,
+      "cycle": "peck",
+      "holes": [
+        { "x_mm": 200, "y_mm": 100, "depth_mm": 12, "dwell_ms": 200 },
+        { "x_mm": 200, "y_mm": 400, "depth_mm": 12, "dwell_ms": 200 }
+      ]
+    }
+  ]
+}

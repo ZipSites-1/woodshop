@@ -1,0 +1,19 @@
+{
+  "project_id": "proj_demo",
+  "program_id": "prog_seed1",
+  "program_path": "artifacts/toolpaths/proj_demo/seed-1.json",
+  "total_runtime_sec": 180,
+  "total_length_mm": 4200,
+  "preview_path": "artifacts/toolpaths/proj_demo/seed-1.preview.json",
+  "warnings": [],
+  "seed": 1,
+  "engine_versions": {
+    "occt": "0.0.0",
+    "nest": "0.0.0",
+    "cam": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "revision_id": "abc123",
+  "inputs_hash": "feedface"
+}

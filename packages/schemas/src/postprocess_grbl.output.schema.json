@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/postprocess_grbl.output.json",
+  "title": "PostprocessGrblOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/projectId" }
+      ]
+    },
+    "controller": {
+      "type": "string",
+      "enum": ["grbl"]
+    },
+    "gcode_path": {
+      "type": "string",
+      "description": "Repository-relative path to the generated G-code program"
+    },
+    "bytes_written": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "line_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "toolpath_stats": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total_runtime_sec": { "type": "number", "minimum": 0 },
+        "total_length_mm": { "type": "number", "minimum": 0 }
+      },
+      "required": ["total_runtime_sec", "total_length_mm"]
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "$ref": "./common.schema.json#/$defs/warning" }
+    },
+    "seed": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedOutput" }
+      ]
+    },
+    "engine_versions": { "$ref": "./common.schema.json#/$defs/engineVersions" },
+    "revision_id": { "$ref": "./common.schema.json#/$defs/revisionId" },
+    "inputs_hash": { "$ref": "./common.schema.json#/$defs/inputsHash" }
+  },
+  "required": [
+    "project_id",
+    "controller",
+    "gcode_path",
+    "bytes_written",
+    "line_count",
+    "toolpath_stats",
+    "warnings",
+    "seed",
+    "engine_versions",
+    "revision_id",
+    "inputs_hash"
+  ]
+}

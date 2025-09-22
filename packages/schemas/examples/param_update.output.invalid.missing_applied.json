@@ -1,0 +1,25 @@
+{
+  "project_id": "proj_demo",
+  "revision_tag": "rev_4f2a",
+  "next_parameters": {
+    "width_mm": 1200,
+    "height_mm": 2100,
+    "depth_mm": 400,
+    "shelf_count": 5,
+    "door_style": "shaker",
+    "back_panel": true
+  },
+  "rejected": [],
+  "warnings": [],
+  "notes": null,
+  "seed": 7,
+  "engine_versions": {
+    "occt": "0.0.0",
+    "nest": "0.0.0",
+    "cam": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "revision_id": "abc123",
+  "inputs_hash": "deadbeef"
+}

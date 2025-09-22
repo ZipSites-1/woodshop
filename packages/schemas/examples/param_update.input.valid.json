@@ -1,0 +1,20 @@
+{
+  "project_id": "proj_demo",
+  "seed": 7,
+  "current": {
+    "width_mm": 1100,
+    "height_mm": 2100,
+    "depth_mm": 400,
+    "shelf_count": 4,
+    "door_style": "slab",
+    "back_panel": true
+  },
+  "changes": [
+    { "parameter": "width_mm", "value": 1200, "reason": "Align with alcove" },
+    { "parameter": "shelf_count", "value": 5 }
+  ],
+  "constraints": {
+    "width_mm": { "min": 900, "max": 1500 },
+    "shelf_count": { "min": 2, "max": 8 }
+  }
+}

@@ -1,4 +1,0 @@
-{
-  "project_id": "proj_demo",
-  "ambient": { "relative_humidity": 60, "temperature_c": 20 }
-}

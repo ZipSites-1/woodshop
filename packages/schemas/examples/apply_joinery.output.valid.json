@@ -1,0 +1,49 @@
+{
+  "project_id": "proj_demo",
+  "operations": [
+    {
+      "operation_id": "op_dado_1",
+      "type": "dado",
+      "primary_part_id": "proj_demo::side_a",
+      "secondary_part_id": "proj_demo::shelf_1",
+      "features": [
+        {
+          "feature_type": "dado",
+          "part_id": "proj_demo::side_a",
+          "length_mm": 600,
+          "width_mm": 19,
+          "depth_mm": 6,
+          "offset_mm": 100,
+          "angle_deg": null
+        },
+        {
+          "feature_type": "tenon",
+          "part_id": "proj_demo::shelf_1",
+          "length_mm": 600,
+          "width_mm": 19,
+          "depth_mm": 6,
+          "offset_mm": 100,
+          "angle_deg": null
+        }
+      ],
+      "removed_volume_mm3": 68400,
+      "preview_svg_path": "artifacts/joinery/proj_demo/dado.svg",
+      "warnings": []
+    }
+  ],
+  "impacted_parts": [
+    "proj_demo::side_a",
+    "proj_demo::shelf_1"
+  ],
+  "summary": "Applied 1 joinery operations",
+  "seed": 0,
+  "engine_versions": {
+    "occt": "0.0.0",
+    "nest": "0.0.0",
+    "cam": "0.0.0",
+    "wood": "0.0.0",
+    "schemas": "0.0.0"
+  },
+  "revision_id": "abc123",
+  "inputs_hash": "beadfeed"
+}

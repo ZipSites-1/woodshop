@@ -1,3 +1,4 @@
+import { performance } from "node:perf_hooks";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { ToolSchemaPair } from "@woodshop/schemas";
 import { ZodError } from "zod";
@@ -8,6 +9,7 @@ import {
   ToolExecutionContext,
   WithProvenance,
 } from "./provenance.js";
+import { logEvent } from "../util/logger.js";
 
 export interface ToolErrorPayload {
   code: string;
@@ -77,6 +79,8 @@ export interface ToolDefinition<I extends { seed?: number }, Core extends Record
 
 export interface ValidatedTool<I extends { seed?: number }, Core extends Record<string, unknown>> {
   readonly name: string;
+  readonly title: string;
+  readonly description: string;
   run(input: I): Promise<WithProvenance<Core>>;
   register(server: McpServer): void;
 }
@@ -91,19 +95,47 @@ export function createValidatedTool<I extends { seed?: number }, Core extends Re
   const inputZod = buildObjectSchema(definition.schemas.input);
   const outputZod = buildObjectSchema(definition.schemas.output);
 
-  async function evaluate(rawInput: unknown): Promise<{
+  async function evaluate(
+    rawInput: unknown,
+    source: "direct" | "rpc",
+  ): Promise<{
     parsed: I;
     context: ToolExecutionContext<I>;
     output: WithProvenance<Core>;
   }> {
+    const start = performance.now();
     let parsedInput: I;
     try {
       parsedInput = inputZod.parse(rawInput ?? {}) as I;
     } catch (error) {
       if (error instanceof ZodError) {
-        throw validationError({ issues: formatZodIssues(error) });
+        const toolError = validationError({ issues: formatZodIssues(error) });
+        logEvent(
+          "tool.validation_error",
+          {
+            tool: definition.name,
+            source,
+            duration_ms: Number((performance.now() - start).toFixed(3)),
+            code: toolError.code,
+            message: toolError.message,
+          },
+          "error",
+        );
+        throw toolError;
       }
-      throw coerceError(error);
+      const toolError = coerceError(error);
+      logEvent(
+        "tool.validation_error",
+        {
+          tool: definition.name,
+          source,
+          duration_ms: Number((performance.now() - start).toFixed(3)),
+          code: toolError.code,
+          message: toolError.message,
+        },
+        "error",
+      );
+      throw toolError;
     }
 
     const context = buildProvenanceContext(parsedInput);
@@ -112,26 +144,77 @@ export function createValidatedTool<I extends { seed?: number }, Core extends Re
     try {
       coreResult = await definition.handler(parsedInput, context);
     } catch (error) {
-      throw coerceError(error);
+      const toolError = coerceError(error);
+      logEvent(
+        "tool.error",
+        {
+          tool: definition.name,
+          source,
+          duration_ms: Number((performance.now() - start).toFixed(3)),
+          seed: context.seed,
+          inputs_hash: context.inputsHash,
+          code: toolError.code,
+          message: toolError.message,
+        },
+        "error",
+      );
+      throw toolError;
     }
 
     const withProvenance = attachProvenance(coreResult, context);
     try {
       const validated = outputZod.parse(withProvenance) as WithProvenance<Core>;
+      logEvent("tool.success", {
+        tool: definition.name,
+        source,
+        duration_ms: Number((performance.now() - start).toFixed(3)),
+        seed: context.seed,
+        inputs_hash: context.inputsHash,
+      });
       return { parsed: parsedInput, context, output: validated };
     } catch (error) {
       if (error instanceof ZodError) {
-        throw internalValidationError({ issues: formatZodIssues(error) });
+        const toolError = internalValidationError({ issues: formatZodIssues(error) });
+        logEvent(
+          "tool.error",
+          {
+            tool: definition.name,
+            source,
+            duration_ms: Number((performance.now() - start).toFixed(3)),
+            seed: context.seed,
+            inputs_hash: context.inputsHash,
+            code: toolError.code,
+            message: toolError.message,
+          },
+          "error",
+        );
+        throw toolError;
       }
-      throw coerceError(error);
+      const toolError = coerceError(error);
+      logEvent(
+        "tool.error",
+        {
+          tool: definition.name,
+          source,
+          duration_ms: Number((performance.now() - start).toFixed(3)),
+          seed: context.seed,
+          inputs_hash: context.inputsHash,
+          code: toolError.code,
+          message: toolError.message,
+        },
+        "error",
+      );
+      throw toolError;
     }
   }
 
   return {
     name: definition.name,
+    title: definition.title,
+    description: definition.description,
     async run(input: I): Promise<WithProvenance<Core>> {
       try {
-        const { output } = await evaluate(input);
+        const { output } = await evaluate(input, "direct");
         return output;
       } catch (error) {
         throw coerceError(error);
@@ -148,7 +231,7 @@ export function createValidatedTool<I extends { seed?: number }, Core extends Re
         },
         async (args) => {
           try {
-            const { context, output } = await evaluate(args ?? {});
+            const { context, output } = await evaluate(args ?? {}, "rpc");
             const summary = definition.summarize?.(output, context) ?? defaultSummary(definition.name);
             return {
               content: [

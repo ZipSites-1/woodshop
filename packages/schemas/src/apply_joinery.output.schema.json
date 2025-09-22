@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/apply_joinery.output.json",
+  "title": "ApplyJoineryOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/projectId" }
+      ]
+    },
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "operation_id": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["dado", "rabbet", "mortise", "tenon", "lap", "dowel"]
+          },
+          "primary_part_id": { "type": "string" },
+          "secondary_part_id": { "type": ["string", "null"] },
+          "features": {
+            "type": "array",
+            "items": { "$ref": "./common.schema.json#/$defs/joineryFeature" }
+          },
+          "removed_volume_mm3": { "type": "number", "minimum": 0 },
+          "preview_svg_path": { "type": "string" },
+          "warnings": {
+            "type": "array",
+            "items": { "$ref": "./common.schema.json#/$defs/warning" }
+          }
+        },
+        "required": [
+          "operation_id",
+          "type",
+          "primary_part_id",
+          "secondary_part_id",
+          "features",
+          "removed_volume_mm3",
+          "preview_svg_path",
+          "warnings"
+        ]
+      }
+    },
+    "impacted_parts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "summary": { "type": "string" },
+    "seed": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedOutput" }
+      ]
+    },
+    "engine_versions": { "$ref": "./common.schema.json#/$defs/engineVersions" },
+    "revision_id": { "$ref": "./common.schema.json#/$defs/revisionId" },
+    "inputs_hash": { "$ref": "./common.schema.json#/$defs/inputsHash" }
+  },
+  "required": [
+    "project_id",
+    "operations",
+    "impacted_parts",
+    "summary",
+    "seed",
+    "engine_versions",
+    "revision_id",
+    "inputs_hash"
+  ]
+}
