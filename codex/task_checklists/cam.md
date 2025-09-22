@@ -10,23 +10,23 @@
 - Dry-run preview renders in viewer
 
 ## Tasks
-- [ ] Ops: `pocket`, `contour`, `drill` with parameters (tool dia, stepdown, stepover)
-- [ ] Linking: lead-in/out, ramps, safe-Z, tabs
-- [ ] Offsets: inside/outside with kerf compensation
-- [ ] Simulator: AABB sweep + collisions
-- [ ] Post: GRBL writer (units, feed, spindle, G/M codes)
-- [ ] Tests:
-  - [ ] G-code parser round-trip (basic)
-  - [ ] Self-intersection rejection
-  - [ ] Seed determinism
+- [x] Ops: `pocket`, `contour`, `drill` with parameters (tool dia, stepdown, stepover)
+- [x] Linking: lead-in/out, ramps, safe-Z, tabs
+- [x] Offsets: inside/outside with kerf compensation
+- [x] Simulator: AABB sweep + collisions
+- [x] Post: GRBL writer (units, feed, spindle, G/M codes)
+- [x] Tests:
+  - [x] G-code parser round-trip (basic)
+  - [x] Self-intersection rejection
+  - [x] Seed determinism
 
 ## Commands
 ```bash
 cargo test -p cam
-cargo run -p cam --example demo_post > artifacts/demo.nc
+pnpm run cam:demo
 ```
 
 ## Acceptance
-- [ ] Conformance and intersection tests pass
-- [ ] Posted G-code renders in external simulator
-- [ ] Docs & examples updated
+- [x] Conformance and intersection tests pass
+- [x] Posted G-code renders in external simulator
+- [x] Docs & examples updated

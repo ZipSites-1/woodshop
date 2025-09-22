@@ -30,6 +30,8 @@ jobs:
         with:
           node-version: '22'
           cache: 'pnpm'
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Generate schema types
@@ -40,6 +42,8 @@ jobs:
         run: pnpm -w test:mcp
       - name: Run MCP demo
         run: pnpm -w run mcp:e2e:demo
+      - name: Generate CAM demo program
+        run: pnpm -w run cam:demo
       - name: Verify artifacts
         run: |
           set -euo pipefail
@@ -50,6 +54,8 @@ jobs:
             artifacts/demo/layout.svg
             artifacts/demo/wood_movement_report.json
             artifacts/demo/nest_summary.json
+            artifacts/demo/demo_post.nc
+            artifacts/demo/demo_post_preview.svg
           )
           for file in "${files[@]}"; do
             if [ ! -f "$file" ]; then
@@ -66,7 +72,16 @@ jobs:
             echo "failed to read utilization" >&2
             exit 1
           fi
-          python3 -c "import sys; util = float(sys.argv[1]); threshold = 0.58; if util < threshold: print(f'utilization {util:.3f} below threshold {threshold}', file=sys.stderr); sys.exit(1)" "${utilization}"
+          UTILIZATION="${utilization}" python3 <<'PY'
+import os
+import sys
+
+util = float(os.environ["UTILIZATION"])
+threshold = 0.58
+if util < threshold:
+    print(f"utilization {util:.3f} below threshold {threshold}", file=sys.stderr)
+    sys.exit(1)
+PY
 
       - name: Upload cutlist
         uses: actions/upload-artifact@v4
@@ -103,4 +118,16 @@ jobs:
         with:
           name: mcp-demo-nest-summary
           path: artifacts/demo/nest_summary.json
+          if-no-files-found: error
+      - name: Upload CAM demo program
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-demo-cam-gcode
+          path: artifacts/demo/demo_post.nc
+          if-no-files-found: error
+      - name: Upload CAM demo preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-demo-cam-preview
+          path: artifacts/demo/demo_post_preview.svg
           if-no-files-found: error

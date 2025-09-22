@@ -5,12 +5,12 @@
 **Dependencies (epic-level):** 00
 
 ## Tasks
-- [ ] /codex/tasks/todo/cam-contour-operation.yaml
-- [ ] /codex/tasks/todo/cam-pocket-operation.yaml
-- [ ] /codex/tasks/todo/cam-drill-operation.yaml
-- [ ] /codex/tasks/todo/cam-linking-leads-ramps-safez.yaml
-- [ ] /codex/tasks/todo/cam-tabs-and-holddowns.yaml
-- [ ] /codex/tasks/todo/cam-gcode-writer-rs274-blocks.yaml
-- [ ] /codex/tasks/todo/cam-grbl-post-writer.yaml
-- [ ] /codex/tasks/todo/cam-gcode-conformance-smoke.yaml
-- [ ] /codex/tasks/todo/cam-simulator-dryrun-collisions.yaml
+- [x] /codex/tasks/todo/cam-contour-operation.yaml
+- [x] /codex/tasks/todo/cam-pocket-operation.yaml
+- [x] /codex/tasks/todo/cam-drill-operation.yaml
+- [x] /codex/tasks/todo/cam-linking-leads-ramps-safez.yaml
+- [x] /codex/tasks/todo/cam-tabs-and-holddowns.yaml
+- [x] /codex/tasks/todo/cam-gcode-writer-rs274-blocks.yaml
+- [x] /codex/tasks/todo/cam-grbl-post-writer.yaml
+- [x] /codex/tasks/todo/cam-gcode-conformance-smoke.yaml
+- [x] /codex/tasks/todo/cam-simulator-dryrun-collisions.yaml

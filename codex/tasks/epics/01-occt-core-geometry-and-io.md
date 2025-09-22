@@ -5,10 +5,10 @@
 **Dependencies (epic-level):** 00
 
 ## Tasks
-- [ ] /codex/tasks/todo/occt-cmake-presets-relwithdebinfo.yaml
-- [ ] /codex/tasks/todo/occt-embind-minimal-surface.yaml
-- [ ] /codex/tasks/todo/occt-tessellation-deflection-controls.yaml
-- [ ] /codex/tasks/todo/occt-step-roundtrip-tests.yaml
-- [ ] /codex/tasks/todo/occt-iges-import-export-smoke.yaml
-- [ ] /codex/tasks/todo/occt-boolean-fuzz-suite.yaml
-- [ ] /codex/tasks/todo/occt-wasm-build-and-loader-paths.yaml
+- [x] /codex/tasks/todo/occt-cmake-presets-relwithdebinfo.yaml
+- [x] /codex/tasks/todo/occt-embind-minimal-surface.yaml
+- [x] /codex/tasks/todo/occt-tessellation-deflection-controls.yaml
+- [x] /codex/tasks/todo/occt-step-roundtrip-tests.yaml
+- [x] /codex/tasks/todo/occt-iges-import-export-smoke.yaml
+- [x] /codex/tasks/todo/occt-boolean-fuzz-suite.yaml
+- [x] /codex/tasks/todo/occt-wasm-build-and-loader-paths.yaml

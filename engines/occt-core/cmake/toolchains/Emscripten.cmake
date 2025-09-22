@@ -20,4 +20,5 @@ include("${EMSCRIPTEN_ROOT}/cmake/Modules/Platform/Emscripten.cmake")
 # Common options for OCCT/Web builds
 set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
 add_compile_definitions(OCCT_WASM=1)
-set(CMAKE_EXECUTABLE_SUFFIX ".html")
+set(CMAKE_EXECUTABLE_SUFFIX ".js")
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)

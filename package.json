@@ -12,6 +12,7 @@
     "lint": "turbo run lint",
     "codegen:schemas": "node tools/codegen/generate-schema-types.mjs",
     "test:mcp": "pnpm --filter @woodshop/mcp-server run test",
-    "mcp:e2e:demo": "node tools/e2e/run-mcp-demo.mjs"
+    "mcp:e2e:demo": "node tools/e2e/run-mcp-demo.mjs",
+    "cam:demo": "node tools/cam/run-demo.mjs"
   }
 }
