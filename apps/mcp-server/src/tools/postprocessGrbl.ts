@@ -108,8 +108,8 @@ function normalizeProgram(input: PostprocessGrblInput, program: ProgramFile | nu
     segments: toolpath.segments,
     length_mm: toolpath.length_mm,
     estimated_runtime_sec: toolpath.estimated_runtime_sec,
-    passes: (toolpath as { passes?: number }).passes,
-    warnings: (toolpath as { warnings?: ToolpathWarning[] }).warnings,
+    passes: toolpath.passes,
+    warnings: toolpath.warnings,
   }));
 
   return {
@@ -200,14 +200,6 @@ const postprocessGrblTool = createValidatedTool<PostprocessGrblInput, Postproces
       throw new ToolError({
         code: "UNSUPPORTED_CONTROLLER",
         message: `Controller '${input.controller}' is not supported.`,
-        details: {},
-      });
-    }
-
-    if (!input.confirm_write) {
-      throw new ToolError({
-        code: "CONFIRMATION_REQUIRED",
-        message: "confirm_write must be true to write controller files.",
         details: {},
       });
     }

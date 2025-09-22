@@ -219,10 +219,10 @@ const generateToolpathsTool = createValidatedTool<GenerateToolpathsInput, Genera
       } else if (operation.type === "drill") {
         metrics = computeDrillMetrics(operation);
       } else {
-        const unexpected = operation as { type: string };
+        const operationType = (operation as { type?: unknown }).type;
         throw new ToolError({
           code: "UNSUPPORTED_OPERATION",
-          message: `Unsupported operation type ${unexpected.type}`,
+          message: `Unsupported operation type ${String(operationType ?? "unknown")}`,
           details: {},
         });
       }

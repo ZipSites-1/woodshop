@@ -53,7 +53,12 @@
                 }
               },
               "length_mm": { "type": "number", "minimum": 0 },
-              "estimated_runtime_sec": { "type": "number", "minimum": 0 }
+              "estimated_runtime_sec": { "type": "number", "minimum": 0 },
+              "passes": { "type": "integer", "minimum": 1 },
+              "warnings": {
+                "type": "array",
+                "items": { "$ref": "./common.schema.json#/$defs/warning" }
+              }
             },
             "required": [
               "toolpath_id",
@@ -75,7 +80,7 @@
     },
     "confirm_write": {
       "type": "boolean",
-      "const": true,
+      "enum": [true],
       "description": "Must be true to allow writing controller files"
     }
   },

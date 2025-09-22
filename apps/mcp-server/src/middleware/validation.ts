@@ -228,8 +228,18 @@ export function schemaToZod(
   }
 
   if (Object.prototype.hasOwnProperty.call(schema, "const")) {
-    const literalValue = (schema as Record<string, unknown>).const as string | number | boolean | null;
-    return z.literal(literalValue);
+    const literalValue = (schema as Record<string, unknown>).const;
+    if (
+      literalValue === null ||
+      typeof literalValue === "string" ||
+      typeof literalValue === "number" ||
+      typeof literalValue === "boolean"
+    ) {
+      return z.literal(literalValue);
+    }
+    throw new Error(
+      `Unsupported const literal in schema${schema.title ? ` '${schema.title}'` : ""}: ${JSON.stringify(literalValue)}`,
+    );
   }
 
   if (Array.isArray(schema.oneOf) && schema.oneOf.length > 0) {

@@ -407,7 +407,7 @@ export interface ParamUpdateOutput {
 }
 
 export interface PostprocessGrblInput {
-  "confirm_write": boolean;
+  "confirm_write": true;
   "controller": "grbl";
   "destination"?: string;
   "program"?: {
@@ -417,6 +417,7 @@ export interface PostprocessGrblInput {
       "length_mm": number;
       "operation_label": string;
       "operation_type": "contour" | "pocket" | "drill";
+      "passes"?: number;
       "segments": Array<{
         "duration_sec": number | null;
         "feed_mm_per_min": number | null;
@@ -431,6 +432,11 @@ export interface PostprocessGrblInput {
         "type": "end_mill" | "ball_mill" | "drill";
       };
       "toolpath_id": string;
+      "warnings"?: Array<{
+        "message": string;
+        "part_id": string | null;
+        "severity": "info" | "warning" | "critical";
+      }>;
     }>;
     "total_length_mm": number;
     "total_runtime_sec": number;
