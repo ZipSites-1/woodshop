@@ -1,0 +1,17 @@
+{
+  "artifact_path": "drawer-imperial/files/export_artifacts/svg/layout.svg",
+  "artifact_sha256": "ff962a12574be6f448b0b73bdfc95ae73d8e062df119954e64ab8784b18a9eca",
+  "bytes_written": 326,
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "format": "svg",
+  "inputs_hash": "88117cd95497aecebfab4e8295430ad467375b775588c2dca56fa315ec2ee59f",
+  "project_id": "proj_d58c3867f507",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "seed": 8
+}

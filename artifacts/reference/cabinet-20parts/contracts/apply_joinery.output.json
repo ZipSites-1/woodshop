@@ -1,0 +1,86 @@
+{
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "impacted_parts": [
+    "proj_e304c8924cb5::apron_front",
+    "proj_e304c8924cb5::leg_front",
+    "proj_e304c8924cb5::shelf_mid",
+    "proj_e304c8924cb5::side_left"
+  ],
+  "inputs_hash": "21e3be4121dedcd8f4ee232a8bdb646305785075c95728378bbc2dcf2a30db50",
+  "operations": [
+    {
+      "features": [
+        {
+          "angle_deg": null,
+          "depth_mm": 6,
+          "feature_type": "dado",
+          "length_mm": 500,
+          "offset_mm": 120,
+          "part_id": "proj_e304c8924cb5::side_left",
+          "width_mm": 19
+        },
+        {
+          "angle_deg": null,
+          "depth_mm": 6,
+          "feature_type": "dado",
+          "length_mm": 500,
+          "offset_mm": 120,
+          "part_id": "proj_e304c8924cb5::shelf_mid",
+          "width_mm": 19
+        }
+      ],
+      "operation_id": "join_6d34993a30",
+      "preview_svg_path": "cabinet-20parts/files/joinery/join_6d34993a30.svg",
+      "primary_part_id": "proj_e304c8924cb5::side_left",
+      "removed_volume_mm3": 57000,
+      "secondary_part_id": "proj_e304c8924cb5::shelf_mid",
+      "type": "dado",
+      "warnings": []
+    },
+    {
+      "features": [
+        {
+          "angle_deg": null,
+          "depth_mm": 18,
+          "feature_type": "mortise",
+          "length_mm": 60,
+          "offset_mm": 80,
+          "part_id": "proj_e304c8924cb5::leg_front",
+          "width_mm": 12
+        },
+        {
+          "angle_deg": null,
+          "depth_mm": 18,
+          "feature_type": "tenon",
+          "length_mm": 60,
+          "offset_mm": 80,
+          "part_id": "proj_e304c8924cb5::apron_front",
+          "width_mm": 12
+        }
+      ],
+      "operation_id": "join_9bc007cfff",
+      "preview_svg_path": "cabinet-20parts/files/joinery/join_9bc007cfff.svg",
+      "primary_part_id": "proj_e304c8924cb5::leg_front",
+      "removed_volume_mm3": 12960,
+      "secondary_part_id": "proj_e304c8924cb5::apron_front",
+      "type": "mortise",
+      "warnings": [
+        {
+          "message": "Depth exceeds 90% of groove width; consider reinforcing the joint.",
+          "part_id": "proj_e304c8924cb5::leg_front",
+          "severity": "warning"
+        }
+      ]
+    }
+  ],
+  "project_id": "proj_e304c8924cb5",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "seed": 3,
+  "summary": "Applied 2 joinery operation(s) across 4 part(s)."
+}

@@ -1,0 +1,22 @@
+{
+  "bytes_written": 290,
+  "controller": "grbl",
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "gcode_path": "cabinet-20parts/files/gcode/prog_ea3f3688d2.nc",
+  "inputs_hash": "006b123e401d1544b04716b0bdcdbe8ddd7a3ce695818cc7dc9507fc2060fc29",
+  "line_count": 22,
+  "project_id": "proj_e304c8924cb5",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "seed": 5,
+  "toolpath_stats": {
+    "total_length_mm": 4836,
+    "total_runtime_sec": 170.05
+  },
+  "warnings": []
+}

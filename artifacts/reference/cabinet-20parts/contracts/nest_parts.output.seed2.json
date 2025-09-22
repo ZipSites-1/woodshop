@@ -1,0 +1,146 @@
+{
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "inputs_hash": "a447ecdfd8c0407ec1994f113e026e8e4b7c5b18dd640ab0cbbb5bcdfc02c227",
+  "layouts": [
+    {
+      "placements": [
+        {
+          "instance": 0,
+          "length_mm": 1200,
+          "part_id": "proj_e304c8924cb5::back_panel",
+          "rotation_deg": 0,
+          "width_mm": 762,
+          "x_mm": 0,
+          "y_mm": 0
+        },
+        {
+          "instance": 0,
+          "length_mm": 1200,
+          "part_id": "proj_e304c8924cb5::panel_bottom",
+          "rotation_deg": 0,
+          "width_mm": 400,
+          "x_mm": 764,
+          "y_mm": 0
+        },
+        {
+          "instance": 0,
+          "length_mm": 1200,
+          "part_id": "proj_e304c8924cb5::panel_top",
+          "rotation_deg": 0,
+          "width_mm": 400,
+          "x_mm": 0,
+          "y_mm": 1202
+        },
+        {
+          "instance": 0,
+          "length_mm": 1150,
+          "part_id": "proj_e304c8924cb5::shelf_mid",
+          "rotation_deg": 0,
+          "width_mm": 380,
+          "x_mm": 402,
+          "y_mm": 1202
+        },
+        {
+          "instance": 0,
+          "length_mm": 762,
+          "part_id": "proj_e304c8924cb5::panel_side_a",
+          "rotation_deg": 0,
+          "width_mm": 381,
+          "x_mm": 784,
+          "y_mm": 1202
+        }
+      ],
+      "sheet_id": "2440x1220",
+      "sheet_index": 0,
+      "svg_path": "cabinet-20parts/files/nest/seed-2-sheet-1.svg",
+      "used_area_mm2": 2601722,
+      "utilization": 0.874
+    },
+    {
+      "placements": [
+        {
+          "instance": 1,
+          "length_mm": 762,
+          "part_id": "proj_e304c8924cb5::panel_side_a",
+          "rotation_deg": 0,
+          "width_mm": 381,
+          "x_mm": 0,
+          "y_mm": 0
+        },
+        {
+          "instance": 0,
+          "length_mm": 762,
+          "part_id": "proj_e304c8924cb5::panel_side_b",
+          "rotation_deg": 0,
+          "width_mm": 381,
+          "x_mm": 383,
+          "y_mm": 0
+        },
+        {
+          "instance": 1,
+          "length_mm": 762,
+          "part_id": "proj_e304c8924cb5::panel_side_b",
+          "rotation_deg": 0,
+          "width_mm": 381,
+          "x_mm": 766,
+          "y_mm": 0
+        }
+      ],
+      "sheet_id": "2440x1220",
+      "sheet_index": 1,
+      "svg_path": "cabinet-20parts/files/nest/seed-2-sheet-2.svg",
+      "used_area_mm2": 870966,
+      "utilization": 0.2926
+    },
+    {
+      "placements": [],
+      "sheet_id": "1820x910",
+      "sheet_index": 2,
+      "svg_path": "cabinet-20parts/files/nest/seed-2-sheet-3.svg",
+      "used_area_mm2": 0,
+      "utilization": 0
+    }
+  ],
+  "not_placed": [],
+  "offcuts": [
+    {
+      "area_mm2": 375078,
+      "bounding_box_mm": {
+        "length": 1240,
+        "width": 1220
+      },
+      "sheet_id": "2440x1220"
+    },
+    {
+      "area_mm2": 2105834,
+      "bounding_box_mm": {
+        "length": 1678,
+        "width": 1220
+      },
+      "sheet_id": "2440x1220"
+    },
+    {
+      "area_mm2": 1656200,
+      "bounding_box_mm": {
+        "length": 1820,
+        "width": 910
+      },
+      "sheet_id": "1820x910"
+    }
+  ],
+  "project_id": "proj_e304c8924cb5",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "seed": 2,
+  "strategy": "skyline",
+  "utilization_summary": {
+    "overall_utilization": 0.4563,
+    "total_parts_area_mm2": 3472688,
+    "total_stock_area_mm2": 7609800
+  }
+}

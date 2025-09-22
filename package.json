@@ -10,9 +10,11 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "codegen:schemas": "node tools/codegen/generate-schema-types.mjs",
+    "codegen:schemas": "node tools/codegen/generate-schema-types.mjs && pnpm --filter @woodshop/schemas run build && pnpm --filter @woodshop/types run build",
     "test:mcp": "pnpm --filter @woodshop/mcp-server run test",
     "mcp:e2e:demo": "node tools/e2e/run-mcp-demo.mjs",
+    "e2e:artifacts": "node tools/e2e/run-mcp-artifacts.mjs artifacts/current",
+    "e2e:artifacts:reference": "node tools/e2e/run-mcp-artifacts.mjs artifacts/reference",
     "cam:demo": "node tools/cam/run-demo.mjs"
   }
 }

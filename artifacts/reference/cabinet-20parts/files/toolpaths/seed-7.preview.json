@@ -1,0 +1,27 @@
+{
+  "project_id": "proj_e304c8924cb5",
+  "stock": {
+    "length_mm": 1200,
+    "origin": {
+      "x_mm": 0,
+      "y_mm": 0,
+      "z_mm": 0
+    },
+    "thickness_mm": 18,
+    "width_mm": 600
+  },
+  "toolpaths": [
+    {
+      "toolpath_id": "tp_3cdcdf7920",
+      "operation_label": "profile",
+      "length_mm": 4800,
+      "estimated_runtime_sec": 165.4
+    },
+    {
+      "toolpath_id": "tp_e42cfe6381",
+      "operation_label": "dowels",
+      "length_mm": 36,
+      "estimated_runtime_sec": 4.65
+    }
+  ]
+}

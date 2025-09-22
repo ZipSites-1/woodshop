@@ -1,0 +1,40 @@
+{
+  "bytes_written": 888,
+  "drawing_path": "cabinet-20parts/files/drawings/seed-6-326abb.pdf",
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "explode": false,
+  "include_dimensions": true,
+  "inputs_hash": "c344b328dc74d692f1386b43261573e045e82b4c63a0394caf9bd4321b80d9e8",
+  "project_id": "proj_e304c8924cb5",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "scale": 1,
+  "seed": 6,
+  "sheet_size": {
+    "height_mm": 420,
+    "width_mm": 594
+  },
+  "views": [
+    {
+      "dimensions": true,
+      "name": "iso",
+      "status": "generated"
+    },
+    {
+      "dimensions": true,
+      "name": "front",
+      "status": "generated"
+    },
+    {
+      "dimensions": true,
+      "name": "right",
+      "status": "generated"
+    }
+  ],
+  "warnings": []
+}

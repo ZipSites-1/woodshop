@@ -26,6 +26,11 @@ import {
   runApplyJoinery,
 } from "./applyJoinery.js";
 import {
+  analyzeGeometryTool,
+  registerAnalyzeGeometry,
+  runAnalyzeGeometry,
+} from "./analyzeGeometry.js";
+import {
   woodMovementTool,
   registerWoodMovement,
   runWoodMovementCheck,
@@ -62,6 +67,7 @@ export function registerAllTools(server: McpServer): void {
   registerExtractCutlist(server);
   registerExportArtifacts(server);
   registerApplyJoinery(server);
+  registerAnalyzeGeometry(server);
   registerWoodMovement(server);
   registerNestParts(server);
   registerMakeDrawing(server);
@@ -75,6 +81,7 @@ export const toolRunners: ToolRunnerMap = {
   extract_cutlist: runExtractCutlist,
   export_artifacts: runExportArtifacts,
   apply_joinery: runApplyJoinery,
+  analyze_geometry: runAnalyzeGeometry,
   wood_movement_check: runWoodMovementCheck,
   nest_parts: runNestParts,
   make_drawing: runMakeDrawing,
@@ -87,6 +94,7 @@ export const toolDefinitions: ReadonlyArray<ValidatedTool<any, any>> = [
   extractCutlistTool,
   exportArtifactsTool,
   applyJoineryTool,
+  analyzeGeometryTool,
   woodMovementTool,
   nestPartsTool,
   makeDrawingTool,

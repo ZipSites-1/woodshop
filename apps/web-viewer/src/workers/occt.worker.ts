@@ -11,6 +11,9 @@ export type TessellateResponse = {
   triangleCount: number;
   vertices: ArrayBuffer;
   indices: ArrayBuffer;
+  vertexCount: number;
+  surfaceArea: number;
+  boundingBox: BoundingBox;
 };
 
 export type WorkerErrorResponse = {
@@ -30,6 +33,11 @@ export type ProgressMessage = {
   total: number;
 };
 
+export type BoundingBox = {
+  min: [number, number, number];
+  max: [number, number, number];
+};
+
 declare const self: DedicatedWorkerGlobalScope;
 
 const moduleUrl = new URL("../../wasm/occt/occt-core.js", import.meta.url);
@@ -38,6 +46,13 @@ type ModuleFactory = (options?: Record<string, unknown>) => Promise<any>;
 
 type ModuleInstance = {
   tessellateUnitSphere(linearDeflection: number, angularDeflection: number): unknown;
+  tessellateCylinder(
+    radius: number,
+    height: number,
+    linearDeflection: number,
+    angularDeflection: number,
+    capped: boolean,
+  ): unknown;
   triangleCount(mesh: unknown): number;
 };
 
@@ -94,11 +109,11 @@ async function loadModule(): Promise<ModuleInstance> {
   return modulePromise;
 }
 
-function packVertices(vertices: Array<{ x: number; y: number; z: number }>) {
-  const data = new Float64Array(vertices.length * 3);
-  for (let i = 0; i < vertices.length; ++i) {
+function packVec3(values: Array<{ x: number; y: number; z: number }>) {
+  const data = new Float64Array(values.length * 3);
+  for (let i = 0; i < values.length; ++i) {
     const base = i * 3;
-    const v = vertices[i];
+    const v = values[i];
     data[base + 0] = v.x;
     data[base + 1] = v.y;
     data[base + 2] = v.z;
@@ -108,6 +123,78 @@ function packVertices(vertices: Array<{ x: number; y: number; z: number }>) {
 
 function packIndices(indices: Array<number>) {
   return new Uint32Array(indices);
+}
+
+function computeBoundingBoxFromVertices(vertexArray: Float64Array): BoundingBox {
+  if (vertexArray.length === 0) {
+    return {
+      min: [0, 0, 0],
+      max: [0, 0, 0],
+    };
+  }
+  let minX = Infinity;
+  let minY = Infinity;
+  let minZ = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  let maxZ = -Infinity;
+
+  for (let i = 0; i < vertexArray.length; i += 3) {
+    const x = vertexArray[i + 0];
+    const y = vertexArray[i + 1];
+    const z = vertexArray[i + 2];
+    if (x < minX) minX = x;
+    if (y < minY) minY = y;
+    if (z < minZ) minZ = z;
+    if (x > maxX) maxX = x;
+    if (y > maxY) maxY = y;
+    if (z > maxZ) maxZ = z;
+  }
+
+  return {
+    min: [minX, minY, minZ],
+    max: [maxX, maxY, maxZ],
+  };
+}
+
+function computeSurfaceAreaFromMesh(vertices: Float64Array, indices: Uint32Array): number {
+  let area = 0;
+  for (let i = 0; i < indices.length; i += 3) {
+    const ia = indices[i + 0] * 3;
+    const ib = indices[i + 1] * 3;
+    const ic = indices[i + 2] * 3;
+    if (
+      ia + 2 >= vertices.length ||
+      ib + 2 >= vertices.length ||
+      ic + 2 >= vertices.length
+    ) {
+      continue;
+    }
+
+    const ax = vertices[ia + 0];
+    const ay = vertices[ia + 1];
+    const az = vertices[ia + 2];
+    const bx = vertices[ib + 0];
+    const by = vertices[ib + 1];
+    const bz = vertices[ib + 2];
+    const cx = vertices[ic + 0];
+    const cy = vertices[ic + 1];
+    const cz = vertices[ic + 2];
+
+    const abx = bx - ax;
+    const aby = by - ay;
+    const abz = bz - az;
+    const acx = cx - ax;
+    const acy = cy - ay;
+    const acz = cz - az;
+
+    const crossX = aby * acz - abz * acy;
+    const crossY = abz * acx - abx * acz;
+    const crossZ = abx * acy - aby * acx;
+    const crossLength = Math.sqrt(crossX * crossX + crossY * crossY + crossZ * crossZ);
+    area += 0.5 * crossLength;
+  }
+  return area;
 }
 
 self.onmessage = async (event: MessageEvent<TessellateRequest>) => {
@@ -124,8 +211,11 @@ self.onmessage = async (event: MessageEvent<TessellateRequest>) => {
       message.angularDeflection
     );
     const triangleCount = module.triangleCount(mesh);
-    const vertexArray = packVertices(mesh.vertices as Array<{ x: number; y: number; z: number }>);
+    const vertexArray = packVec3(mesh.vertices as Array<{ x: number; y: number; z: number }>);
     const indexArray = packIndices(mesh.indices as Array<number>);
+    const boundingBox = computeBoundingBoxFromVertices(vertexArray);
+    const vertexCount = vertexArray.length / 3;
+    const surfaceArea = computeSurfaceAreaFromMesh(vertexArray, indexArray);
 
     const response: TessellateResponse = {
       type: "tessellate-result",
@@ -133,6 +223,9 @@ self.onmessage = async (event: MessageEvent<TessellateRequest>) => {
       triangleCount,
       vertices: vertexArray.buffer,
       indices: indexArray.buffer,
+      vertexCount,
+      surfaceArea,
+      boundingBox,
     };
     self.postMessage(response, [vertexArray.buffer, indexArray.buffer]);
   } catch (error) {

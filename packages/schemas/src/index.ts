@@ -9,6 +9,8 @@ import extractCutlistInput from "./extract_cutlist.input.schema.json" with { typ
 import extractCutlistOutput from "./extract_cutlist.output.schema.json" with { type: "json" };
 import generateToolpathsInput from "./generate_toolpaths.input.schema.json" with { type: "json" };
 import generateToolpathsOutput from "./generate_toolpaths.output.schema.json" with { type: "json" };
+import analyzeGeometryInput from "./analyze_geometry.input.schema.json" with { type: "json" };
+import analyzeGeometryOutput from "./analyze_geometry.output.schema.json" with { type: "json" };
 import makeDrawingInput from "./make_drawing.input.schema.json" with { type: "json" };
 import makeDrawingOutput from "./make_drawing.output.schema.json" with { type: "json" };
 import nestPartsInput from "./nest_parts.input.schema.json" with { type: "json" };
@@ -34,6 +36,10 @@ export const toolSchemas = {
   apply_joinery: {
     input: applyJoineryInput,
     output: applyJoineryOutput,
+  },
+  analyze_geometry: {
+    input: analyzeGeometryInput,
+    output: analyzeGeometryOutput,
   },
   create_project: {
     input: createProjectInput,

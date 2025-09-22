@@ -1,0 +1,7 @@
+{
+  "source": {
+    "format": "step",
+    "data": "WOODSHOP_STEP 1.1\nNAME sample_mesh\nVERTICES 3\n0 0 0\n1 0 0\n0 1 0\nINDICES 1\n0 1 2\n"
+  },
+  "label": "sample"
+}

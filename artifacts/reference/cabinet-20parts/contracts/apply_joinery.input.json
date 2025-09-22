@@ -1,0 +1,36 @@
+{
+  "project_id": "proj_e304c8924cb5",
+  "seed": 3,
+  "operations": [
+    {
+      "type": "dado",
+      "primary_part_id": "proj_e304c8924cb5::side_left",
+      "secondary_part_id": "proj_e304c8924cb5::shelf_mid",
+      "face": "interior",
+      "offset_mm": 120,
+      "length_mm": 500,
+      "width_mm": 19,
+      "depth_mm": 6,
+      "angle_deg": null
+    },
+    {
+      "type": "mortise",
+      "primary_part_id": "proj_e304c8924cb5::leg_front",
+      "secondary_part_id": "proj_e304c8924cb5::apron_front",
+      "face": "interior",
+      "offset_mm": 80,
+      "length_mm": 60,
+      "width_mm": 12,
+      "depth_mm": 18,
+      "angle_deg": null,
+      "fasteners": [
+        {
+          "type": "dowel",
+          "diameter_mm": 8,
+          "spacing_mm": 64
+        }
+      ]
+    }
+  ],
+  "notes": "Reference joinery setup"
+}

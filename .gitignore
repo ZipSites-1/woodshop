@@ -18,3 +18,6 @@ apps/web-viewer/wasm/
 # Ephemeral demo CAM artifacts (goldens live elsewhere)
 artifacts/demo/*.nc
 artifacts/demo/*_preview.svg
+
+# E2E comparison outputs
+artifacts/current/

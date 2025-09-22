@@ -1,0 +1,37 @@
+{
+  "project_id": "proj_e304c8924cb5",
+  "seed": 4,
+  "current": {
+    "width_mm": 1200,
+    "height_mm": 2000,
+    "depth_mm": 450,
+    "shelf_count": 4,
+    "door_style": "slab",
+    "back_panel": true
+  },
+  "changes": [
+    {
+      "parameter": "width_mm",
+      "value": 1350,
+      "reason": "Fit alcove"
+    },
+    {
+      "parameter": "shelf_count",
+      "value": 6
+    },
+    {
+      "parameter": "door_style",
+      "value": "shutter"
+    }
+  ],
+  "constraints": {
+    "width_mm": {
+      "min": 900,
+      "max": 1500
+    },
+    "shelf_count": {
+      "min": 2,
+      "max": 8
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "artifact_path": "cabinet-20parts/files/export_artifacts/dxf/layout.dxf",
+  "artifact_sha256": "24ce93646b0e989e3784a5fc11b69b83fdeb82f8f9e62b874bc39a357c40be77",
+  "bytes_written": 160,
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "format": "dxf",
+  "inputs_hash": "dc7ab63ef10d7be2616ef94a3229b1271bffbf8a1a2f13817096deebcdcccd30",
+  "project_id": "proj_e304c8924cb5",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "seed": 12
+}

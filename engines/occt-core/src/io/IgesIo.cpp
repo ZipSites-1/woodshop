@@ -31,6 +31,8 @@ void ensure_stream(std::istream& stream, const std::filesystem::path& path, cons
     }
 }
 
+using woodshop::geom::compute_normals;
+
 } // namespace
 
 MeshModel read_iges(const std::filesystem::path& path) {
@@ -78,10 +80,21 @@ MeshModel read_iges(const std::filesystem::path& path) {
             ++faceCount;
             continue;
         }
+        if (starts_with(stripped, "NORMAL ")) {
+            std::istringstream iss(stripped.substr(7));
+            double nx{}, ny{}, nz{};
+            iss >> nx >> ny >> nz;
+            model.mesh.normals.push_back({nx, ny, nz});
+            continue;
+        }
     }
 
     if (vertexCount == 0 || faceCount == 0) {
         throw std::runtime_error("IGES file missing geometry data");
+    }
+
+    if (model.mesh.normals.size() != model.mesh.vertices.size()) {
+        model.mesh.normals = compute_normals(model.mesh);
     }
 
     return model;
@@ -107,6 +120,11 @@ void write_iges(const MeshModel& model, const std::filesystem::path& path) {
         file << "FACE " << model.mesh.indices[offset + 0] << ' '
              << model.mesh.indices[offset + 1] << ' '
              << model.mesh.indices[offset + 2] << "\n";
+    }
+    if (model.mesh.normals.size() == model.mesh.vertices.size()) {
+        for (const auto& normal : model.mesh.normals) {
+            file << "NORMAL " << normal.x << ' ' << normal.y << ' ' << normal.z << "\n";
+        }
     }
     file << "END-IGES\n";
 }

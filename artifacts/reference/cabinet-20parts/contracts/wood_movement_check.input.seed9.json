@@ -1,0 +1,70 @@
+{
+  "project_id": "proj_e304c8924cb5",
+  "seed": 9,
+  "ambient": {
+    "relative_humidity": 55,
+    "temperature_c": 21
+  },
+  "parts": [
+    {
+      "part_id": "proj_e304c8924cb5::back_panel",
+      "species": "birch",
+      "grain_axis": "length",
+      "nominal_mm": {
+        "length": 1200,
+        "width": 762,
+        "thickness": 6
+      }
+    },
+    {
+      "part_id": "proj_e304c8924cb5::panel_bottom",
+      "species": "oak",
+      "grain_axis": "width",
+      "nominal_mm": {
+        "length": 1200,
+        "width": 400,
+        "thickness": 18
+      }
+    },
+    {
+      "part_id": "proj_e304c8924cb5::panel_side_a",
+      "species": "birch",
+      "grain_axis": "width",
+      "nominal_mm": {
+        "length": 762,
+        "width": 381,
+        "thickness": 18
+      }
+    },
+    {
+      "part_id": "proj_e304c8924cb5::panel_side_b",
+      "species": "oak",
+      "grain_axis": "length",
+      "nominal_mm": {
+        "length": 762,
+        "width": 381,
+        "thickness": 18
+      }
+    },
+    {
+      "part_id": "proj_e304c8924cb5::panel_top",
+      "species": "birch",
+      "grain_axis": "width",
+      "nominal_mm": {
+        "length": 1200,
+        "width": 400,
+        "thickness": 18
+      }
+    },
+    {
+      "part_id": "proj_e304c8924cb5::shelf_mid",
+      "species": "oak",
+      "grain_axis": "width",
+      "nominal_mm": {
+        "length": 1150,
+        "width": 380,
+        "thickness": 18
+      }
+    }
+  ]
+}

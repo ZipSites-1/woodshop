@@ -52,7 +52,7 @@ Item {
                   font.pixelSize: 12
                 }
                 Item { Layout.fillWidth: true }
-                StatusBadge { status: model.status }
+                Components.StatusBadge { status: model.status }
               }
               Text {
                 text: model.message
@@ -139,7 +139,7 @@ Item {
       Layout.fillWidth: true
       Layout.preferredHeight: 240
       clip: true
-      delegate: ActionCard {
+      delegate: Components.ActionCard {
         width: cardList.width
         title: model.title
         status: model.status

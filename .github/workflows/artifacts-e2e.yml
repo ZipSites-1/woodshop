@@ -1,0 +1,40 @@
+name: artifacts-e2e
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Generate schema types
+        run: pnpm -w run codegen:schemas
+
+      - name: Build MCP server
+        run: pnpm --filter @woodshop/mcp-server run build
+
+      - name: Run artifacts E2E
+        run: pnpm -w run e2e:artifacts
+
+      - name: Diff artifacts vs reference
+        run: node ci/scripts/diff-artifacts.js artifacts/reference artifacts/current
+
+      - name: Run MCP contract tests
+        run: pnpm -w run test:mcp

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/analyze_geometry.input.json",
+  "title": "AnalyzeGeometryInput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "source": {
+      "type": "object",
+      "title": "GeometrySource",
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "type": "string",
+          "enum": ["step", "iges"],
+          "description": "Indicates the serialized format of the geometry payload."
+        },
+        "data": {
+          "type": "string",
+          "minLength": 1,
+          "description": "STEP or IGES data encoded as UTF-8 text."
+        }
+      },
+      "required": ["format", "data"]
+    },
+    "label": {
+      "type": "string",
+      "description": "Optional label used in downstream reporting."
+    },
+    "include_primitives": {
+      "type": "boolean",
+      "description": "Include derived metrics such as surface area and bounding box dimensions.",
+      "default": true
+    },
+    "seed": {
+      "allOf": [
+        { "$ref": "./common.schema.json#/$defs/seedInput" }
+      ]
+    }
+  },
+  "required": ["source"]
+}

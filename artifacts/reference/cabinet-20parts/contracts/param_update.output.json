@@ -1,0 +1,48 @@
+{
+  "applied": [
+    {
+      "delta": 150,
+      "next_value": 1350,
+      "parameter": "width_mm",
+      "previous_value": 1200,
+      "reason": "Fit alcove"
+    },
+    {
+      "delta": 2,
+      "next_value": 6,
+      "parameter": "shelf_count",
+      "previous_value": 4,
+      "reason": null
+    }
+  ],
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "inputs_hash": "6469af320d78a2fee66e1b6d21f7e872f191dd77ce7dac1e296fa49016ecdc7d",
+  "next_parameters": {
+    "back_panel": true,
+    "depth_mm": 450,
+    "door_style": "slab",
+    "height_mm": 2000,
+    "shelf_count": 6,
+    "width_mm": 1350
+  },
+  "notes": null,
+  "project_id": "proj_e304c8924cb5",
+  "rejected": [
+    {
+      "code": "INVALID_ENUM",
+      "message": "Value must be one of: slab, shaker, louver",
+      "parameter": "door_style",
+      "requested_value": "shutter"
+    }
+  ],
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "revision_tag": "rev_14b703f7",
+  "seed": 4,
+  "warnings": []
+}

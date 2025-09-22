@@ -67,4 +67,8 @@ if(BUILD_TESTING)
     add_executable(boolean_fuzz_test tests/fuzz_boolean.cpp)
     target_link_libraries(boolean_fuzz_test PRIVATE occt_core)
     add_test(NAME occt_boolean_fuzz COMMAND boolean_fuzz_test)
+
+    add_executable(mesh_ops_test tests/mesh_ops.cpp)
+    target_link_libraries(mesh_ops_test PRIVATE occt_core)
+    add_test(NAME occt_mesh_ops COMMAND mesh_ops_test)
 endif()

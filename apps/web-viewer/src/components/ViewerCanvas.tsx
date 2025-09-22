@@ -6,6 +6,18 @@ const PI = Math.PI;
 const MIN_SEGMENTS = 8;
 const MAX_SEGMENTS = 512;
 
+type BoundingBox = {
+  min: [number, number, number];
+  max: [number, number, number];
+};
+
+type MeshStats = {
+  triangleCount: number;
+  vertexCount: number;
+  surfaceArea: number;
+  boundingBox: BoundingBox;
+};
+
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
@@ -35,7 +47,14 @@ function estimateTriangles(linearDeflection: number, angularDeflectionDeg: numbe
 }
 
 type WorkerMessage =
-  | { type: "tessellate-result"; requestId: number; triangleCount: number }
+  | {
+      type: "tessellate-result";
+      requestId: number;
+      triangleCount: number;
+      vertexCount: number;
+      surfaceArea: number;
+      boundingBox: BoundingBox;
+    }
   | { type: "error"; requestId: number; message: string }
   | { type: "status"; phase: "initializing" | "ready" | "working" }
   | { type: "progress"; loaded: number; total: number };
@@ -43,7 +62,6 @@ type WorkerMessage =
 export const ViewerCanvas: React.FC = () => {
   const [linearDeflection, setLinearDeflection] = useState(0.5);
   const [angularDeflection, setAngularDeflection] = useState(15);
-  const [workerTriangleCount, setWorkerTriangleCount] = useState<number | null>(null);
   const [workerError, setWorkerError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [statusPhase, setStatusPhase] = useState<"initializing" | "ready" | "working">(
@@ -55,6 +73,7 @@ export const ViewerCanvas: React.FC = () => {
       total: 1,
     }
   );
+  const [meshStats, setMeshStats] = useState<MeshStats | null>(null);
   const workerRef = useRef<Worker | null>(null);
   const currentRequestId = useRef(0);
   const initialLinear = useRef(linearDeflection);
@@ -93,7 +112,12 @@ export const ViewerCanvas: React.FC = () => {
         if (message.requestId !== currentRequestId.current) {
           return; // stale result
         }
-        setWorkerTriangleCount(message.triangleCount);
+        setMeshStats({
+          triangleCount: message.triangleCount,
+          vertexCount: message.vertexCount,
+          surfaceArea: message.surfaceArea,
+          boundingBox: message.boundingBox,
+        });
         setWorkerError(null);
         setPending(false);
         setStatusPhase("ready");
@@ -102,6 +126,7 @@ export const ViewerCanvas: React.FC = () => {
           return;
         }
         setWorkerError(message.message);
+        setMeshStats(null);
         setPending(false);
         setStatusPhase("ready");
       }
@@ -142,6 +167,15 @@ export const ViewerCanvas: React.FC = () => {
       angularDeflection,
     });
   }, [linearDeflection, angularDeflection]);
+
+  const boundingBoxSize = useMemo(() => {
+    if (!meshStats) {
+      return null;
+    }
+    const [minX, minY, minZ] = meshStats.boundingBox.min;
+    const [maxX, maxY, maxZ] = meshStats.boundingBox.max;
+    return [maxX - minX, maxY - minY, maxZ - minZ] as const;
+  }, [meshStats]);
 
   return (
     <div
@@ -222,12 +256,24 @@ export const ViewerCanvas: React.FC = () => {
           </div>
         ) : null}
         <dl style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "8px 16px" }}>
-          <dt>Triangles</dt>
+          <dt>Analytic triangles</dt>
+          <dd>{stats.triangles.toLocaleString()}</dd>
+          <dt>Kernel triangles</dt>
           <dd>
-            {workerTriangleCount !== null
-              ? workerTriangleCount.toLocaleString()
-              : stats.triangles.toLocaleString()}
+            {meshStats ? meshStats.triangleCount.toLocaleString() : "—"}
             {pending ? " (loading…)" : null}
+          </dd>
+          <dt>Kernel vertices</dt>
+          <dd>{meshStats ? meshStats.vertexCount.toLocaleString() : "—"}</dd>
+          <dt>Surface area</dt>
+          <dd>
+            {meshStats ? `${meshStats.surfaceArea.toFixed(3)} units²` : "—"}
+          </dd>
+          <dt>Bounding box</dt>
+          <dd>
+            {boundingBoxSize
+              ? `${boundingBoxSize[0].toFixed(3)} × ${boundingBoxSize[1].toFixed(3)} × ${boundingBoxSize[2].toFixed(3)}`
+              : "—"}
           </dd>
           <dt>Longitude segments</dt>
           <dd>{stats.lon}</dd>

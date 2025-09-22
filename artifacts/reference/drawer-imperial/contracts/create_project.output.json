@@ -1,0 +1,32 @@
+{
+  "engine_versions": {
+    "cam": "0.0.0",
+    "nest": "0.0.0",
+    "occt": "0.0.0",
+    "schemas": "0.0.0",
+    "wood": "0.0.0"
+  },
+  "inputs_hash": "d58c3867f50753023cb1c1f4a72709f406d377e0a51b7d63eee4c75cde4c7f65",
+  "materials": [
+    {
+      "grain": "length",
+      "name": "Birch Ply 18mm",
+      "thickness_mm": 18
+    },
+    {
+      "grain": "length",
+      "name": "Solid Oak 20mm",
+      "thickness_mm": 20
+    },
+    {
+      "grain": "width",
+      "name": "Backer Ply 6mm",
+      "thickness_mm": 6
+    }
+  ],
+  "project_id": "proj_d58c3867f507",
+  "revision_id": "97fd46038317a780454e2e7dcb5ce0255739c36b",
+  "seed": 5,
+  "template": "shop_drawer",
+  "units": "inch"
+}

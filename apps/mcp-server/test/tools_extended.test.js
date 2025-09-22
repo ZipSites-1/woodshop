@@ -10,6 +10,9 @@ const {
   runApplyJoinery,
 } = await import("../dist/tools/applyJoinery.js");
 const {
+  runAnalyzeGeometry,
+} = await import("../dist/tools/analyzeGeometry.js");
+const {
   runMakeDrawing,
 } = await import("../dist/tools/makeDrawing.js");
 const {
@@ -82,6 +85,36 @@ test("apply_joinery produces previews and impacted parts", async () => {
   const previewAbsolute = resolveRepoPath(operation.preview_svg_path);
   assert.equal(await pathExists(previewAbsolute), true);
   assert.ok(result.impacted_parts.length >= 1);
+});
+
+test("analyze_geometry derives mesh metrics", async () => {
+  const stepPayload = [
+    "WOODSHOP_STEP 1.1",
+    "NAME unit_triangle",
+    "VERTICES 3",
+    "0 0 0",
+    "1 0 0",
+    "0 1 0",
+    "INDICES 1",
+    "0 1 2",
+    "",
+  ].join("\n");
+
+  const result = await runAnalyzeGeometry({
+    source: { format: "step", data: stepPayload },
+    label: "unit",
+  });
+
+  assert.equal(result.source_format, "step");
+  assert.equal(result.label, "unit");
+  assert.equal(result.vertex_count, 3);
+  assert.equal(result.triangle_count, 1);
+  assert.ok(result.surface_area > 0.49 && result.surface_area < 0.51);
+  assert.deepEqual(result.bounding_box.min, [0, 0, 0]);
+  assert.deepEqual(result.bounding_box.max, [1, 1, 0]);
+  assert.equal(result.dimensions.width, 1);
+  assert.equal(result.dimensions.depth, 1);
+  assert.equal(result.dimensions.height, 0);
 });
 
 test("make_drawing writes pdf with requested views", async () => {

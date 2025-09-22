@@ -4,7 +4,9 @@
 #include <cstdint>
 #include <filesystem>
 #include <iostream>
+#include <limits>
 #include <sstream>
+#include <cmath>
 
 namespace {
 
@@ -46,6 +48,15 @@ void test_iges_roundtrip() {
     ensure(original.name == loaded.name, "IGES name mismatch");
     ensure(original.mesh.vertices == loaded.mesh.vertices, "IGES vertices mismatch");
     ensure(original.mesh.indices == loaded.mesh.indices, "IGES indices mismatch");
+    ensure(loaded.mesh.normals.size() == loaded.mesh.vertices.size(), "IGES normals missing");
+
+    double maxDeviation = 0.0;
+    for (std::size_t i = 0; i < loaded.mesh.normals.size(); ++i) {
+        const auto& normal = loaded.mesh.normals[i];
+        const double len = std::sqrt(normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
+        maxDeviation = std::max(maxDeviation, std::abs(len - 1.0));
+    }
+    ensure(maxDeviation < 1e-9, "IGES normals not normalised");
 }
 
 } // namespace

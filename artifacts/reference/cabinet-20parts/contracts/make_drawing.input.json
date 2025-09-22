@@ -1,0 +1,16 @@
+{
+  "project_id": "proj_e304c8924cb5",
+  "seed": 6,
+  "views": [
+    "iso",
+    "front",
+    "right"
+  ],
+  "include_dimensions": true,
+  "explode": false,
+  "sheet_size": {
+    "width_mm": 594,
+    "height_mm": 420
+  },
+  "title": "Cabinet Reference"
+}
