@@ -24,6 +24,12 @@ export type StatusMessage = {
   phase: "initializing" | "ready" | "working";
 };
 
+export type ProgressMessage = {
+  type: "progress";
+  loaded: number;
+  total: number;
+};
+
 declare const self: DedicatedWorkerGlobalScope;
 
 const moduleUrl = new URL("../../wasm/occt/occt-core.js", import.meta.url);
@@ -48,15 +54,42 @@ async function loadModuleFactory(): Promise<ModuleFactory> {
 async function loadModule(): Promise<ModuleInstance> {
   if (!modulePromise) {
     self.postMessage({ type: "status", phase: "initializing" } satisfies StatusMessage);
-    modulePromise = loadModuleFactory().then(async (factory) => {
-      const instance = await factory({
-        locateFile(file: string) {
-          return new URL(`../../wasm/occt/${file}`, import.meta.url).href;
-        },
+    self.postMessage({ type: "progress", loaded: 0, total: 1 } satisfies ProgressMessage);
+
+    modulePromise = loadModuleFactory()
+      .then(async (factory) => {
+        let dependencyTotal = 0;
+        const instance = await factory({
+          locateFile(file: string) {
+            return new URL(`../../wasm/occt/${file}`, import.meta.url).href;
+          },
+          monitorRunDependencies(left: number) {
+            if (left > dependencyTotal) {
+              dependencyTotal = left;
+            }
+            const total = dependencyTotal || 1;
+            const loaded = Math.max(total - left, 0);
+            self.postMessage({
+              type: "progress",
+              loaded,
+              total,
+            } satisfies ProgressMessage);
+          },
+        });
+
+        const finalTotal = Math.max(1, dependencyTotal);
+        self.postMessage({
+          type: "progress",
+          loaded: finalTotal,
+          total: finalTotal,
+        } satisfies ProgressMessage);
+        self.postMessage({ type: "status", phase: "ready" } satisfies StatusMessage);
+        return instance as ModuleInstance;
+      })
+      .catch((error) => {
+        modulePromise = null;
+        throw error;
       });
-      self.postMessage({ type: "status", phase: "ready" } satisfies StatusMessage);
-      return instance as ModuleInstance;
-    });
   }
   return modulePromise;
 }

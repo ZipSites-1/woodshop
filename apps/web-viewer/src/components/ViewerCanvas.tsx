@@ -37,7 +37,8 @@ function estimateTriangles(linearDeflection: number, angularDeflectionDeg: numbe
 type WorkerMessage =
   | { type: "tessellate-result"; requestId: number; triangleCount: number }
   | { type: "error"; requestId: number; message: string }
-  | { type: "status"; phase: "initializing" | "ready" | "working" };
+  | { type: "status"; phase: "initializing" | "ready" | "working" }
+  | { type: "progress"; loaded: number; total: number };
 
 export const ViewerCanvas: React.FC = () => {
   const [linearDeflection, setLinearDeflection] = useState(0.5);
@@ -47,6 +48,12 @@ export const ViewerCanvas: React.FC = () => {
   const [pending, setPending] = useState(false);
   const [statusPhase, setStatusPhase] = useState<"initializing" | "ready" | "working">(
     "initializing"
+  );
+  const [loadProgress, setLoadProgress] = useState<{ loaded: number; total: number }>(
+    {
+      loaded: 0,
+      total: 1,
+    }
   );
   const workerRef = useRef<Worker | null>(null);
   const currentRequestId = useRef(0);
@@ -67,6 +74,12 @@ export const ViewerCanvas: React.FC = () => {
     worker.onmessage = (event: MessageEvent<WorkerMessage>) => {
       const message = event.data;
       if (!message) {
+        return;
+      }
+      if (message.type === "progress") {
+        const total = message.total > 0 ? message.total : 1;
+        const loaded = Math.min(Math.max(message.loaded, 0), total);
+        setLoadProgress({ loaded, total });
         return;
       }
       if (message.type === "status") {
@@ -189,6 +202,25 @@ export const ViewerCanvas: React.FC = () => {
             ? "Generating mesh in worker…"
             : "Geometry kernel ready"}
         </p>
+        {statusPhase === "initializing" ? (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              marginBottom: "16px",
+            }}
+          >
+            <progress
+              value={loadProgress.loaded}
+              max={loadProgress.total}
+              style={{ width: "180px", height: "12px" }}
+            />
+            <span style={{ fontVariantNumeric: "tabular-nums" }}>
+              {Math.round((loadProgress.loaded / loadProgress.total) * 100)}%
+            </span>
+          </div>
+        ) : null}
         <dl style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "8px 16px" }}>
           <dt>Triangles</dt>
           <dd>
