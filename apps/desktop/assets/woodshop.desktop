@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Woodshop Desktop
+Exec=woodshop_desktop
+Icon=woodshop
+Type=Application
+Categories=Graphics;Engineering;
+Comment=Offline-first desktop companion for Woodshop CAD tools

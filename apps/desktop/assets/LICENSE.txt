@@ -1,0 +1,4 @@
+Woodshop Desktop
+Copyright (c) 2025 Woodshop
+
+This build artifact is for internal evaluation only. Redistribution is prohibited.

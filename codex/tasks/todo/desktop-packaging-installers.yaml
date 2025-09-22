@@ -1,0 +1,30 @@
+slug: desktop-packaging-installers
+title: "Desktop: packaging & installers"
+description: Create installers for macOS/Windows/Linux with proper icons and signing.
+area: desktop-app
+allowed_paths:
+  - apps/desktop/**
+  - cmake/**
+  - assets/**
+labels:
+  - codex
+  - desktop
+  - qt
+acceptance:
+  commands:
+    - cmake --build --preset relwithdebinfo
+    - ctest --preset relwithdebinfo
+  tests_expect:
+    - "Manual smoke: credenza demo end-to-end"
+  artifacts_expect:
+
+dependencies:
+  - desktop-offline-cache-and-retry
+  - desktop-viewer-bridge-occt
+
+github:
+  blocked_by:
+    - desktop-offline-cache-and-retry
+    - desktop-viewer-bridge-occt
+  closing_keyword: True
+created: 2025-09-21
