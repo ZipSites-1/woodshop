@@ -1,0 +1,26 @@
+slug: desktop-chat-pane-and-react-trace
+title: "Desktop: chat pane & ReAct trace"
+description: Implement chat UI with action chips and collapsible ReAct trace.
+area: desktop-app
+allowed_paths:
+  - apps/desktop/src/**
+  - apps/desktop/qml/**
+  - apps/desktop/assets/**
+labels:
+  - codex
+  - desktop
+  - qt
+acceptance:
+  commands:
+    - cmake --build --preset relwithdebinfo
+    - ctest --preset relwithdebinfo
+  tests_expect:
+    - "Manual smoke: credenza demo end-to-end"
+  artifacts_expect:
+
+dependencies:
+
+github:
+  blocked_by: []
+  closing_keyword: True
+created: 2025-09-21

@@ -1,0 +1,28 @@
+slug: desktop-offline-cache-and-retry
+title: "Desktop: offline cache & retry"
+description: Cache artifacts and queue tool calls for retry when offline.
+area: desktop-app
+allowed_paths:
+  - apps/desktop/src/**
+  - apps/desktop/qml/**
+  - apps/desktop/assets/**
+labels:
+  - codex
+  - desktop
+  - qt
+acceptance:
+  commands:
+    - cmake --build --preset relwithdebinfo
+    - ctest --preset relwithdebinfo
+  tests_expect:
+    - "Manual smoke: credenza demo end-to-end"
+  artifacts_expect:
+
+dependencies:
+  - desktop-action-cards-and-artifacts
+
+github:
+  blocked_by:
+    - desktop-action-cards-and-artifacts
+  closing_keyword: True
+created: 2025-09-21
