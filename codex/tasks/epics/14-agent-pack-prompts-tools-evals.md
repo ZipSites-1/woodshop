@@ -5,12 +5,12 @@
 **Dependencies (epic-level):** 05, 08, 09, 12
 
 ## Tasks
-- [ ] /codex/tasks/todo/agent-pack-prompts-system-and-developer.yaml
-- [ ] /codex/tasks/todo/agent-pack-fewshots-cabinet-tight-retrofit.yaml
-- [ ] /codex/tasks/todo/agent-pack-tool-catalog.yaml
-- [ ] /codex/tasks/todo/agent-pack-openrpc-export.yaml
-- [ ] /codex/tasks/todo/agent-pack-evals-runner-and-scenarios.yaml
-- [ ] /codex/tasks/todo/agent-pack-trace-templates-and-playbooks.yaml
+- [x] /codex/tasks/todo/agent-pack-prompts-system-and-developer.yaml
+- [x] /codex/tasks/todo/agent-pack-fewshots-cabinet-tight-retrofit.yaml
+- [x] /codex/tasks/todo/agent-pack-tool-catalog.yaml
+- [x] /codex/tasks/todo/agent-pack-openrpc-export.yaml
+- [x] /codex/tasks/todo/agent-pack-evals-runner-and-scenarios.yaml
+- [x] /codex/tasks/todo/agent-pack-trace-templates-and-playbooks.yaml
 
 ## Validation
 - All scenario evals pass with fixed seed and byte-stable artifacts; policy gates exercised by negative tests.

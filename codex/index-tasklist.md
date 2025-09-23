@@ -27,7 +27,7 @@
 | 11 – Release, Versioning & Docs | ☐ | 0/5 | changesets, changelog, ADR/docs |
 | 12 – Agent MCP E2E Flows & UX | ☐ | 0/4 | trace UX + tool wiring |
 | 13 – Performance & Benchmarks | ◐ | 1/3 | nest/cam benches, viewer budgets |
-| 14 – Agent Pack: Prompts, Catalog, Evals | ☐ | 0/6 | policies, catalog, evals, traces |
+| 14 – Agent Pack: Prompts, Catalog, Evals | ✔ | 6/6 | policies, catalog, evals, traces |
 
 > **How to mark progress**
 > - **DONE**: check the box `[x]`.
@@ -185,22 +185,22 @@
 </details>
 
 ### 13 — Performance & Benchmarks  (1/3)
-
-### 14 — Agent Pack — Prompts, Catalog, Evals  (0/6)
-<details><summary>Open tasks</summary>
-
-- [ ] /codex/tasks/todo/agent-pack-prompts-system-and-developer.yaml
-- [ ] /codex/tasks/todo/agent-pack-fewshots-cabinet-tight-retrofit.yaml
-- [ ] /codex/tasks/todo/agent-pack-tool-catalog.yaml
-- [ ] /codex/tasks/todo/agent-pack-openrpc-export.yaml
-- [ ] /codex/tasks/todo/agent-pack-evals-runner-and-scenarios.yaml
-- [ ] /codex/tasks/todo/agent-pack-trace-templates-and-playbooks.yaml
-</details>
 <details><summary>Open tasks</summary>
 
 - [ ] /codex/tasks/todo/nest-benchmarks-and-thresholds.yaml
 - [x] /codex/tasks/todo/cam-simulator-dryrun-collisions.yaml
 - [ ] /codex/tasks/todo/web-viewer-performance-budgets.yaml
+</details>
+
+### 14 — Agent Pack — Prompts, Catalog, Evals  (6/6)
+<details><summary>Completed tasks</summary>
+
+- [x] /codex/tasks/todo/agent-pack-prompts-system-and-developer.yaml
+- [x] /codex/tasks/todo/agent-pack-fewshots-cabinet-tight-retrofit.yaml
+- [x] /codex/tasks/todo/agent-pack-tool-catalog.yaml
+- [x] /codex/tasks/todo/agent-pack-openrpc-export.yaml
+- [x] /codex/tasks/todo/agent-pack-evals-runner-and-scenarios.yaml
+- [x] /codex/tasks/todo/agent-pack-trace-templates-and-playbooks.yaml
 </details>
 
 <!-- END_TASKLIST -->
