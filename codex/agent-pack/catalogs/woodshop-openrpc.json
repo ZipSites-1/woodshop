@@ -1,0 +1,341 @@
+{
+  "openrpc": "1.2.6",
+  "info": {
+    "title": "Woodshop MCP Tooling",
+    "version": "0.1.0",
+    "description": "Generated from codex/agent-pack/catalogs/woodshop-tools.json"
+  },
+  "servers": [
+    {
+      "name": "local-stdio",
+      "url": "stdio://",
+      "summary": "Local MCP server over stdio"
+    }
+  ],
+  "methods": [
+    {
+      "name": "create_project",
+      "summary": "Create Project",
+      "description": "Initialize a woodworking project with deterministic defaults.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/create_project.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/create_project.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "param_update",
+      "summary": "Update Parameters",
+      "description": "Validate and apply deterministic project parameter changes.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/param_update.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/param_update.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "apply_joinery",
+      "summary": "Apply Joinery",
+      "description": "Apply joinery operations (dados, dowels, tenons) and report impacted parts.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/apply_joinery.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/apply_joinery.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "analyze_geometry",
+      "summary": "Analyze Geometry",
+      "description": "Parse STEP/IGES payloads and return bounding boxes, area, and primitive counts.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/analyze_geometry.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/analyze_geometry.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "extract_cutlist",
+      "summary": "Extract Cutlist",
+      "description": "Produce a deterministic cutlist for the current revision.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/extract_cutlist.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/extract_cutlist.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "nest_parts",
+      "summary": "Nest Parts",
+      "description": "Deterministic skyline nesting with seedable RNG and utilization report.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/nest_parts.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/nest_parts.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "make_drawing",
+      "summary": "Generate Drawing",
+      "description": "Render seeded PDF/SVG/DXF drawing sets for selected views.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/make_drawing.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/make_drawing.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "wood_movement_check",
+      "summary": "Wood Movement Check",
+      "description": "Estimate dimensional change under varying humidity/temperature.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/wood_movement_check.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/wood_movement_check.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "generate_toolpaths",
+      "summary": "Generate Toolpaths",
+      "description": "Produce seeded toolpath summaries for contour, pocket, and drill operations.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/generate_toolpaths.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/generate_toolpaths.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "postprocess_grbl",
+      "summary": "Postprocess (GRBL)",
+      "description": "Emit GRBL RS-274 G-code from generated toolpaths. Requires consent token.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/postprocess_grbl.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/postprocess_grbl.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        },
+        {
+          "name": "consent-required"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    }
+  ],
+  "components": {}
+}

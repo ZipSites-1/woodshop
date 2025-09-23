@@ -1,6 +1,359 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "version": "0.0.0",
-  "generated": false,
-  "tools": []
+  "$schema": "https://modelcontextprotocol.io/schemas/tool-catalog.json",
+  "version": "0.1.0",
+  "generated_at": "2025-09-23T00:00:00.000Z",
+  "tools": [
+    {
+      "name": "create_project",
+      "title": "Create Project",
+      "description": "Initialize a woodworking project with deterministic defaults.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": ["allocates project id"],
+      "input_schema": "https://woodshop.dev/schemas/create_project.input.json",
+      "output_schema": "https://woodshop.dev/schemas/create_project.output.json",
+      "example": {
+        "input": {
+          "seed": 42,
+          "units": "mm",
+          "template": "base_cabinet"
+        },
+        "output": {
+          "project_id": "proj_demo",
+          "revision_id": "rev_0001",
+          "materials": [
+            { "name": "Birch Ply 18mm", "grain": "length", "thickness_mm": 18 }
+          ],
+          "engine_versions": {
+            "occt": "0.26.0",
+            "nest": "0.18.3",
+            "cam": "0.21.2",
+            "wood": "0.9.0",
+            "schemas": "0.2.0"
+          },
+          "seed": 42,
+          "units": "mm"
+        }
+      }
+    },
+    {
+      "name": "param_update",
+      "title": "Update Parameters",
+      "description": "Validate and apply deterministic project parameter changes.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": ["updates project parameters", "bumps revision"],
+      "input_schema": "https://woodshop.dev/schemas/param_update.input.json",
+      "output_schema": "https://woodshop.dev/schemas/param_update.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "revision_id": "rev_0001",
+          "seed": 42,
+          "current": {
+            "width_mm": 900,
+            "height_mm": 760,
+            "depth_mm": 450,
+            "shelf_count": 2,
+            "door_style": "shaker",
+            "back_panel": true
+          },
+          "changes": [
+            { "parameter": "width_mm", "value": 1100 },
+            { "parameter": "shelf_count", "value": 3 }
+          ]
+        },
+        "output": {
+          "project_id": "proj_demo",
+          "revision_id": "rev_0002",
+          "applied": [
+            { "parameter": "width_mm", "previous_value": 900, "next_value": 1100, "delta": 200 }
+          ],
+          "next_parameters": {
+            "width_mm": 1100,
+            "height_mm": 760,
+            "depth_mm": 450,
+            "shelf_count": 3,
+            "door_style": "shaker",
+            "back_panel": true
+          },
+          "warnings": []
+        }
+      }
+    },
+    {
+      "name": "apply_joinery",
+      "title": "Apply Joinery",
+      "description": "Apply joinery operations (dados, dowels, tenons) and report impacted parts.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": ["updates geometry", "creates joinery previews"],
+      "input_schema": "https://woodshop.dev/schemas/apply_joinery.input.json",
+      "output_schema": "https://woodshop.dev/schemas/apply_joinery.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "seed": 42,
+          "operations": [
+            {
+              "id": "shelf_dado",
+              "type": "dado",
+              "primary_part_id": "side_left",
+              "secondary_part_id": "shelf_mid",
+              "face": "interior",
+              "length_mm": 450,
+              "width_mm": 18,
+              "depth_mm": 9,
+              "offset_mm": 210
+            }
+          ]
+        },
+        "output": {
+          "project_id": "proj_demo",
+          "revision_id": "rev_0003",
+          "impacted_parts": ["side_left", "shelf_mid"],
+          "operations": [
+            {
+              "operation_id": "joinery_shelf_dado",
+              "type": "dado",
+              "preview_svg_path": "artifacts/drawings/dado_shelf_mid.svg",
+              "warnings": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "analyze_geometry",
+      "title": "Analyze Geometry",
+      "description": "Parse STEP/IGES payloads and return bounding boxes, area, and primitive counts.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": [],
+      "input_schema": "https://woodshop.dev/schemas/analyze_geometry.input.json",
+      "output_schema": "https://woodshop.dev/schemas/analyze_geometry.output.json",
+      "example": {
+        "input": {
+          "seed": 4455,
+          "source": { "format": "step", "data": "file_step_001" },
+          "include_primitives": true
+        },
+        "output": {
+          "seed": 4455,
+          "bounding_box": { "min": [0, 0, 0], "max": [1200, 600, 820] },
+          "triangle_count": 18432,
+          "surface_area": 5.92,
+          "revision_id": "rev_import_a1"
+        }
+      }
+    },
+    {
+      "name": "extract_cutlist",
+      "title": "Extract Cutlist",
+      "description": "Produce a deterministic cutlist for the current revision.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": [],
+      "input_schema": "https://woodshop.dev/schemas/extract_cutlist.input.json",
+      "output_schema": "https://woodshop.dev/schemas/extract_cutlist.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "revision_id": "rev_0003",
+          "seed": 42
+        },
+        "output": {
+          "rows": [
+            {
+              "part_id": "side_left",
+              "name": "Side Left",
+              "material": "Birch Ply 18mm",
+              "length_mm": 820,
+              "width_mm": 450,
+              "quantity": 1
+            }
+          ],
+          "totals": { "parts": 20, "material_totals": [{ "material": "Birch Ply 18mm", "count": 20 }] }
+        }
+      }
+    },
+    {
+      "name": "nest_parts",
+      "title": "Nest Parts",
+      "description": "Deterministic skyline nesting with seedable RNG and utilization report.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": ["generates SVG placements", "records offcuts"],
+      "input_schema": "https://woodshop.dev/schemas/nest_parts.input.json",
+      "output_schema": "https://woodshop.dev/schemas/nest_parts.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "seed": 42,
+          "kerf_mm": 3.2,
+          "stock": [
+            { "sheet_id": "sheet_2440x1220", "length_mm": 2440, "width_mm": 1220, "quantity": 2 }
+          ],
+          "parts": [
+            { "part_id": "deck", "length_mm": 1200, "width_mm": 450, "quantity": 1 }
+          ],
+          "strategy": "skyline",
+          "grain_rule": "strict"
+        },
+        "output": {
+          "layouts": [
+            {
+              "sheet_id": "sheet_2440x1220",
+              "sheet_index": 0,
+              "utilization": 0.78,
+              "svg_path": "artifacts/nest/proj_demo/sheet-0.svg"
+            }
+          ],
+          "utilization_summary": {
+            "overall_utilization": 0.74,
+            "total_parts_area_mm2": 1795200,
+            "total_stock_area_mm2": 2430000
+          }
+        }
+      }
+    },
+    {
+      "name": "make_drawing",
+      "title": "Generate Drawing",
+      "description": "Render seeded PDF/SVG/DXF drawing sets for selected views.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": ["writes drawing artifacts"],
+      "input_schema": "https://woodshop.dev/schemas/make_drawing.input.json",
+      "output_schema": "https://woodshop.dev/schemas/make_drawing.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "revision_id": "rev_0003",
+          "seed": 42,
+          "views": ["front", "section", "exploded"],
+          "include_dimensions": true,
+          "explode": true
+        },
+        "output": {
+          "pdf_id": "artifacts/drawings/proj_demo/full.pdf",
+          "svg_id": "artifacts/drawings/proj_demo/exploded.svg",
+          "dxf_id": "artifacts/drawings/proj_demo/section.dxf"
+        }
+      }
+    },
+    {
+      "name": "wood_movement_check",
+      "title": "Wood Movement Check",
+      "description": "Estimate dimensional change under varying humidity/temperature.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": [],
+      "input_schema": "https://woodshop.dev/schemas/wood_movement_check.input.json",
+      "output_schema": "https://woodshop.dev/schemas/wood_movement_check.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "seed": 42,
+          "ambient": { "relative_humidity": 50, "temperature_c": 21 },
+          "parts": [
+            {
+              "part_id": "door_left",
+              "species": "Betula alleghaniensis",
+              "grain_axis": "length",
+              "nominal_mm": { "length": 720, "width": 380, "thickness": 18 }
+            }
+          ]
+        },
+        "output": {
+          "per_part": [
+            { "part_id": "door_left", "delta_length_mm": 0.4, "delta_width_mm": 0.2, "delta_thickness_mm": 0.05 }
+          ],
+          "warnings": []
+        }
+      }
+    },
+    {
+      "name": "generate_toolpaths",
+      "title": "Generate Toolpaths",
+      "description": "Produce seeded toolpath summaries for contour, pocket, and drill operations.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": ["writes toolpath previews"],
+      "input_schema": "https://woodshop.dev/schemas/generate_toolpaths.input.json",
+      "output_schema": "https://woodshop.dev/schemas/generate_toolpaths.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "seed": 42,
+          "safe_z_mm": 5,
+          "stock": {
+            "length_mm": 1200,
+            "width_mm": 600,
+            "thickness_mm": 18,
+            "origin": { "x_mm": 0, "y_mm": 0, "z_mm": 0 }
+          },
+          "operations": [
+            {
+              "type": "contour",
+              "part_id": "door_left",
+              "tool": { "diameter_mm": 6.35, "flutes": 2, "material": "carbide" }
+            }
+          ]
+        },
+        "output": {
+          "toolpaths": [
+            {
+              "toolpath_id": "tp_door_left",
+              "operation_type": "contour",
+              "operation_label": "Door Left",
+              "estimated_runtime_sec": 182,
+              "length_mm": 2460
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "postprocess_grbl",
+      "title": "Postprocess (GRBL)",
+      "description": "Emit GRBL RS-274 G-code from generated toolpaths. Requires consent token.",
+      "deterministic": true,
+      "consent_required": true,
+      "side_effects": ["writes G-code to disk"],
+      "input_schema": "https://woodshop.dev/schemas/postprocess_grbl.input.json",
+      "output_schema": "https://woodshop.dev/schemas/postprocess_grbl.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "seed": 42,
+          "controller": "grbl",
+          "confirm_write": true,
+          "consent_token": "CONSENT[postprocess]",
+          "program": {
+            "program_id": "demo_rev0003",
+            "toolpaths": [
+              {
+                "toolpath_id": "tp_door_left",
+                "operation_type": "contour",
+                "operation_label": "Door Left",
+                "length_mm": 2460,
+                "estimated_runtime_sec": 182,
+                "segments": [
+                  { "mode": "rapid", "length_mm": 50 },
+                  { "mode": "feed", "length_mm": 2400, "feed_mm_per_min": 1600 }
+                ]
+              }
+            ]
+          }
+        },
+        "output": {
+          "gcode_path": "artifacts/gcode/proj_demo/demo_rev0003.nc",
+          "line_count": 612,
+          "bytes_written": 38214,
+          "toolpath_stats": { "total_length_mm": 2460, "total_runtime_sec": 182 }
+        }
+      }
+    }
+  ]
 }

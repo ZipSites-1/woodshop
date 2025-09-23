@@ -1,0 +1,18 @@
+name: retrofit_step_import
+seed: 4455
+description: Import STEP assembly, confirm materials, add dowel joinery, regenerate drawings.
+prompt: |
+  I uploaded assembly.step. Convert it to a parametric project in mm, add eight-millimetre
+  dowels tying the face frame to the carcass, and refresh the drawings.
+expectations:
+  tools:
+    - name: analyze_geometry
+      order: 1
+    - name: import_geometry
+      order: 2
+    - name: apply_joinery
+      order: 3
+    - name: extract_cutlist
+      order: 4
+    - name: make_drawing
+      order: 5

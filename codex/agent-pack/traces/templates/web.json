@@ -1,0 +1,28 @@
+{
+  "name": "web_viewer_trace",
+  "description": "Trace schema for the web viewer timeline.",
+  "timeline": {
+    "phases": ["plan", "act", "verify", "summarize"],
+    "step": {
+      "required": ["phase", "message"],
+      "properties": {
+        "phase": { "type": "string", "enum": ["plan", "act", "verify", "summarize"] },
+        "message": { "type": "string" },
+        "tool": { "type": "string" },
+        "request": { "type": "object" },
+        "response": { "type": "object" },
+        "duration_ms": { "type": "number" },
+        "warnings": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+  "rendering": {
+    "plan": { "icon": "mdiClipboardListOutline" },
+    "act": { "icon": "mdiPlayCircleOutline" },
+    "verify": { "icon": "mdiShieldCheckOutline" },
+    "summarize": { "icon": "mdiCheckDecagram" }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "desktop_action_cards",
+  "description": "Mapping of Plan → Act → Verify → Summarize phases to desktop UI components.",
+  "phases": [
+    {
+      "phase": "plan",
+      "component": "PlanCard",
+      "fields": ["thought", "tool_sequence", "consent_requirements"],
+      "style": { "accent": "#38bdf8" }
+    },
+    {
+      "phase": "act",
+      "component": "ActionCard",
+      "fields": ["tool", "input", "output", "duration_ms", "warnings"],
+      "style": { "accent": "#22c55e" }
+    },
+    {
+      "phase": "verify",
+      "component": "VerifyCard",
+      "fields": ["checks", "utilization", "artifacts", "warnings"],
+      "style": { "accent": "#facc15" }
+    },
+    {
+      "phase": "summarize",
+      "component": "SummaryCard",
+      "fields": ["seed", "engine_versions", "revision_id", "inputs_hash", "next_steps"],
+      "style": { "accent": "#a855f7" }
+    }
+  ]
+}
