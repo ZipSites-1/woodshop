@@ -1,0 +1,12 @@
+{
+  "name": "tight_nesting_comparison",
+  "seed": 9923,
+  "description": "Compare baseline and skyline nesting strategies with identical seeds.",
+  "prompt": "We already have a cutlist for 30 mixed-grain parts. Compare the fast baseline nest against a higher-utilization skyline run and tell me which you recommend.",
+  "expectations": {
+    "tools": [
+      { "name": "nest_parts", "order": 1 },
+      { "name": "nest_parts", "order": 2, "must_precede": ["generate_toolpaths"], "expect_warnings": true }
+    ]
+  }
+}

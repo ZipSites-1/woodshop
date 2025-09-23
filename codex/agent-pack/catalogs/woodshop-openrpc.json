@@ -337,5 +337,2113 @@
       }
     }
   ],
-  "components": {}
+  "components": {
+    "schemas": {
+      "create_project.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/create_project.input.json",
+        "title": "CreateProjectInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "units": {
+            "type": "string",
+            "description": "Measurement units for the project",
+            "enum": [
+              "mm",
+              "inch"
+            ]
+          },
+          "template": {
+            "type": "string",
+            "description": "Optional template or preset identifier",
+            "minLength": 1
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedInput"
+              }
+            ],
+            "description": "Deterministic seed for downstream operations"
+          }
+        },
+        "required": [
+          "units"
+        ]
+      },
+      "create_project.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/create_project.output.json",
+        "title": "CreateProjectOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ],
+            "description": "Stable identifier derived from inputs"
+          },
+          "units": {
+            "type": "string",
+            "enum": [
+              "mm",
+              "inch"
+            ],
+            "description": "Units echoed from input"
+          },
+          "template": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Template selection, if any"
+          },
+          "materials": {
+            "type": "array",
+            "description": "Default material catalog for the project",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/materialsItem"
+            }
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedOutput"
+              }
+            ],
+            "description": "Seed used for deterministic operations"
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "revision_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/revisionId"
+              }
+            ],
+            "description": "Current git revision"
+          },
+          "inputs_hash": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/inputsHash"
+              }
+            ],
+            "description": "SHA-256 hash of validated inputs"
+          }
+        },
+        "required": [
+          "project_id",
+          "units",
+          "template",
+          "materials",
+          "seed",
+          "engine_versions",
+          "revision_id",
+          "inputs_hash"
+        ]
+      },
+      "param_update.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/param_update.input.json",
+        "title": "ParamUpdateInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ]
+          },
+          "revision_id": {
+            "type": "string",
+            "description": "Revision identifier the caller believes is current"
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedInput"
+              }
+            ]
+          },
+          "current": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectParameters"
+              }
+            ]
+          },
+          "changes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "parameter": {
+                  "type": "string",
+                  "enum": [
+                    "width_mm",
+                    "height_mm",
+                    "depth_mm",
+                    "shelf_count",
+                    "door_style",
+                    "back_panel"
+                  ]
+                },
+                "value": {
+                  "type": [
+                    "number",
+                    "string",
+                    "boolean"
+                  ]
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "parameter",
+                "value"
+              ]
+            }
+          },
+          "constraints": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "min": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                },
+                "step": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "enum": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": [
+                      "number",
+                      "string",
+                      "boolean"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id",
+          "current",
+          "changes"
+        ]
+      },
+      "param_update.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/param_update.output.json",
+        "title": "ParamUpdateOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ]
+          },
+          "revision_tag": {
+            "type": "string",
+            "description": "Deterministic token produced from the applied parameter state"
+          },
+          "next_parameters": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectParameters"
+              }
+            ]
+          },
+          "applied": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "parameter": {
+                  "type": "string",
+                  "enum": [
+                    "width_mm",
+                    "height_mm",
+                    "depth_mm",
+                    "shelf_count",
+                    "door_style",
+                    "back_panel"
+                  ]
+                },
+                "previous_value": {
+                  "type": [
+                    "number",
+                    "string",
+                    "boolean"
+                  ]
+                },
+                "next_value": {
+                  "type": [
+                    "number",
+                    "string",
+                    "boolean"
+                  ]
+                },
+                "delta": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "reason": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "parameter",
+                "previous_value",
+                "next_value",
+                "delta",
+                "reason"
+              ]
+            }
+          },
+          "rejected": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "parameter": {
+                  "type": "string"
+                },
+                "requested_value": {
+                  "type": [
+                    "number",
+                    "string",
+                    "boolean"
+                  ]
+                },
+                "code": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "parameter",
+                "requested_value",
+                "code",
+                "message"
+              ]
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/warning"
+            }
+          },
+          "notes": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedOutput"
+              }
+            ]
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          }
+        },
+        "required": [
+          "project_id",
+          "revision_tag",
+          "next_parameters",
+          "applied",
+          "rejected",
+          "warnings",
+          "notes",
+          "seed",
+          "engine_versions",
+          "revision_id",
+          "inputs_hash"
+        ]
+      },
+      "apply_joinery.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/apply_joinery.input.json",
+        "title": "ApplyJoineryInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ]
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedInput"
+              }
+            ]
+          },
+          "operations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "dado",
+                    "rabbet",
+                    "mortise",
+                    "tenon",
+                    "lap",
+                    "dowel"
+                  ]
+                },
+                "primary_part_id": {
+                  "type": "string"
+                },
+                "secondary_part_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "face": {
+                  "type": "string",
+                  "enum": [
+                    "interior",
+                    "exterior",
+                    "edge"
+                  ]
+                },
+                "offset_mm": {
+                  "type": "number"
+                },
+                "length_mm": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "width_mm": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "depth_mm": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "angle_deg": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "fasteners": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "screw",
+                          "dowel",
+                          "nail",
+                          "biscuit"
+                        ]
+                      },
+                      "spacing_mm": {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      "diameter_mm": {
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "spacing_mm",
+                      "diameter_mm"
+                    ]
+                  }
+                },
+                "metadata": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              },
+              "required": [
+                "type",
+                "primary_part_id",
+                "face",
+                "offset_mm",
+                "length_mm",
+                "width_mm",
+                "depth_mm"
+              ]
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id",
+          "operations"
+        ]
+      },
+      "apply_joinery.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/apply_joinery.output.json",
+        "title": "ApplyJoineryOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ]
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "operation_id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "dado",
+                    "rabbet",
+                    "mortise",
+                    "tenon",
+                    "lap",
+                    "dowel"
+                  ]
+                },
+                "primary_part_id": {
+                  "type": "string"
+                },
+                "secondary_part_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "features": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "./common.schema.json#/$defs/joineryFeature"
+                  }
+                },
+                "removed_volume_mm3": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "preview_svg_path": {
+                  "type": "string"
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "./common.schema.json#/$defs/warning"
+                  }
+                }
+              },
+              "required": [
+                "operation_id",
+                "type",
+                "primary_part_id",
+                "secondary_part_id",
+                "features",
+                "removed_volume_mm3",
+                "preview_svg_path",
+                "warnings"
+              ]
+            }
+          },
+          "impacted_parts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "summary": {
+            "type": "string"
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedOutput"
+              }
+            ]
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          }
+        },
+        "required": [
+          "project_id",
+          "operations",
+          "impacted_parts",
+          "summary",
+          "seed",
+          "engine_versions",
+          "revision_id",
+          "inputs_hash"
+        ]
+      },
+      "analyze_geometry.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/analyze_geometry.input.json",
+        "title": "AnalyzeGeometryInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "type": "object",
+            "title": "GeometrySource",
+            "additionalProperties": false,
+            "properties": {
+              "format": {
+                "type": "string",
+                "enum": [
+                  "step",
+                  "iges"
+                ],
+                "description": "Indicates the serialized format of the geometry payload."
+              },
+              "data": {
+                "type": "string",
+                "minLength": 1,
+                "description": "STEP or IGES data encoded as UTF-8 text."
+              }
+            },
+            "required": [
+              "format",
+              "data"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "description": "Optional label used in downstream reporting."
+          },
+          "include_primitives": {
+            "type": "boolean",
+            "description": "Include derived metrics such as surface area and bounding box dimensions.",
+            "default": true
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedInput"
+              }
+            ]
+          }
+        },
+        "required": [
+          "source"
+        ]
+      },
+      "analyze_geometry.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/analyze_geometry.output.json",
+        "title": "AnalyzeGeometryOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "description": "Echoed label when supplied on input.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_format": {
+            "type": "string",
+            "enum": [
+              "step",
+              "iges"
+            ],
+            "description": "Format that was analyzed."
+          },
+          "vertex_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "triangle_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "surface_area": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Approximate surface area derived from tessellated facets."
+          },
+          "bounding_box": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "min": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "max": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "min",
+              "max"
+            ]
+          },
+          "dimensions": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "width": {
+                "type": "number",
+                "minimum": 0
+              },
+              "height": {
+                "type": "number",
+                "minimum": 0
+              },
+              "depth": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "width",
+              "height",
+              "depth"
+            ]
+          },
+          "engine_versions": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/engineVersions"
+              }
+            ]
+          },
+          "inputs_hash": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/inputsHash"
+              }
+            ]
+          },
+          "revision_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/revisionId"
+              }
+            ]
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedOutput"
+              }
+            ]
+          }
+        },
+        "required": [
+          "source_format",
+          "vertex_count",
+          "triangle_count",
+          "surface_area",
+          "bounding_box",
+          "dimensions",
+          "engine_versions",
+          "inputs_hash",
+          "revision_id",
+          "seed"
+        ]
+      },
+      "extract_cutlist.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/extract_cutlist.input.json",
+        "title": "ExtractCutlistInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ],
+            "description": "Identifier returned by create_project"
+          },
+          "revision_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/revisionId"
+              }
+            ],
+            "description": "Revision to extract from"
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedInput"
+              }
+            ],
+            "description": "Deterministic seed for ordering"
+          }
+        },
+        "required": [
+          "project_id"
+        ]
+      },
+      "extract_cutlist.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/extract_cutlist.output.json",
+        "title": "ExtractCutlistOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "$ref": "./common.schema.json#/$defs/projectId"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/cutlistRow"
+            }
+          },
+          "totals": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "parts": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "material_totals": {
+                "type": "array",
+                "items": {
+                  "$ref": "./common.schema.json#/$defs/materialTotalsItem"
+                }
+              }
+            },
+            "required": [
+              "parts",
+              "material_totals"
+            ]
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedOutput"
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          }
+        },
+        "required": [
+          "project_id",
+          "rows",
+          "totals",
+          "seed",
+          "engine_versions",
+          "revision_id",
+          "inputs_hash"
+        ]
+      },
+      "nest_parts.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/nest_parts.input.json",
+        "title": "NestPartsInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "$ref": "./common.schema.json#/$defs/projectId"
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedInput"
+          },
+          "strategy": {
+            "type": "string",
+            "enum": [
+              "skyline"
+            ],
+            "default": "skyline"
+          },
+          "kerf_mm": {
+            "type": "number",
+            "minimum": 0,
+            "default": 0.5
+          },
+          "grain_rule": {
+            "type": "string",
+            "enum": [
+              "strict",
+              "relaxed"
+            ],
+            "default": "strict"
+          },
+          "parts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "part_id": {
+                  "type": "string"
+                },
+                "length_mm": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "width_mm": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "allow_rotation": {
+                  "type": "boolean",
+                  "default": false
+                }
+              },
+              "required": [
+                "part_id",
+                "length_mm",
+                "width_mm",
+                "quantity"
+              ]
+            }
+          },
+          "stock": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "sheet_id": {
+                  "type": "string"
+                },
+                "length_mm": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "width_mm": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              },
+              "required": [
+                "sheet_id",
+                "length_mm",
+                "width_mm",
+                "quantity"
+              ]
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "parts",
+          "stock"
+        ]
+      },
+      "nest_parts.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/nest_parts.output.json",
+        "title": "NestPartsOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "$ref": "./common.schema.json#/$defs/projectId"
+          },
+          "strategy": {
+            "type": "string"
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedOutput"
+          },
+          "layouts": {
+            "type": "array",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/nestLayout"
+            }
+          },
+          "utilization_summary": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "total_parts_area_mm2": {
+                "type": "number"
+              },
+              "total_stock_area_mm2": {
+                "type": "number"
+              },
+              "overall_utilization": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "total_parts_area_mm2",
+              "total_stock_area_mm2",
+              "overall_utilization"
+            ]
+          },
+          "offcuts": {
+            "type": "array",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/nestOffcut"
+            }
+          },
+          "not_placed": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          }
+        },
+        "required": [
+          "project_id",
+          "strategy",
+          "seed",
+          "layouts",
+          "utilization_summary",
+          "offcuts",
+          "not_placed",
+          "engine_versions",
+          "revision_id",
+          "inputs_hash"
+        ]
+      },
+      "make_drawing.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/make_drawing.input.json",
+        "title": "MakeDrawingInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ]
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedInput"
+              }
+            ]
+          },
+          "views": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "enum": [
+                "iso",
+                "front",
+                "back",
+                "left",
+                "right",
+                "top",
+                "bottom",
+                "section",
+                "exploded"
+              ]
+            }
+          },
+          "include_dimensions": {
+            "type": "boolean",
+            "default": true
+          },
+          "explode": {
+            "type": "boolean",
+            "default": false
+          },
+          "sheet_size": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "width_mm": {
+                "type": "number",
+                "minimum": 100
+              },
+              "height_mm": {
+                "type": "number",
+                "minimum": 100
+              }
+            },
+            "required": [
+              "width_mm",
+              "height_mm"
+            ]
+          },
+          "scale": {
+            "type": "number",
+            "minimum": 0.01
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "project_id",
+          "views"
+        ]
+      },
+      "make_drawing.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/make_drawing.output.json",
+        "title": "MakeDrawingOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ]
+          },
+          "drawing_path": {
+            "type": "string",
+            "description": "Repository-relative path to the generated drawing"
+          },
+          "bytes_written": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "views": {
+            "type": "array",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/drawingView"
+            }
+          },
+          "include_dimensions": {
+            "type": "boolean"
+          },
+          "explode": {
+            "type": "boolean"
+          },
+          "sheet_size": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "width_mm": {
+                "type": "number"
+              },
+              "height_mm": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "width_mm",
+              "height_mm"
+            ]
+          },
+          "scale": {
+            "type": "number"
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/warning"
+            }
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedOutput"
+              }
+            ]
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          }
+        },
+        "required": [
+          "project_id",
+          "drawing_path",
+          "bytes_written",
+          "views",
+          "include_dimensions",
+          "explode",
+          "sheet_size",
+          "scale",
+          "warnings",
+          "seed",
+          "engine_versions",
+          "revision_id",
+          "inputs_hash"
+        ]
+      },
+      "wood_movement_check.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/wood_movement_check.input.json",
+        "title": "WoodMovementCheckInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ],
+            "description": "Identifier returned by create_project"
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedInput"
+              }
+            ],
+            "description": "Deterministic seed"
+          },
+          "ambient": {
+            "$ref": "./common.schema.json#/$defs/ambient"
+          },
+          "parts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "part_id": {
+                  "type": "string"
+                },
+                "species": {
+                  "type": "string"
+                },
+                "grain_axis": {
+                  "type": "string",
+                  "enum": [
+                    "length",
+                    "width",
+                    "thickness"
+                  ]
+                },
+                "nominal_mm": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "length": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "width": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "thickness": {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "length",
+                    "width",
+                    "thickness"
+                  ]
+                }
+              },
+              "required": [
+                "part_id",
+                "species",
+                "grain_axis",
+                "nominal_mm"
+              ]
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "ambient",
+          "parts"
+        ]
+      },
+      "wood_movement_check.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/wood_movement_check.output.json",
+        "title": "WoodMovementCheckOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "$ref": "./common.schema.json#/$defs/projectId"
+          },
+          "ambient": {
+            "$ref": "./common.schema.json#/$defs/ambient"
+          },
+          "per_part": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "part_id": {
+                  "type": "string"
+                },
+                "species": {
+                  "type": "string"
+                },
+                "delta_length_mm": {
+                  "type": "number"
+                },
+                "delta_width_mm": {
+                  "type": "number"
+                },
+                "delta_thickness_mm": {
+                  "type": "number"
+                },
+                "warning": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "part_id",
+                "species",
+                "delta_length_mm",
+                "delta_width_mm",
+                "delta_thickness_mm"
+              ]
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/warning"
+            }
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedOutput"
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          }
+        },
+        "required": [
+          "project_id",
+          "ambient",
+          "per_part",
+          "warnings",
+          "seed",
+          "engine_versions",
+          "revision_id",
+          "inputs_hash"
+        ]
+      },
+      "generate_toolpaths.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/generate_toolpaths.input.json",
+        "title": "GenerateToolpathsInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ]
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedInput"
+              }
+            ]
+          },
+          "safe_z_mm": {
+            "type": "number",
+            "minimum": 0,
+            "default": 5
+          },
+          "stock": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "length_mm": {
+                "type": "number",
+                "minimum": 1
+              },
+              "width_mm": {
+                "type": "number",
+                "minimum": 1
+              },
+              "thickness_mm": {
+                "type": "number",
+                "minimum": 1
+              },
+              "origin": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "x_mm": {
+                    "type": "number"
+                  },
+                  "y_mm": {
+                    "type": "number"
+                  },
+                  "z_mm": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x_mm",
+                  "y_mm",
+                  "z_mm"
+                ]
+              }
+            },
+            "required": [
+              "length_mm",
+              "width_mm",
+              "thickness_mm",
+              "origin"
+            ]
+          },
+          "operations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "const": "contour"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "tool": {
+                      "allOf": [
+                        {
+                          "$ref": "./common.schema.json#/$defs/toolSpecification"
+                        }
+                      ]
+                    },
+                    "feed_mm_per_min": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "plunge_mm_per_min": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "depth_mm": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "stepdown_mm": {
+                      "type": "number",
+                      "minimum": 0.01
+                    },
+                    "offset_strategy": {
+                      "type": "string",
+                      "enum": [
+                        "outside",
+                        "inside",
+                        "on"
+                      ]
+                    },
+                    "path": {
+                      "type": "array",
+                      "minItems": 2,
+                      "items": {
+                        "allOf": [
+                          {
+                            "$ref": "./common.schema.json#/$defs/vector2"
+                          }
+                        ]
+                      }
+                    },
+                    "tabs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "position_mm": {
+                            "allOf": [
+                              {
+                                "$ref": "./common.schema.json#/$defs/vector2"
+                              }
+                            ]
+                          },
+                          "width_mm": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "height_mm": {
+                            "type": "number",
+                            "minimum": 0
+                          }
+                        },
+                        "required": [
+                          "position_mm",
+                          "width_mm",
+                          "height_mm"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "name",
+                    "tool",
+                    "feed_mm_per_min",
+                    "plunge_mm_per_min",
+                    "depth_mm",
+                    "stepdown_mm",
+                    "offset_strategy",
+                    "path"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "const": "pocket"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "tool": {
+                      "allOf": [
+                        {
+                          "$ref": "./common.schema.json#/$defs/toolSpecification"
+                        }
+                      ]
+                    },
+                    "feed_mm_per_min": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "plunge_mm_per_min": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "depth_mm": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "stepover_mm": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "strategy": {
+                      "type": "string",
+                      "enum": [
+                        "zigzag",
+                        "spiral"
+                      ]
+                    },
+                    "boundary": {
+                      "type": "array",
+                      "minItems": 3,
+                      "items": {
+                        "allOf": [
+                          {
+                            "$ref": "./common.schema.json#/$defs/vector2"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "name",
+                    "tool",
+                    "feed_mm_per_min",
+                    "plunge_mm_per_min",
+                    "depth_mm",
+                    "stepover_mm",
+                    "strategy",
+                    "boundary"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "const": "drill"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "tool": {
+                      "allOf": [
+                        {
+                          "$ref": "./common.schema.json#/$defs/toolSpecification"
+                        }
+                      ]
+                    },
+                    "feed_mm_per_min": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "cycle": {
+                      "type": "string",
+                      "enum": [
+                        "drill",
+                        "peck"
+                      ]
+                    },
+                    "holes": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "x_mm": {
+                            "type": "number"
+                          },
+                          "y_mm": {
+                            "type": "number"
+                          },
+                          "depth_mm": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "dwell_ms": {
+                            "type": "number",
+                            "minimum": 0
+                          }
+                        },
+                        "required": [
+                          "x_mm",
+                          "y_mm",
+                          "depth_mm"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "name",
+                    "tool",
+                    "feed_mm_per_min",
+                    "cycle",
+                    "holes"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "project_id",
+          "stock",
+          "operations"
+        ]
+      },
+      "generate_toolpaths.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/generate_toolpaths.output.json",
+        "title": "GenerateToolpathsOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ]
+          },
+          "program_id": {
+            "type": "string"
+          },
+          "program_path": {
+            "type": "string"
+          },
+          "total_runtime_sec": {
+            "type": "number",
+            "minimum": 0
+          },
+          "total_length_mm": {
+            "type": "number",
+            "minimum": 0
+          },
+          "toolpaths": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "toolpath_id": {
+                  "type": "string"
+                },
+                "operation_type": {
+                  "type": "string",
+                  "enum": [
+                    "contour",
+                    "pocket",
+                    "drill"
+                  ]
+                },
+                "operation_label": {
+                  "type": "string"
+                },
+                "tool": {
+                  "allOf": [
+                    {
+                      "$ref": "./common.schema.json#/$defs/toolSpecification"
+                    }
+                  ]
+                },
+                "length_mm": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "estimated_runtime_sec": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "passes": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "segments": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "./common.schema.json#/$defs/toolpathSegment"
+                      }
+                    ]
+                  }
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "./common.schema.json#/$defs/warning"
+                  }
+                }
+              },
+              "required": [
+                "toolpath_id",
+                "operation_type",
+                "operation_label",
+                "tool",
+                "length_mm",
+                "estimated_runtime_sec",
+                "passes",
+                "segments",
+                "warnings"
+              ]
+            }
+          },
+          "preview_path": {
+            "type": "string"
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/warning"
+            }
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedOutput"
+              }
+            ]
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          }
+        },
+        "required": [
+          "project_id",
+          "program_id",
+          "program_path",
+          "total_runtime_sec",
+          "total_length_mm",
+          "toolpaths",
+          "preview_path",
+          "warnings",
+          "seed",
+          "engine_versions",
+          "revision_id",
+          "inputs_hash"
+        ]
+      },
+      "postprocess_grbl.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/postprocess_grbl.input.json",
+        "title": "PostprocessGrblInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ]
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedInput"
+              }
+            ]
+          },
+          "controller": {
+            "type": "string",
+            "enum": [
+              "grbl"
+            ]
+          },
+          "program_path": {
+            "type": "string",
+            "description": "Optional repository-relative path to a generated toolpath program"
+          },
+          "program": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "program_id": {
+                "type": "string"
+              },
+              "total_runtime_sec": {
+                "type": "number",
+                "minimum": 0
+              },
+              "total_length_mm": {
+                "type": "number",
+                "minimum": 0
+              },
+              "toolpaths": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "toolpath_id": {
+                      "type": "string"
+                    },
+                    "operation_type": {
+                      "type": "string",
+                      "enum": [
+                        "contour",
+                        "pocket",
+                        "drill"
+                      ]
+                    },
+                    "operation_label": {
+                      "type": "string"
+                    },
+                    "tool": {
+                      "allOf": [
+                        {
+                          "$ref": "./common.schema.json#/$defs/toolSpecification"
+                        }
+                      ]
+                    },
+                    "segments": {
+                      "type": "array",
+                      "items": {
+                        "allOf": [
+                          {
+                            "$ref": "./common.schema.json#/$defs/toolpathSegment"
+                          }
+                        ]
+                      }
+                    },
+                    "length_mm": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "estimated_runtime_sec": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "passes": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "warnings": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "./common.schema.json#/$defs/warning"
+                      }
+                    }
+                  },
+                  "required": [
+                    "toolpath_id",
+                    "operation_type",
+                    "operation_label",
+                    "tool",
+                    "segments",
+                    "length_mm",
+                    "estimated_runtime_sec"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "program_id",
+              "total_runtime_sec",
+              "total_length_mm",
+              "toolpaths"
+            ]
+          },
+          "destination": {
+            "type": "string",
+            "description": "Directory (relative to repo) to place generated G-code"
+          },
+          "confirm_write": {
+            "type": "boolean",
+            "enum": [
+              true
+            ],
+            "description": "Must be true to allow writing controller files"
+          }
+        },
+        "required": [
+          "project_id",
+          "controller",
+          "confirm_write"
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "program_path"
+            ]
+          },
+          {
+            "required": [
+              "program"
+            ]
+          }
+        ]
+      },
+      "postprocess_grbl.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/postprocess_grbl.output.json",
+        "title": "PostprocessGrblOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/projectId"
+              }
+            ]
+          },
+          "controller": {
+            "type": "string",
+            "enum": [
+              "grbl"
+            ]
+          },
+          "gcode_path": {
+            "type": "string",
+            "description": "Repository-relative path to the generated G-code program"
+          },
+          "bytes_written": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "line_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "toolpath_stats": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "total_runtime_sec": {
+                "type": "number",
+                "minimum": 0
+              },
+              "total_length_mm": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "total_runtime_sec",
+              "total_length_mm"
+            ]
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "$ref": "./common.schema.json#/$defs/warning"
+            }
+          },
+          "seed": {
+            "allOf": [
+              {
+                "$ref": "./common.schema.json#/$defs/seedOutput"
+              }
+            ]
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          }
+        },
+        "required": [
+          "project_id",
+          "controller",
+          "gcode_path",
+          "bytes_written",
+          "line_count",
+          "toolpath_stats",
+          "warnings",
+          "seed",
+          "engine_versions",
+          "revision_id",
+          "inputs_hash"
+        ]
+      }
+    }
+  }
 }

@@ -9,13 +9,35 @@ const __dirname = dirname(__filename);
 const repoRoot = resolve(__dirname, "..", "..");
 const catalogPath = resolve(repoRoot, "codex/agent-pack/catalogs/woodshop-tools.json");
 const openrpcPath = resolve(repoRoot, "codex/agent-pack/catalogs/woodshop-openrpc.json");
+const schemaDir = resolve(repoRoot, "packages/schemas/dist");
 
 const catalog = JSON.parse(readFileSync(catalogPath, "utf8"));
 
-const methods = catalog.tools.map((tool) => ({
-  name: tool.name,
-  summary: tool.title,
-  description: tool.description,
+const componentsSchemas = {};
+
+function loadSchemaFromId(id) {
+  if (!id) return undefined;
+  const fileName = id.split("/").pop();
+  if (!fileName) return undefined;
+  const schemaFile = fileName.replace(".json", ".schema.json");
+  const diskPath = resolve(schemaDir, schemaFile);
+  try {
+    const schema = JSON.parse(readFileSync(diskPath, "utf8"));
+    const componentName = fileName.replace(/\.json$/, "");
+    componentsSchemas[componentName] = schema;
+  } catch (error) {
+    console.warn(`Unable to load schema for ${id}: ${(error).message}`);
+  }
+}
+
+const methods = catalog.tools.map((tool) => {
+  loadSchemaFromId(tool.input_schema);
+  loadSchemaFromId(tool.output_schema);
+
+  return {
+    name: tool.name,
+    summary: tool.title,
+    description: tool.description,
   params: [
     {
       name: "input",
@@ -38,7 +60,8 @@ const methods = catalog.tools.map((tool) => ({
     description: "Example input/output",
     url: `https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json`
   } : undefined
-}));
+};
+});
 
 const openrpcDocument = {
   openrpc: "1.2.6",
@@ -55,7 +78,9 @@ const openrpcDocument = {
     }
   ],
   methods,
-  components: {}
+  components: {
+    schemas: componentsSchemas
+  }
 };
 
 writeFileSync(openrpcPath, `${JSON.stringify(openrpcDocument, null, 2)}\n`);

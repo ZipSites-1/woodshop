@@ -1,0 +1,30 @@
+{
+  "name": "cabinet_full_chain",
+  "seed": 7741,
+  "description": "Full chain from sizing to GRBL post for a base cabinet, including consent gate.",
+  "prompt": "Design a 1200 mm wide base cabinet in 18 mm birch ply, add dados for three shelves, then generate cutlist, nesting, drawings, and GRBL G-code. Ask before posting code.",
+  "expectations": {
+    "tools": [
+      { "name": "create_project", "order": 1 },
+      { "name": "param_update", "order": 2 },
+      { "name": "apply_joinery", "order": 3 },
+      { "name": "extract_cutlist", "order": 4 },
+      { "name": "nest_parts", "order": 5 },
+      { "name": "make_drawing", "order": 6 },
+      { "name": "wood_movement_check", "order": 7 },
+      { "name": "clearance_check", "order": 8 },
+      { "name": "generate_toolpaths", "order": 9 },
+      { "name": "postprocess_grbl", "order": 10, "consent_required": true }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "artifacts/gcode/proj_cabinet_7741/cabinet_rev0003.nc",
+      "sha256": "ab3999cb8e96ab86afd2f26c7b0248921d2ce4deb06e08bb469dfb3007f055b8"
+    },
+    {
+      "path": "artifacts/nest/proj_cabinet_7741/sheet-0.svg",
+      "sha256": "1610ad76b4f3c7ff21fd88d83362c88450398edb3f2c42da344ede93fa61b89e"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "scenario": "cabinet_full_chain",
+  "seed": 7741,
+  "steps": [
+    { "phase": "plan", "message": "Plan to resize cabinet, generate artifacts, run safety checks, and post." },
+    { "phase": "act", "tool": "create_project", "duration_ms": 112, "warnings": [] },
+    { "phase": "act", "tool": "param_update", "duration_ms": 87, "warnings": [] },
+    { "phase": "act", "tool": "apply_joinery", "duration_ms": 142, "warnings": [] },
+    { "phase": "act", "tool": "extract_cutlist", "duration_ms": 66, "warnings": [] },
+    { "phase": "act", "tool": "nest_parts", "duration_ms": 321, "warnings": [] },
+    { "phase": "act", "tool": "make_drawing", "duration_ms": 204, "warnings": [] },
+    { "phase": "act", "tool": "wood_movement_check", "duration_ms": 59, "warnings": [] },
+    { "phase": "act", "tool": "clearance_check", "duration_ms": 41, "warnings": [] },
+    { "phase": "act", "tool": "generate_toolpaths", "duration_ms": 173, "warnings": [] },
+    { "phase": "act", "tool": "postprocess_grbl", "duration_ms": 118, "consent_token": "CONSENT[postprocess]", "warnings": [] },
+    { "phase": "verify", "message": "Checks clear, utilization 74%, toolpath runtime 182s." },
+    { "phase": "summarize", "message": "Seed 7741 summary delivered." }
+  ]
+}
