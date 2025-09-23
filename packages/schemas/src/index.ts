@@ -5,6 +5,8 @@ import createProjectInput from "./create_project.input.schema.json" with { type:
 import createProjectOutput from "./create_project.output.schema.json" with { type: "json" };
 import exportArtifactsInput from "./export_artifacts.input.schema.json" with { type: "json" };
 import exportArtifactsOutput from "./export_artifacts.output.schema.json" with { type: "json" };
+import explainChangeInput from "./explain_change.input.schema.json" with { type: "json" };
+import explainChangeOutput from "./explain_change.output.schema.json" with { type: "json" };
 import extractCutlistInput from "./extract_cutlist.input.schema.json" with { type: "json" };
 import extractCutlistOutput from "./extract_cutlist.output.schema.json" with { type: "json" };
 import generateToolpathsInput from "./generate_toolpaths.input.schema.json" with { type: "json" };
@@ -19,8 +21,12 @@ import paramUpdateInput from "./param_update.input.schema.json" with { type: "js
 import paramUpdateOutput from "./param_update.output.schema.json" with { type: "json" };
 import postprocessGrblInput from "./postprocess_grbl.input.schema.json" with { type: "json" };
 import postprocessGrblOutput from "./postprocess_grbl.output.schema.json" with { type: "json" };
+import redoInput from "./redo.input.schema.json" with { type: "json" };
+import redoOutput from "./redo.output.schema.json" with { type: "json" };
 import woodMovementCheckInput from "./wood_movement_check.input.schema.json" with { type: "json" };
 import woodMovementCheckOutput from "./wood_movement_check.output.schema.json" with { type: "json" };
+import undoInput from "./undo.input.schema.json" with { type: "json" };
+import undoOutput from "./undo.output.schema.json" with { type: "json" };
 
 export type JsonSchema = Record<string, unknown> & {
   $id: string;
@@ -49,6 +55,10 @@ export const toolSchemas = {
     input: exportArtifactsInput,
     output: exportArtifactsOutput,
   },
+  explain_change: {
+    input: explainChangeInput,
+    output: explainChangeOutput,
+  },
   extract_cutlist: {
     input: extractCutlistInput,
     output: extractCutlistOutput,
@@ -76,6 +86,14 @@ export const toolSchemas = {
   postprocess_grbl: {
     input: postprocessGrblInput,
     output: postprocessGrblOutput,
+  },
+  redo: {
+    input: redoInput,
+    output: redoOutput,
+  },
+  undo: {
+    input: undoInput,
+    output: undoOutput,
   },
 } as const satisfies Record<string, ToolSchemaPair>;
 

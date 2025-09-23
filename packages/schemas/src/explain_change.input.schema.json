@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/explain_change.input.json",
+  "title": "ExplainChangeInput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "$ref": "./common.schema.json#/$defs/projectId"
+    },
+    "since_revision_id": {
+      "$ref": "./common.schema.json#/$defs/revisionId",
+      "description": "Revision identifier to diff from."
+    },
+    "until_revision_id": {
+      "$ref": "./common.schema.json#/$defs/revisionId",
+      "description": "Optional upper bound (defaults to current head)."
+    },
+    "include_metadata": {
+      "type": "boolean",
+      "description": "Whether to include per-step metadata blocks in the response.",
+      "default": false
+    },
+    "max_entries": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100,
+      "description": "Limit the number of change entries returned."
+    },
+    "seed": {
+      "$ref": "./common.schema.json#/$defs/seedInput"
+    }
+  },
+  "required": ["project_id", "since_revision_id"]
+}

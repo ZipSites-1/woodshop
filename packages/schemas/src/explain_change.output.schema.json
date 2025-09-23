@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/explain_change.output.json",
+  "title": "ExplainChangeOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "$ref": "./common.schema.json#/$defs/projectId"
+    },
+    "since_revision_id": {
+      "$ref": "./common.schema.json#/$defs/revisionId"
+    },
+    "until_revision_id": {
+      "$ref": "./common.schema.json#/$defs/revisionId"
+    },
+    "summary": {
+      "type": "string",
+      "description": "High-level explanation of changes across the range."
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "author": {
+            "type": "string"
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["revision_id", "summary"]
+      }
+    },
+    "engine_versions": {
+      "$ref": "./common.schema.json#/$defs/engineVersions"
+    },
+    "inputs_hash": {
+      "$ref": "./common.schema.json#/$defs/inputsHash"
+    },
+    "seed": {
+      "$ref": "./common.schema.json#/$defs/seedOutput"
+    }
+  },
+  "required": [
+    "project_id",
+    "since_revision_id",
+    "engine_versions",
+    "inputs_hash",
+    "entries"
+  ]
+}

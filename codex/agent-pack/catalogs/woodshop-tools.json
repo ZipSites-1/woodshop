@@ -354,6 +354,108 @@
           "toolpath_stats": { "total_length_mm": 2460, "total_runtime_sec": 182 }
         }
       }
+    },
+    {
+      "name": "explain_change",
+      "title": "Explain Change",
+      "description": "Summarize revisions between two points with human-readable diffs.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": [],
+      "input_schema": "https://woodshop.dev/schemas/explain_change.input.json",
+      "output_schema": "https://woodshop.dev/schemas/explain_change.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "since_revision_id": "rev_0001",
+          "until_revision_id": "rev_0003",
+          "include_metadata": true,
+          "max_entries": 10
+        },
+        "output": {
+          "project_id": "proj_demo",
+          "since_revision_id": "rev_0001",
+          "until_revision_id": "rev_0003",
+          "summary": "Shelf width increased and dados added.",
+          "entries": [
+            { "revision_id": "rev_0002", "summary": "Resized cabinet to 1200 mm width." },
+            { "revision_id": "rev_0003", "summary": "Added dados for shelves.", "warnings": ["Shelf dado depth reduced to 9 mm to avoid breakthrough"] }
+          ],
+          "engine_versions": {
+            "occt": "0.26.0",
+            "nest": "0.18.3",
+            "cam": "0.21.2",
+            "wood": "0.9.0",
+            "schemas": "0.3.0"
+          },
+          "inputs_hash": "e53dd2a0",
+          "seed": 0
+        }
+      }
+    },
+    {
+      "name": "undo",
+      "title": "Undo Revision",
+      "description": "Restore a previous project revision in a deterministic manner.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": ["updates project revision pointer"],
+      "input_schema": "https://woodshop.dev/schemas/undo.input.json",
+      "output_schema": "https://woodshop.dev/schemas/undo.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "revision_id": "rev_0002",
+          "reason": "Revert accidental panel resize"
+        },
+        "output": {
+          "project_id": "proj_demo",
+          "revision_id": "rev_0001",
+          "previous_revision_id": "rev_0002",
+          "summary": "Restored revision rev_0001 (pre-shelf resize)",
+          "engine_versions": {
+            "occt": "0.26.0",
+            "nest": "0.18.3",
+            "cam": "0.21.2",
+            "wood": "0.9.0",
+            "schemas": "0.3.0"
+          },
+          "inputs_hash": "b82d5efc",
+          "seed": 0
+        }
+      }
+    },
+    {
+      "name": "redo",
+      "title": "Redo Revision",
+      "description": "Reapply a previously undone revision.",
+      "deterministic": true,
+      "consent_required": false,
+      "side_effects": ["updates project revision pointer"],
+      "input_schema": "https://woodshop.dev/schemas/redo.input.json",
+      "output_schema": "https://woodshop.dev/schemas/redo.output.json",
+      "example": {
+        "input": {
+          "project_id": "proj_demo",
+          "revision_id": "rev_0003",
+          "reason": "Reapply joinery after review"
+        },
+        "output": {
+          "project_id": "proj_demo",
+          "revision_id": "rev_0003",
+          "previous_revision_id": "rev_0001",
+          "summary": "Reapplied shelf resize and joinery from rev_0003",
+          "engine_versions": {
+            "occt": "0.26.0",
+            "nest": "0.18.3",
+            "cam": "0.21.2",
+            "wood": "0.9.0",
+            "schemas": "0.3.0"
+          },
+          "inputs_hash": "5bcd9c41",
+          "seed": 0
+        }
+      }
     }
   ]
 }

@@ -21,6 +21,11 @@ import {
   runExportArtifacts,
 } from "./exportArtifacts.js";
 import {
+  explainChangeTool,
+  registerExplainChange,
+  runExplainChange,
+} from "./explainChange.js";
+import {
   applyJoineryTool,
   registerApplyJoinery,
   runApplyJoinery,
@@ -55,6 +60,16 @@ import {
   registerPostprocessGrbl,
   runPostprocessGrbl,
 } from "./postprocessGrbl.js";
+import {
+  redoTool,
+  registerRedo,
+  runRedo,
+} from "./redo.js";
+import {
+  undoTool,
+  registerUndo,
+  runUndo,
+} from "./undo.js";
 import type { ValidatedTool } from "../middleware/index.js";
 
 type ToolRunnerMap = {
@@ -66,6 +81,7 @@ export function registerAllTools(server: McpServer): void {
   registerParamUpdate(server);
   registerExtractCutlist(server);
   registerExportArtifacts(server);
+  registerExplainChange(server);
   registerApplyJoinery(server);
   registerAnalyzeGeometry(server);
   registerWoodMovement(server);
@@ -73,6 +89,8 @@ export function registerAllTools(server: McpServer): void {
   registerMakeDrawing(server);
   registerGenerateToolpaths(server);
   registerPostprocessGrbl(server);
+  registerUndo(server);
+  registerRedo(server);
 }
 
 export const toolRunners: ToolRunnerMap = {
@@ -80,6 +98,7 @@ export const toolRunners: ToolRunnerMap = {
   param_update: runParamUpdate,
   extract_cutlist: runExtractCutlist,
   export_artifacts: runExportArtifacts,
+  explain_change: runExplainChange,
   apply_joinery: runApplyJoinery,
   analyze_geometry: runAnalyzeGeometry,
   wood_movement_check: runWoodMovementCheck,
@@ -87,12 +106,15 @@ export const toolRunners: ToolRunnerMap = {
   make_drawing: runMakeDrawing,
   generate_toolpaths: runGenerateToolpaths,
   postprocess_grbl: runPostprocessGrbl,
+  redo: runRedo,
+  undo: runUndo,
 } as const;
 export const toolDefinitions: ReadonlyArray<ValidatedTool<any, any>> = [
   createProjectTool,
   paramUpdateTool,
   extractCutlistTool,
   exportArtifactsTool,
+  explainChangeTool,
   applyJoineryTool,
   analyzeGeometryTool,
   woodMovementTool,
@@ -100,4 +122,6 @@ export const toolDefinitions: ReadonlyArray<ValidatedTool<any, any>> = [
   makeDrawingTool,
   generateToolpathsTool,
   postprocessGrblTool,
+  undoTool,
+  redoTool,
 ];

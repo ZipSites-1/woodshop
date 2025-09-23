@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://woodshop.dev/schemas/undo.output.json",
+  "title": "UndoOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "$ref": "./common.schema.json#/$defs/projectId"
+    },
+    "revision_id": {
+      "$ref": "./common.schema.json#/$defs/revisionId",
+      "description": "New head revision after undo is applied."
+    },
+    "previous_revision_id": {
+      "$ref": "./common.schema.json#/$defs/revisionId",
+      "description": "Revision that was current before the undo operation."
+    },
+    "engine_versions": {
+      "$ref": "./common.schema.json#/$defs/engineVersions"
+    },
+    "inputs_hash": {
+      "$ref": "./common.schema.json#/$defs/inputsHash"
+    },
+    "seed": {
+      "$ref": "./common.schema.json#/$defs/seedOutput"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Human-readable description of the reverted change."
+    }
+  },
+  "required": [
+    "project_id",
+    "revision_id",
+    "previous_revision_id",
+    "engine_versions",
+    "inputs_hash"
+  ]
+}

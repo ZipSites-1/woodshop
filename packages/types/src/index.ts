@@ -128,6 +128,38 @@ export interface CreateProjectOutput {
   "units": "mm" | "inch";
 }
 
+export interface ExplainChangeInput {
+  "include_metadata"?: boolean;
+  "max_entries"?: number;
+  "project_id": string;
+  "seed"?: number;
+  "since_revision_id": string;
+  "until_revision_id"?: string;
+}
+
+export interface ExplainChangeOutput {
+  "engine_versions": {
+    "cam": string;
+    "nest": string;
+    "occt": string;
+    "schemas": string;
+    "wood": string;
+  };
+  "entries": Array<{
+    "author"?: string;
+    "revision_id": string;
+    "summary": string;
+    "timestamp"?: string;
+    "warnings"?: Array<string>;
+  }>;
+  "inputs_hash": string;
+  "project_id": string;
+  "seed"?: number;
+  "since_revision_id": string;
+  "summary"?: string;
+  "until_revision_id"?: string;
+}
+
 export interface ExportArtifactsInput {
   "destination"?: string;
   "format": "pdf" | "dxf" | "svg";
@@ -510,6 +542,54 @@ export interface PostprocessGrblOutput {
   }>;
 }
 
+export interface RedoInput {
+  "current_revision_id"?: string;
+  "project_id": string;
+  "reason"?: string;
+  "revision_id": string;
+  "seed"?: number;
+}
+
+export interface RedoOutput {
+  "engine_versions": {
+    "cam": string;
+    "nest": string;
+    "occt": string;
+    "schemas": string;
+    "wood": string;
+  };
+  "inputs_hash": string;
+  "previous_revision_id": string;
+  "project_id": string;
+  "revision_id": string;
+  "seed"?: number;
+  "summary"?: string;
+}
+
+export interface UndoInput {
+  "current_revision_id"?: string;
+  "project_id": string;
+  "reason"?: string;
+  "revision_id": string;
+  "seed"?: number;
+}
+
+export interface UndoOutput {
+  "engine_versions": {
+    "cam": string;
+    "nest": string;
+    "occt": string;
+    "schemas": string;
+    "wood": string;
+  };
+  "inputs_hash": string;
+  "previous_revision_id": string;
+  "project_id": string;
+  "revision_id": string;
+  "seed"?: number;
+  "summary"?: string;
+}
+
 export interface WoodMovementCheckInput {
   "ambient": {
     "relative_humidity": number;
@@ -564,12 +644,13 @@ export type WoodshopSharedDefinitions = {
   [key: string]: unknown;
 };
 
-export type ToolName = "analyze_geometry" | "apply_joinery" | "create_project" | "export_artifacts" | "extract_cutlist" | "generate_toolpaths" | "make_drawing" | "nest_parts" | "param_update" | "postprocess_grbl" | "wood_movement_check";
+export type ToolName = "analyze_geometry" | "apply_joinery" | "create_project" | "explain_change" | "export_artifacts" | "extract_cutlist" | "generate_toolpaths" | "make_drawing" | "nest_parts" | "param_update" | "postprocess_grbl" | "redo" | "undo" | "wood_movement_check";
 
 export interface ToolInputMap {
   "analyze_geometry": AnalyzeGeometryInput;
   "apply_joinery": ApplyJoineryInput;
   "create_project": CreateProjectInput;
+  "explain_change": ExplainChangeInput;
   "export_artifacts": ExportArtifactsInput;
   "extract_cutlist": ExtractCutlistInput;
   "generate_toolpaths": GenerateToolpathsInput;
@@ -577,6 +658,8 @@ export interface ToolInputMap {
   "nest_parts": NestPartsInput;
   "param_update": ParamUpdateInput;
   "postprocess_grbl": PostprocessGrblInput;
+  "redo": RedoInput;
+  "undo": UndoInput;
   "wood_movement_check": WoodMovementCheckInput;
 }
 
@@ -584,6 +667,7 @@ export interface ToolOutputMap {
   "analyze_geometry": AnalyzeGeometryOutput;
   "apply_joinery": ApplyJoineryOutput;
   "create_project": CreateProjectOutput;
+  "explain_change": ExplainChangeOutput;
   "export_artifacts": ExportArtifactsOutput;
   "extract_cutlist": ExtractCutlistOutput;
   "generate_toolpaths": GenerateToolpathsOutput;
@@ -591,6 +675,8 @@ export interface ToolOutputMap {
   "nest_parts": NestPartsOutput;
   "param_update": ParamUpdateOutput;
   "postprocess_grbl": PostprocessGrblOutput;
+  "redo": RedoOutput;
+  "undo": UndoOutput;
   "wood_movement_check": WoodMovementCheckOutput;
 }
 
