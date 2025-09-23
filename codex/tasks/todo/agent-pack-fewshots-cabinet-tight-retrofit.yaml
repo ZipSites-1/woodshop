@@ -1,0 +1,25 @@
+slug: agent-pack-fewshots-cabinet-tight-retrofit
+title: "Agent Pack: few-shots (cabinet, tight nesting, retrofit STEP)"
+description: Curate ReAct few-shots covering full chain-to-post with consent gate; include tight nesting trade-offs and STEP retrofit flow.
+area: agent-pack
+allowed_paths:
+  - codex/prompts/fewshots/**
+labels:
+  - codex
+  - agent-pack
+acceptance:
+  commands:
+    - echo "Few-shots lint: N/A"
+  tests_expect:
+    - Traces show Plan→Act→Verify→Summarize; references every tool call
+  artifacts_expect:
+
+dependencies:
+  - agent-pack-prompts-system-and-developer
+
+github:
+  blocked_by:
+    - agent-pack-prompts-system-and-developer
+  closing_keyword: True
+created: 2025-09-23
+

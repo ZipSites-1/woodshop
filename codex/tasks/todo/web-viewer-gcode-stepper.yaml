@@ -1,0 +1,23 @@
+slug: web-viewer-gcode-stepper
+title: "Web viewer: G-code stepper"
+description: 2.5D path preview with play/pause/step, feed/rapid visualization, and line inspector.
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+labels:
+  - codex
+  - web
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Manual: demo G-code loads and steps through
+  artifacts_expect:
+
+dependencies:
+  - web-viewer-artifact-panel-pdf-svg-dxf
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

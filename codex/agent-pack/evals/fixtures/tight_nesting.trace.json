@@ -1,0 +1,11 @@
+{
+  "scenario": "tight_nesting_comparison",
+  "seed": 9923,
+  "steps": [
+    { "phase": "plan", "message": "Compare baseline nest to skyline high utilization using same seed." },
+    { "phase": "act", "tool": "nest_parts", "duration_ms": 430, "warnings": [] },
+    { "phase": "act", "tool": "nest_parts", "duration_ms": 1480, "warnings": ["Rotated 4 panels by 90 degrees." ] },
+    { "phase": "verify", "message": "Baseline 68% vs skyline 81% utilization." },
+    { "phase": "summarize", "message": "Recommend skyline if runtime acceptable." }
+  ]
+}

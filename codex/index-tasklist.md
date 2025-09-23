@@ -21,12 +21,13 @@
 | 05 – MCP Server & Tool Registry | ✔ | 13/13 | schemas, provenance, adapters, tools |
 | 06 – Desktop App: Chat & Viewer | ☐ | 0/6 | chat UI, action cards, viewer bridge |
 | 07 – Web Viewer: Artifacts & Perf | ✔ | 5/5 | previews, budgets, optional MCP |
-| 08 – Schemas, Types & Contracts | ☐ | 1/4 | source-of-truth schemas & typegen |
-| 09 – Artifacts, Goldens & E2E CI | ☐ | 0/4 | reference runs + diffs in CI |
+| 08 – Schemas, Types & Contracts | ◐ | 1/4 | source-of-truth schemas & typegen |
+| 09 – Artifacts, Goldens & E2E CI | ◐ | 3/4 | reference runs + diffs in CI |
 | 10 – Security, Secrets & MCP Perms | ☐ | 0/4 | allow-list, confirmations, SBOM |
 | 11 – Release, Versioning & Docs | ☐ | 0/5 | changesets, changelog, ADR/docs |
 | 12 – Agent MCP E2E Flows & UX | ☐ | 0/4 | trace UX + tool wiring |
-| 13 – Performance & Benchmarks | ☐ | 0/3 | nest/cam benches, viewer budgets |
+| 13 – Performance & Benchmarks | ◐ | 1/3 | nest/cam benches, viewer budgets |
+| 14 – Agent Pack: Prompts, Catalog, Evals | ✔ | 6/6 | policies, catalog, evals, traces |
 
 > **How to mark progress**
 > - **DONE**: check the box `[x]`.
@@ -37,7 +38,7 @@
 
 ---
 
-### 00 — Foundations & Repo Health  (0/7)
+### 00 — Foundations & Repo Health  (7/7)
 <details><summary>Open tasks</summary>
 
 - [x] /codex/tasks/todo/ci-build-matrix-native-wasm-rust-ts.yaml
@@ -98,7 +99,7 @@
 - [x] /codex/tasks/todo/cam-simulator-dryrun-collisions.yaml
 </details>
 
-### 05 — MCP Server & Tool Registry  (1/13)
+### 05 — MCP Server & Tool Registry  (13/13)
 <details><summary>Open tasks</summary>
 
 - [x] /codex/tasks/todo/mcp-registry-and-discovery.yaml
@@ -137,7 +138,7 @@
 - [x] /codex/tasks/todo/web-viewer-csp-and-mime-wasm.yaml
 </details>
 
-### 08 — Schemas, Types & Contract Tests  (0/4)
+### 08 — Schemas, Types & Contract Tests  (1/4)
 <details><summary>Open tasks</summary>
 
 - [x] /codex/tasks/todo/schemas-authoritative-json-and-refs.yaml
@@ -146,12 +147,12 @@
 - [ ] /codex/tasks/todo/schemas-backcompat-contract-tests.yaml
 </details>
 
-### 09 — Artifacts, Goldens & E2E CI  (0/4)
+### 09 — Artifacts, Goldens & E2E CI  (3/4)
 <details><summary>Open tasks</summary>
 
-- [ ] /codex/tasks/todo/artifacts-reference-projects-setup.yaml
-- [ ] /codex/tasks/todo/artifacts-byte-stability-and-seeds.yaml
-- [ ] /codex/tasks/todo/artifacts-diff-tool-and-report.yaml
+- [x] /codex/tasks/todo/artifacts-reference-projects-setup.yaml
+- [x] /codex/tasks/todo/artifacts-byte-stability-and-seeds.yaml
+- [x] /codex/tasks/todo/artifacts-diff-tool-and-report.yaml
 - [ ] /codex/tasks/todo/artifacts-ci-e2e-workflow.yaml
 </details>
 
@@ -183,12 +184,23 @@
 - [ ] /codex/tasks/todo/web-viewer-wasm-worker-loader.yaml
 </details>
 
-### 13 — Performance & Benchmarks  (0/3)
+### 13 — Performance & Benchmarks  (1/3)
 <details><summary>Open tasks</summary>
 
 - [ ] /codex/tasks/todo/nest-benchmarks-and-thresholds.yaml
 - [x] /codex/tasks/todo/cam-simulator-dryrun-collisions.yaml
 - [ ] /codex/tasks/todo/web-viewer-performance-budgets.yaml
+</details>
+
+### 14 — Agent Pack — Prompts, Catalog, Evals  (6/6)
+<details><summary>Completed tasks</summary>
+
+- [x] /codex/tasks/todo/agent-pack-prompts-system-and-developer.yaml
+- [x] /codex/tasks/todo/agent-pack-fewshots-cabinet-tight-retrofit.yaml
+- [x] /codex/tasks/todo/agent-pack-tool-catalog.yaml
+- [x] /codex/tasks/todo/agent-pack-openrpc-export.yaml
+- [x] /codex/tasks/todo/agent-pack-evals-runner-and-scenarios.yaml
+- [x] /codex/tasks/todo/agent-pack-trace-templates-and-playbooks.yaml
 </details>
 
 <!-- END_TASKLIST -->

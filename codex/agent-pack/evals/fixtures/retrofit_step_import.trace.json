@@ -1,0 +1,14 @@
+{
+  "scenario": "retrofit_step_import",
+  "seed": 4455,
+  "steps": [
+    { "phase": "plan", "message": "Inspect STEP, confirm materials, add dowels, regenerate drawings." },
+    { "phase": "act", "tool": "analyze_geometry", "duration_ms": 98, "warnings": [] },
+    { "phase": "act", "tool": "import_geometry", "duration_ms": 186, "warnings": ["Missing hardware metadata"] },
+    { "phase": "act", "tool": "apply_joinery", "duration_ms": 120, "warnings": [] },
+    { "phase": "act", "tool": "extract_cutlist", "duration_ms": 72, "warnings": [] },
+    { "phase": "act", "tool": "make_drawing", "duration_ms": 215, "warnings": [] },
+    { "phase": "verify", "message": "Bounding box 1200×600×820 mm, dowels applied." },
+    { "phase": "summarize", "message": "Cutlist refreshed; ready for nesting if needed." }
+  ]
+}

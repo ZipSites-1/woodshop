@@ -11,6 +11,25 @@
 - [x] /codex/tasks/todo/web-viewer-mcp-client-optional.yaml
 - [x] /codex/tasks/todo/web-viewer-csp-and-mime-wasm.yaml
 
+## Milestones
+
+### MVP
+- /codex/tasks/todo/web-viewer-wasm-worker-loader.yaml
+- /codex/tasks/todo/web-viewer-artifact-panel-pdf-svg-dxf.yaml
+- /codex/tasks/todo/web-viewer-performance-budgets.yaml
+- /codex/tasks/todo/web-viewer-csp-and-mime-wasm.yaml
+
+### V1
+- /codex/tasks/todo/web-viewer-occt-opencascadejs-integration.yaml
+- /codex/tasks/todo/web-viewer-parameter-chips-to-mcp.yaml
+- /codex/tasks/todo/web-viewer-consent-prompts.yaml
+- /codex/tasks/todo/web-viewer-offline-cache-indexeddb.yaml
+
+### V1.1
+- /codex/tasks/todo/web-viewer-gcode-stepper.yaml
+- /codex/tasks/todo/web-viewer-utilization-diff-overlays.yaml
+- /codex/tasks/todo/web-viewer-share-links-and-comments.yaml
+
 ## Validation
 - `pnpm -w --filter @woodshop/web-viewer build`
 

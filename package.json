@@ -15,6 +15,7 @@
     "mcp:e2e:demo": "node tools/e2e/run-mcp-demo.mjs",
     "e2e:artifacts": "node tools/e2e/run-mcp-artifacts.mjs artifacts/current",
     "e2e:artifacts:reference": "node tools/e2e/run-mcp-artifacts.mjs artifacts/reference",
-    "cam:demo": "node tools/cam/run-demo.mjs"
+    "cam:demo": "node tools/cam/run-demo.mjs",
+    "openrpc:generate": "node tools/openrpc/generate-openrpc.mjs"
   }
 }

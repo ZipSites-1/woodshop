@@ -1,0 +1,24 @@
+slug: schemas-governance-tools-undo-redo-explain
+title: "Schemas: governance tools (undo/redo/explain_change)"
+description: Author JSON Schemas for governance tools with inputs/outputs and add example fixtures (valid/invalid).
+area: schemas
+allowed_paths:
+  - packages/schemas/**
+  - packages/types/**
+labels:
+  - codex
+  - schemas
+acceptance:
+  commands:
+    - pnpm -w codegen:schemas
+  tests_expect:
+    - Types generated; example fixtures validate/fail as expected
+  artifacts_expect:
+
+dependencies:
+  - schemas-authoritative-json-and-refs
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

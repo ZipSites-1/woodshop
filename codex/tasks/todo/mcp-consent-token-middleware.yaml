@@ -1,0 +1,30 @@
+slug: mcp-consent-token-middleware
+title: "MCP: consent token middleware (destructive ops)"
+description: Enforce scoped, single-use consent tokens for file writes/postprocess; return CONSENT_REQUIRED when missing.
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**
+  - packages/schemas/**
+labels:
+  - codex
+  - mcp-server
+  - security
+acceptance:
+  commands:
+    - pnpm -w build
+    - pnpm -w test:mcp
+  tests_expect:
+    - postprocess_grbl and export reject without consent
+    - consent token scope + single-use behavior verified
+  artifacts_expect:
+
+dependencies:
+  - security-destructive-ops-confirmation
+  - security-mcp-tool-allowlist
+
+github:
+  blocked_by:
+    - security-destructive-ops-confirmation
+  closing_keyword: True
+created: 2025-09-23
+

@@ -1,0 +1,26 @@
+slug: web-viewer-consent-prompts
+title: "Web viewer: consent prompts"
+description: Session-scoped consent token prompts for tools that write/regenerate artifacts; block postprocess in web.
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+labels:
+  - codex
+  - web
+  - security
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Manual: attempts to write prompt for consent; token cleared after use
+  artifacts_expect:
+
+dependencies:
+  - mcp-consent-token-middleware
+
+github:
+  blocked_by:
+    - mcp-consent-token-middleware
+  closing_keyword: True
+created: 2025-09-23
+

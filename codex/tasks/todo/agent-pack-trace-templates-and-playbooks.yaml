@@ -1,0 +1,26 @@
+slug: agent-pack-trace-templates-and-playbooks
+title: "Agent Pack: trace templates & error playbooks"
+description: Provide trace render configs for desktop/web and playbooks for common errors (schema, timeouts, infeasible nesting, consent missing).
+area: agent-pack
+allowed_paths:
+  - codex/traces/**
+  - codex/docs/**
+labels:
+  - codex
+  - agent-pack
+acceptance:
+  commands:
+    - echo "Trace templates lint: N/A"
+  tests_expect:
+    - Playbooks referenced by UI and evals
+  artifacts_expect:
+
+dependencies:
+  - agent-pack-evals-runner-and-scenarios
+
+github:
+  blocked_by:
+    - agent-pack-evals-runner-and-scenarios
+  closing_keyword: True
+created: 2025-09-23
+

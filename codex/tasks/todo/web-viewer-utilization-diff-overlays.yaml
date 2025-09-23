@@ -1,0 +1,23 @@
+slug: web-viewer-utilization-diff-overlays
+title: "Web viewer: utilization & diff overlays"
+description: Show nesting utilization %, offcuts list, and visual diff overlays between two nesting runs (fixed seed).
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+labels:
+  - codex
+  - web
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Manual: visualize utilization and compare two layouts
+  artifacts_expect:
+
+dependencies:
+  - web-viewer-artifact-panel-pdf-svg-dxf
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

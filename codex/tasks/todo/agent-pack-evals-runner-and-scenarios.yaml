@@ -1,0 +1,26 @@
+slug: agent-pack-evals-runner-and-scenarios
+title: "Agent Pack: evals runner & scenarios"
+description: Add deterministic scenario YAMLs with expected MCP sequences and artifact hashes; implement a CLI runner that emits JUnit and traces.
+area: agent-pack
+allowed_paths:
+  - codex/evals/**
+  - codex/traces/**
+  - tools/**
+labels:
+  - codex
+  - agent-pack
+acceptance:
+  commands:
+    - pnpm -w e2e:artifacts
+  tests_expect:
+    - Scenarios pass; JUnit report and trace attachments produced
+  artifacts_expect:
+
+dependencies:
+  - mcp-tool-nest-parts
+  - mcp-tool-generate-toolpaths
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

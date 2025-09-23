@@ -1,0 +1,25 @@
+slug: web-viewer-occt-opencascadejs-integration
+title: "Web viewer: OCCT/OpenCascade.js integration"
+description: Integrate OpenCascade.js or OCCT Emscripten module into the worker; render tessellations with deflection controls.
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+  - apps/web-viewer/public/**
+labels:
+  - codex
+  - web
+  - wasm
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Manual: sphere/cylinder demo renders; progress shown
+  artifacts_expect:
+
+dependencies:
+  - web-viewer-wasm-worker-loader
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

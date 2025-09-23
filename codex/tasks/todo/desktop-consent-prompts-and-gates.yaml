@@ -1,0 +1,28 @@
+slug: desktop-consent-prompts-and-gates
+title: "Desktop: consent prompts & gates"
+description: UI prompts and gating for destructive ops; inject consent token into next tool call.
+area: desktop-app
+allowed_paths:
+  - apps/desktop/src/**
+  - apps/desktop/qml/**
+labels:
+  - codex
+  - desktop
+  - qt
+  - security
+acceptance:
+  commands:
+    - cmake --build --preset relwithdebinfo
+  tests_expect:
+    - Manual: postprocess requires explicit consent; token cleared after use
+  artifacts_expect:
+
+dependencies:
+  - mcp-consent-token-middleware
+
+github:
+  blocked_by:
+    - mcp-consent-token-middleware
+  closing_keyword: True
+created: 2025-09-23
+

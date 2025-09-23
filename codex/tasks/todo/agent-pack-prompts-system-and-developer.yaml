@@ -1,0 +1,23 @@
+slug: agent-pack-prompts-system-and-developer
+title: "Agent Pack: system & developer prompts"
+description: Author authoritative system/developer prompts enforcing tool-only edits, explicit units, determinism metadata, and consent gates.
+area: agent-pack
+allowed_paths:
+  - codex/prompts/**
+labels:
+  - codex
+  - agent-pack
+acceptance:
+  commands:
+    - echo "Prompts lint: N/A"
+  tests_expect:
+    - Prompts include policies: units, seed/version echo, pre-CAM checks, consent gating
+  artifacts_expect:
+
+dependencies:
+  - mcp-consent-token-middleware
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

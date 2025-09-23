@@ -1,0 +1,26 @@
+slug: schemas-openrpc-generation
+title: "Schemas: OpenRPC generation"
+description: Add codegen to emit OpenRPC from tool schemas; validate output against OpenRPC schema.
+area: schemas
+allowed_paths:
+  - packages/schemas/**
+  - apps/mcp-server/openrpc/**
+labels:
+  - codex
+  - schemas
+acceptance:
+  commands:
+    - pnpm -w build
+  tests_expect:
+    - openrpc.json validates against OpenRPC schema
+  artifacts_expect:
+
+dependencies:
+  - mcp-openrpc-export
+
+github:
+  blocked_by:
+    - mcp-openrpc-export
+  closing_keyword: True
+created: 2025-09-23
+

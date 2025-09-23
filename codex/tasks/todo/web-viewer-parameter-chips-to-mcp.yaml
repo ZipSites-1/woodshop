@@ -1,0 +1,24 @@
+slug: web-viewer-parameter-chips-to-mcp
+title: "Web viewer: parameter chips → MCP"
+description: Wire editable parameter chips to MCP tools (param_update, nest_parts, make_drawing) with pinned seed for deterministic diffs.
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+labels:
+  - codex
+  - web
+  - mcp
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Manual: chip edits call MCP and refresh artifacts
+  artifacts_expect:
+
+dependencies:
+  - mcp-registry-and-discovery
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+
