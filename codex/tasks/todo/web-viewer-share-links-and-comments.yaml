@@ -1,0 +1,23 @@
+slug: web-viewer-share-links-and-comments
+title: "Web viewer: share links & comments"
+description: Signed share links with optional expiry/passcode; pin comments to parts/artifact coordinates; export comments JSON.
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+labels:
+  - codex
+  - web
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Manual: shareable URL preserves viewer state; comments persist
+  artifacts_expect:
+
+dependencies:
+  - web-viewer-occt-opencascadejs-integration
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

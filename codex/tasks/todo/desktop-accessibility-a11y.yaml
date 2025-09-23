@@ -1,0 +1,24 @@
+slug: desktop-accessibility-a11y
+title: "Desktop: accessibility (a11y) pass"
+description: Keyboard-first navigation, focus outlines, and screen-reader labels for action cards and artifact lists.
+area: desktop-app
+allowed_paths:
+  - apps/desktop/qml/**
+labels:
+  - codex
+  - desktop
+  - accessibility
+acceptance:
+  commands:
+    - cmake --build --preset relwithdebinfo
+  tests_expect:
+    - Manual: keyboard navigation covers all interactive controls
+  artifacts_expect:
+
+dependencies:
+  - desktop-action-cards-and-artifacts
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

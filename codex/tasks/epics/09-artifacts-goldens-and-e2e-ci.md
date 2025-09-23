@@ -9,3 +9,16 @@
 - [x] /codex/tasks/todo/artifacts-byte-stability-and-seeds.yaml
 - [x] /codex/tasks/todo/artifacts-diff-tool-and-report.yaml
 - [x] /codex/tasks/todo/artifacts-ci-e2e-workflow.yaml
+ 
+## Milestones
+
+### MVP
+- /codex/tasks/todo/artifacts-reference-projects-setup.yaml
+- /codex/tasks/todo/artifacts-byte-stability-and-seeds.yaml
+- /codex/tasks/todo/artifacts-diff-tool-and-report.yaml
+
+### V1
+- /codex/tasks/todo/artifacts-ci-e2e-workflow.yaml
+
+### V1.1
+- /codex/tasks/todo/ci-agent-kpis-report.yaml

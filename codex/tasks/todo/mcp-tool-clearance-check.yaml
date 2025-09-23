@@ -1,0 +1,31 @@
+slug: mcp-tool-clearance-check
+title: "MCP Tool: clearance_check"
+description: Implement clearance_check tool with inputs (assembly_id, tool_radius, tolerance) and outputs (collisions[], min_radii[]), with schemas and tests.
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**
+  - packages/schemas/**
+  - packages/types/**
+labels:
+  - codex
+  - mcp-server
+acceptance:
+  commands:
+    - pnpm -w codegen:schemas
+    - pnpm -w build
+    - pnpm -w test:mcp
+  tests_expect:
+    - Positive/negative schema fixtures for input/output
+    - Tool returns empty collisions on trivial case
+  artifacts_expect:
+
+dependencies:
+  - mcp-schema-validation-middleware
+  - schemas-authoritative-json-and-refs
+
+github:
+  blocked_by:
+    - schemas-authoritative-json-and-refs
+  closing_keyword: True
+created: 2025-09-23
+

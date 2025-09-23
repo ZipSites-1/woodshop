@@ -1,0 +1,27 @@
+slug: agent-pack-openrpc-export
+title: "Agent Pack: OpenRPC export (optional)"
+description: Generate OpenRPC doc from the tool catalog for rich clients and SDK codegen.
+area: agent-pack
+allowed_paths:
+  - codex/catalogs/**
+  - apps/mcp-server/openrpc/**
+labels:
+  - codex
+  - agent-pack
+acceptance:
+  commands:
+    - pnpm -w build
+  tests_expect:
+    - openrpc.json derived from catalog and validates
+  artifacts_expect:
+
+dependencies:
+  - agent-pack-tool-catalog
+  - mcp-openrpc-export
+
+github:
+  blocked_by:
+    - agent-pack-tool-catalog
+  closing_keyword: True
+created: 2025-09-23
+

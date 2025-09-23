@@ -1,0 +1,25 @@
+slug: desktop-gcode-preview-stepper
+title: "Desktop: G-code preview & stepper"
+description: Overlay toolpaths in viewer; step through lines with feed/rapid visualization and line inspector.
+area: desktop-app
+allowed_paths:
+  - apps/desktop/src/**
+  - apps/desktop/qml/**
+labels:
+  - codex
+  - desktop
+  - qt
+acceptance:
+  commands:
+    - cmake --build --preset relwithdebinfo
+  tests_expect:
+    - Manual: load demo G-code; step, play/pause, line highlight works
+  artifacts_expect:
+
+dependencies:
+  - desktop-viewer-bridge-occt
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

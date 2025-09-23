@@ -1,0 +1,25 @@
+slug: desktop-selection-sync-cutlist
+title: "Desktop: selection ↔ cutlist sync"
+description: Selecting parts in viewer highlights cutlist rows and vice versa; expose part ids and metadata.
+area: desktop-app
+allowed_paths:
+  - apps/desktop/src/**
+  - apps/desktop/qml/**
+labels:
+  - codex
+  - desktop
+  - qt
+acceptance:
+  commands:
+    - cmake --build --preset relwithdebinfo
+  tests_expect:
+    - Manual: selection sync observed on demo project
+  artifacts_expect:
+
+dependencies:
+  - desktop-viewer-bridge-occt
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

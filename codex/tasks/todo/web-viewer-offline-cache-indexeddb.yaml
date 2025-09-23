@@ -1,0 +1,25 @@
+slug: web-viewer-offline-cache-indexeddb
+title: "Web viewer: offline cache (Service Worker + IndexedDB)"
+description: Cache WASM/JS and recent artifacts; store comment drafts and viewer state locally.
+area: web-viewer
+allowed_paths:
+  - apps/web-viewer/src/**
+  - apps/web-viewer/public/**
+labels:
+  - codex
+  - web
+  - offline
+acceptance:
+  commands:
+    - pnpm -w --filter @woodshop/web-viewer build
+  tests_expect:
+    - Manual: reload without network shows cached viewer and last artifacts
+  artifacts_expect:
+
+dependencies:
+  - web-viewer-occt-opencascadejs-integration
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

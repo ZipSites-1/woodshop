@@ -1,0 +1,26 @@
+slug: schemas-idempotency-keys-and-error-codes
+title: "Schemas: idempotency keys & error codes"
+description: Define idempotency-key header/field and standardize JSON-RPC error codes/data.hints across tools.
+area: schemas
+allowed_paths:
+  - packages/schemas/**
+  - packages/types/**
+labels:
+  - codex
+  - schemas
+acceptance:
+  commands:
+    - pnpm -w codegen:schemas
+  tests_expect:
+    - Types updated; error mapping tests cover new codes
+  artifacts_expect:
+
+dependencies:
+  - mcp-error-mapping-and-codes
+
+github:
+  blocked_by:
+    - mcp-error-mapping-and-codes
+  closing_keyword: True
+created: 2025-09-23
+

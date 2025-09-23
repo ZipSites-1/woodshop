@@ -6,6 +6,16 @@
 
 ---
 
+## Current Status
+
+- MCP server: implemented with tool registry, schema validation, and provenance; tools include `create_project`, `param_update`, `apply_joinery`, `analyze_geometry`, `wood_movement_check`, `extract_cutlist`, `nest_parts`, `make_drawing`, `generate_toolpaths`, and `postprocess_grbl` (HTTP discovery endpoints at `/registry` and `/schemas`).
+- Engines: CAM (contour/pocket/drill, GRBL post, simulator) and Nest (linear first-fit; planar best-fit and skyline with kerf/trim, grain, seed-determinism, utilization metrics) are implemented.
+- Web viewer: initial React/Vite app with WASM worker wiring, artifact panel, and MCP probe panel; OCCT WASM module integration is stubbed and ready for binding.
+- Desktop app: Qt/QML skeleton with Chat pane, Action Cards, Revision list, and viewer placeholder wired to an `AppController`.
+- Schemas/types: authoritative JSON Schemas and generated TypeScript types exist; further contract tests and typegen packaging remain.
+
+Next up: OCCT core features + bindings, clearance checks, consent gating and allow-list enforcement, OpenRPC export, contract tests and e2e CI, desktop viewer bridge and packaging, and web viewer OCCT integration + performance budgets.
+
 ## Product goals
 
 * **Natural-language → shop-ready**: “Design a 1200 mm credenza in 18 mm birch ply with two doors” → parametric model, checks, cutlist, nesting, annotated drawings, G-code.
@@ -145,9 +155,9 @@ Agents use a **Reason–Act** loop: plan → call tools → observe results → 
 
 ## Roadmap (capability milestones)
 
-1. **MCP Skeleton** — `create_project`, `param_update`, `extract_cutlist`, `export(pdf|dxf|svg)`; web viewer (read-only). ([Model Context Protocol][3])
-2. **Maker-Ready** — `apply_joinery`, `wood_movement_check`, `nest_parts`, `make_drawing`; OpenCutList-level outputs (parts/labels/diagrams/cost). ([docs.opencutlist.org][12])
-3. **Shop-Ready** — `generate_toolpaths` + `postprocess(grbl)`; presets; conformance smoke. ([GitHub][5])
+1. **MCP Skeleton** — `create_project`, `param_update`, `extract_cutlist`, `export(pdf|dxf|svg)`; web viewer (read-only). ([Model Context Protocol][3]) — Completed.
+2. **Maker-Ready** — `apply_joinery`, `wood_movement_check`, `nest_parts`, `make_drawing`; OpenCutList-level outputs (parts/labels/diagrams/cost). ([docs.opencutlist.org][12]) — Completed.
+3. **Shop-Ready** — `generate_toolpaths` + `postprocess(grbl)`; presets; conformance smoke. ([GitHub][5]) — Implemented in server/engines; UI flows pending (desktop/web).
 
 ---
 

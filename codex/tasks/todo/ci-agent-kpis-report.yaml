@@ -1,0 +1,26 @@
+slug: ci-agent-kpis-report
+title: "CI: agent KPIs report"
+description: Compute eval pass rate, tool-call count to ready-to-cut, planning latency, and policy-violation counts and publish in CI summary.
+area: ci
+allowed_paths:
+  - tools/**
+  - ci/**
+labels:
+  - codex
+  - ci
+acceptance:
+  commands:
+    - pnpm -w build
+  tests_expect:
+    - CI script outputs KPI summary using eval results
+  artifacts_expect:
+
+dependencies:
+  - agent-pack-evals-runner-and-scenarios
+
+github:
+  blocked_by:
+    - agent-pack-evals-runner-and-scenarios
+  closing_keyword: True
+created: 2025-09-23
+

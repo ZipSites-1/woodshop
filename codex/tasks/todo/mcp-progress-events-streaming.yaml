@@ -1,0 +1,24 @@
+slug: mcp-progress-events-streaming
+title: "MCP: progress events for heavy tools"
+description: Stream progress for nest_parts and generate_toolpaths; include stage, percent, and ETA; expose via SDK hooks.
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**
+labels:
+  - codex
+  - mcp-server
+acceptance:
+  commands:
+    - pnpm -w build
+  tests_expect:
+    - progress callbacks invoked in test shim with ordered stages
+  artifacts_expect:
+
+dependencies:
+  - mcp-tool-nest-parts
+  - mcp-tool-generate-toolpaths
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

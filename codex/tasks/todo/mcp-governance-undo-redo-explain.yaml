@@ -1,0 +1,27 @@
+slug: mcp-governance-undo-redo-explain
+title: "MCP: governance tools (undo, redo, explain_change)"
+description: Add undo/redo/explain_change tools with schemas, provenance wiring, and revision guards.
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**
+  - packages/schemas/**
+  - packages/types/**
+labels:
+  - codex
+  - mcp-server
+acceptance:
+  commands:
+    - pnpm -w build
+    - pnpm -w test:mcp
+  tests_expect:
+    - Undo/redo change revision_id and reflect deltas deterministically
+    - explain_change returns human_diff for a known fixture
+  artifacts_expect:
+
+dependencies:
+  - mcp-provenance-logging-seed-coreversion
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

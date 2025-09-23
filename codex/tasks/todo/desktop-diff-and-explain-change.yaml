@@ -1,0 +1,26 @@
+slug: desktop-diff-and-explain-change
+title: "Desktop: diffs & explain_change"
+description: Show human-readable diffs per revision and wire explain_change tool into the Revision Journal.
+area: desktop-app
+allowed_paths:
+  - apps/desktop/src/**
+  - apps/desktop/qml/**
+labels:
+  - codex
+  - desktop
+acceptance:
+  commands:
+    - cmake --build --preset relwithdebinfo
+  tests_expect:
+    - Manual: explain_change summary appears for selected revision
+  artifacts_expect:
+
+dependencies:
+  - mcp-governance-undo-redo-explain
+
+github:
+  blocked_by:
+    - mcp-governance-undo-redo-explain
+  closing_keyword: True
+created: 2025-09-23
+

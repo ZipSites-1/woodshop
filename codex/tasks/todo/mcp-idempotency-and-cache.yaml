@@ -1,0 +1,25 @@
+slug: mcp-idempotency-and-cache
+title: "MCP: idempotency keys + job cache"
+description: Add idempotency keys for batch/side-effecting tools and a job cache keyed by (project, revision, tool, normalized inputs, seed).
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**
+  - packages/schemas/**
+labels:
+  - codex
+  - mcp-server
+acceptance:
+  commands:
+    - pnpm -w build
+    - pnpm -w test:mcp
+  tests_expect:
+    - identical requests return cached results; replay verified
+  artifacts_expect:
+
+dependencies:
+  - mcp-provenance-logging-seed-coreversion
+
+github:
+  closing_keyword: True
+created: 2025-09-23
+

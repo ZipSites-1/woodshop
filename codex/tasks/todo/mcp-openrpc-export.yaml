@@ -1,0 +1,28 @@
+slug: mcp-openrpc-export
+title: "MCP: OpenRPC export"
+description: Generate OpenRPC document from registry/schemas for discovery/codegen.
+area: mcp-server
+allowed_paths:
+  - apps/mcp-server/src/**
+  - apps/mcp-server/openrpc/**
+  - packages/schemas/**
+labels:
+  - codex
+  - mcp-server
+acceptance:
+  commands:
+    - pnpm -w build
+  tests_expect:
+    - openrpc/openrpc.json produced and validates with a linter/tool
+  artifacts_expect:
+
+dependencies:
+  - mcp-registry-and-discovery
+  - schemas-authoritative-json-and-refs
+
+github:
+  blocked_by:
+    - mcp-registry-and-discovery
+  closing_keyword: True
+created: 2025-09-23
+
