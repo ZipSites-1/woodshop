@@ -2,5 +2,6 @@
   "project_id": "proj_demo",
   "format": "pdf",
   "destination": "artifacts/demo",
-  "seed": 11
+  "seed": 11,
+  "idempotency_key": "export-pdf-0003"
 }

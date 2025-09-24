@@ -1,5 +1,6 @@
 {
   "units": "mm",
   "seed": 1,
-  "template": "demo"
+  "template": "demo",
+  "idempotency_key": "create-demo-0001"
 }

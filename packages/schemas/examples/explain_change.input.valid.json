@@ -3,6 +3,7 @@
   "since_revision_id": "rev_0001",
   "until_revision_id": "rev_0003",
   "seed": 99,
+  "idempotency_key": "explain-rev0001-0003",
   "include_metadata": true,
   "max_entries": 10
 }

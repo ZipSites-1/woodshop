@@ -462,6 +462,9 @@
               }
             ],
             "description": "Deterministic seed for downstream operations"
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           }
         },
         "required": [
@@ -568,6 +571,9 @@
                 "$ref": "./common.schema.json#/$defs/seedInput"
               }
             ]
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           },
           "current": {
             "allOf": [
@@ -824,6 +830,9 @@
                 "$ref": "./common.schema.json#/$defs/seedInput"
               }
             ]
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           },
           "operations": {
             "type": "array",
@@ -1530,6 +1539,9 @@
               }
             ]
           },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
+          },
           "views": {
             "type": "array",
             "minItems": 1,
@@ -1865,6 +1877,9 @@
                 "$ref": "./common.schema.json#/$defs/seedInput"
               }
             ]
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           },
           "safe_z_mm": {
             "type": "number",
@@ -2323,6 +2338,9 @@
               }
             ]
           },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
+          },
           "controller": {
             "type": "string",
             "enum": [
@@ -2568,6 +2586,12 @@
             "minimum": 1,
             "maximum": 100,
             "description": "Limit the number of change entries returned."
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedInput"
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           }
         },
         "required": [
@@ -2655,9 +2679,19 @@
           "project_id": {
             "$ref": "./common.schema.json#/$defs/projectId"
           },
+          "current_revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "Revision that is currently active (for conflict detection)."
+          },
           "revision_id": {
             "$ref": "./common.schema.json#/$defs/revisionId",
             "description": "Revision to restore as the current project state."
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedInput"
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           },
           "reason": {
             "type": "string",
@@ -2720,9 +2754,19 @@
           "project_id": {
             "$ref": "./common.schema.json#/$defs/projectId"
           },
+          "current_revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "Revision that is currently active (for conflict detection)."
+          },
           "revision_id": {
             "$ref": "./common.schema.json#/$defs/revisionId",
             "description": "Revision to reapply on top of the current head."
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedInput"
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           },
           "reason": {
             "type": "string",

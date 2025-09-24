@@ -23,4 +23,4 @@
 - [x] /codex/tasks/todo/schemas-openrpc-generation.yaml
 
 ### V1.1
-- /codex/tasks/todo/schemas-idempotency-keys-and-error-codes.yaml
+- [x] /codex/tasks/todo/schemas-idempotency-keys-and-error-codes.yaml

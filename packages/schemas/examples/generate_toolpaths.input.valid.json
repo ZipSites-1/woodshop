@@ -1,6 +1,7 @@
 {
   "project_id": "proj_demo",
   "seed": 1,
+  "idempotency_key": "toolpaths-profile-001",
   "safe_z_mm": 5,
   "stock": {
     "length_mm": 1200,

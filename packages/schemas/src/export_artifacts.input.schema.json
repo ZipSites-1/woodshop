@@ -32,6 +32,9 @@
         { "$ref": "./common.schema.json#/$defs/seedInput" }
       ],
       "description": "Deterministic seed for export"
+    },
+    "idempotency_key": {
+      "$ref": "./common.schema.json#/$defs/idempotencyKey"
     }
   },
   "required": ["project_id", "format"]

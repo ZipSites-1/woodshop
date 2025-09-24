@@ -21,7 +21,7 @@
 | 05 – MCP Server & Tool Registry | ✔ | 13/13 | schemas, provenance, adapters, tools |
 | 06 – Desktop App: Chat & Viewer | ☐ | 0/6 | chat UI, action cards, viewer bridge |
 | 07 – Web Viewer: Artifacts & Perf | ✔ | 5/5 | previews, budgets, optional MCP |
-| 08 – Schemas, Types & Contracts | ◐ | 6/7 | source-of-truth schemas & typegen |
+| 08 – Schemas, Types & Contracts | ✔ | 7/7 | source-of-truth schemas & typegen |
 | 09 – Artifacts, Goldens & E2E CI | ◐ | 3/4 | reference runs + diffs in CI |
 | 10 – Security, Secrets & MCP Perms | ☐ | 0/4 | allow-list, confirmations, SBOM |
 | 11 – Release, Versioning & Docs | ☐ | 0/5 | changesets, changelog, ADR/docs |
@@ -138,7 +138,7 @@
 - [x] /codex/tasks/todo/web-viewer-csp-and-mime-wasm.yaml
 </details>
 
-### 08 — Schemas, Types & Contract Tests  (6/7)
+### 08 — Schemas, Types & Contract Tests  (7/7)
 <details><summary>Open tasks</summary>
 
 - [x] /codex/tasks/todo/schemas-authoritative-json-and-refs.yaml
@@ -147,7 +147,7 @@
 - [x] /codex/tasks/todo/schemas-backcompat-contract-tests.yaml
 - [x] /codex/tasks/todo/schemas-governance-tools-undo-redo-explain.yaml
 - [x] /codex/tasks/todo/schemas-openrpc-generation.yaml
-- [ ] /codex/tasks/todo/schemas-idempotency-keys-and-error-codes.yaml
+- [x] /codex/tasks/todo/schemas-idempotency-keys-and-error-codes.yaml
 </details>
 
 ### 09 — Artifacts, Goldens & E2E CI  (3/4)

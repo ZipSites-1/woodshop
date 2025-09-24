@@ -38,6 +38,7 @@ export interface AnalyzeGeometryOutput {
 }
 
 export interface ApplyJoineryInput {
+  "idempotency_key"?: string;
   "notes"?: string;
   "operations": Array<{
     "angle_deg"?: number | null;
@@ -102,6 +103,7 @@ export interface ApplyJoineryOutput {
 }
 
 export interface CreateProjectInput {
+  "idempotency_key"?: string;
   "seed"?: number;
   "template"?: string;
   "units": "mm" | "inch";
@@ -129,6 +131,7 @@ export interface CreateProjectOutput {
 }
 
 export interface ExplainChangeInput {
+  "idempotency_key"?: string;
   "include_metadata"?: boolean;
   "max_entries"?: number;
   "project_id": string;
@@ -163,6 +166,7 @@ export interface ExplainChangeOutput {
 export interface ExportArtifactsInput {
   "destination"?: string;
   "format": "pdf" | "dxf" | "svg";
+  "idempotency_key"?: string;
   "project_id": string;
   "revision_id"?: string;
   "seed"?: number;
@@ -224,6 +228,7 @@ export interface ExtractCutlistOutput {
 }
 
 export interface GenerateToolpathsInput {
+  "idempotency_key"?: string;
   "operations": Array<{
     [key: string]: unknown;
   }>;
@@ -294,6 +299,7 @@ export interface GenerateToolpathsOutput {
 
 export interface MakeDrawingInput {
   "explode"?: boolean;
+  "idempotency_key"?: string;
   "include_dimensions"?: boolean;
   "project_id": string;
   "scale"?: number;
@@ -427,6 +433,7 @@ export interface ParamUpdateInput {
     "shelf_count": number;
     "width_mm": number;
   };
+  "idempotency_key"?: string;
   "notes"?: string;
   "project_id": string;
   "revision_id"?: string;
@@ -479,6 +486,7 @@ export interface PostprocessGrblInput {
   "confirm_write": true;
   "controller": "grbl";
   "destination"?: string;
+  "idempotency_key"?: string;
   "program"?: {
     "program_id": string;
     "toolpaths": Array<{
@@ -544,6 +552,7 @@ export interface PostprocessGrblOutput {
 
 export interface RedoInput {
   "current_revision_id"?: string;
+  "idempotency_key"?: string;
   "project_id": string;
   "reason"?: string;
   "revision_id": string;
@@ -568,6 +577,7 @@ export interface RedoOutput {
 
 export interface UndoInput {
   "current_revision_id"?: string;
+  "idempotency_key"?: string;
   "project_id": string;
   "reason"?: string;
   "revision_id": string;

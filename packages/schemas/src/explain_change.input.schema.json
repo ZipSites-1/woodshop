@@ -29,6 +29,9 @@
     },
     "seed": {
       "$ref": "./common.schema.json#/$defs/seedInput"
+    },
+    "idempotency_key": {
+      "$ref": "./common.schema.json#/$defs/idempotencyKey"
     }
   },
   "required": ["project_id", "since_revision_id"]

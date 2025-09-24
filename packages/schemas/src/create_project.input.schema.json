@@ -20,6 +20,9 @@
         { "$ref": "./common.schema.json#/$defs/seedInput" }
       ],
       "description": "Deterministic seed for downstream operations"
+    },
+    "idempotency_key": {
+      "$ref": "./common.schema.json#/$defs/idempotencyKey"
     }
   },
   "required": ["units"]

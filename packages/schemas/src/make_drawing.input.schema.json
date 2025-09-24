@@ -15,6 +15,9 @@
         { "$ref": "./common.schema.json#/$defs/seedInput" }
       ]
     },
+    "idempotency_key": {
+      "$ref": "./common.schema.json#/$defs/idempotencyKey"
+    },
     "views": {
       "type": "array",
       "minItems": 1,

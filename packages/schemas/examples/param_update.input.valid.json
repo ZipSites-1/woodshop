@@ -1,6 +1,7 @@
 {
   "project_id": "proj_demo",
   "seed": 7,
+  "idempotency_key": "param-update-20250923",
   "current": {
     "width_mm": 1100,
     "height_mm": 2100,

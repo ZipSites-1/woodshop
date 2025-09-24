@@ -1,5 +1,7 @@
 {
   "project_id": "proj_demo",
+  "seed": 7,
+  "idempotency_key": "drawing-front-20250923",
   "views": ["iso", "front", "right"],
   "include_dimensions": true,
   "explode": false,
