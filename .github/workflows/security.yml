@@ -1,0 +1,33 @@
+name: security
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+  security-events: write
+
+jobs:
+  compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run secret scan
+        run: bash ci/security/run-secret-scan.sh
+      - name: Generate SBOM
+        run: bash ci/security/generate-sbom.sh
+      - name: Upload secret scan report
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitleaks-report
+          path: artifacts/security/gitleaks-report.json
+          if-no-files-found: warn
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: artifacts/sbom/*.spdx.json
+          if-no-files-found: warn

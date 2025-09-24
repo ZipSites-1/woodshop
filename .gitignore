@@ -21,3 +21,10 @@ artifacts/demo/*_preview.svg
 
 # E2E comparison outputs
 artifacts/current/
+
+# Security automation outputs
+artifacts/security/
+artifacts/sbom/*.spdx.json
+
+# Tooling caches
+ci/bin/

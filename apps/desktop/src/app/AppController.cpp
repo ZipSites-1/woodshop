@@ -4,6 +4,8 @@
 #include <QElapsedTimer>
 #include <QTimer>
 #include <QtCore/Qt>
+#include <QUuid>
+#include <QSet>
 
 #include <utility>
 
@@ -119,23 +121,10 @@ void AppController::sendChatMessage(const QString& message)
 
 QString AppController::runTool(const QString& toolName, const QVariantMap& input, const QString& messageId)
 {
-  if (!m_mcpSession.isConnected()) {
-    QVariantMap payload = input;
-    payload.insert(KEY_TOOL, toolName);
-    if (!messageId.isEmpty()) {
-      payload.insert(KEY_MESSAGE, messageId);
-      m_chatModel.updateStatus(messageId, QStringLiteral("queued"));
-    }
-    payload.insert(KEY_QUEUED_AT, QDateTime::currentDateTimeUtc().toString(Qt::ISODateWithMs));
-    enqueueCall(payload);
-    return {};
+  if (requiresConsent(toolName)) {
+    return handleConsentProtectedCall(toolName, input, messageId);
   }
-
-  const QString requestId = m_mcpSession.requestTool(toolName, input);
-  if (!messageId.isEmpty()) {
-    m_requestToMessage.insert(requestId, messageId);
-  }
-  return requestId;
+  return dispatchToolCall(toolName, input, messageId);
 }
 
 void AppController::undo()
@@ -324,4 +313,121 @@ void AppController::flushQueue()
       m_requestToMessage.insert(requestId, messageId);
     }
   }
+}
+
+bool AppController::requiresConsent(const QString& toolName) const
+{
+  static const QSet<QString> consentTools = {
+    QStringLiteral("export_artifacts"),
+    QStringLiteral("postprocess_grbl"),
+  };
+  return consentTools.contains(toolName);
+}
+
+QString AppController::handleConsentProtectedCall(const QString& toolName, const QVariantMap& input, const QString& messageId)
+{
+  if (input.contains(QStringLiteral("consent_token"))) {
+    return dispatchToolCall(toolName, input, messageId);
+  }
+
+  if (m_consent.pending) {
+    if (!m_consent.pendingMessageId.isEmpty() && m_consent.pendingMessageId != messageId) {
+      m_chatModel.updateStatus(m_consent.pendingMessageId, QStringLiteral("cancelled"));
+    }
+  }
+
+  m_consent.pending = true;
+  m_consent.toolName = toolName;
+  m_consent.pendingInput = input;
+  m_consent.pendingMessageId = messageId;
+
+  if (!messageId.isEmpty()) {
+    m_chatModel.updateStatus(messageId, QStringLiteral("needs-consent"));
+  }
+
+  emit consentPromptToolChanged();
+  emit consentPromptVisibleChanged();
+  return {};
+}
+
+QString AppController::dispatchToolCall(const QString& toolName, const QVariantMap& input, const QString& messageId)
+{
+  if (!m_mcpSession.isConnected()) {
+    QVariantMap payload = input;
+    payload.insert(KEY_TOOL, toolName);
+    if (!messageId.isEmpty()) {
+      payload.insert(KEY_MESSAGE, messageId);
+      m_chatModel.updateStatus(messageId, QStringLiteral("queued"));
+    }
+    payload.insert(KEY_QUEUED_AT, QDateTime::currentDateTimeUtc().toString(Qt::ISODateWithMs));
+    enqueueCall(payload);
+    return {};
+  }
+
+  const QString requestId = m_mcpSession.requestTool(toolName, input);
+  if (!messageId.isEmpty()) {
+    m_requestToMessage.insert(requestId, messageId);
+  }
+  return requestId;
+}
+
+void AppController::resetConsentState()
+{
+  const bool wasPending = m_consent.pending;
+  const bool hadTool = m_consent.toolName.has_value();
+  m_consent.clear();
+  if (hadTool) {
+    emit consentPromptToolChanged();
+  }
+  if (wasPending) {
+    emit consentPromptVisibleChanged();
+  }
+}
+
+bool AppController::consentPromptVisible() const
+{
+  return m_consent.pending;
+}
+
+QString AppController::consentPromptTool() const
+{
+  return m_consent.toolName.value_or(QString());
+}
+
+void AppController::confirmConsent()
+{
+  if (!m_consent.pending || !m_consent.toolName.has_value()) {
+    return;
+  }
+
+  QVariantMap payload = m_consent.pendingInput;
+  const QString tool = m_consent.toolName.value();
+  const QString messageId = m_consent.pendingMessageId;
+
+  const QString token = QUuid::createUuid().toString(QUuid::WithoutBraces);
+  payload.insert(QStringLiteral("consent_token"), token);
+
+  resetConsentState();
+
+  const bool wasConnected = m_mcpSession.isConnected();
+  if (!messageId.isEmpty()) {
+    m_chatModel.updateStatus(messageId, wasConnected ? QStringLiteral("pending") : QStringLiteral("queued"));
+  }
+
+  dispatchToolCall(tool, payload, messageId);
+  persistState();
+}
+
+void AppController::cancelConsent()
+{
+  if (!m_consent.pending) {
+    return;
+  }
+
+  if (!m_consent.pendingMessageId.isEmpty()) {
+    m_chatModel.updateStatus(m_consent.pendingMessageId, QStringLiteral("cancelled"));
+  }
+
+  resetConsentState();
+  persistState();
 }

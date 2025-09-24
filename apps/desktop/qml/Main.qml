@@ -76,4 +76,11 @@ ApplicationWindow {
       }
     }
   }
+
+  ConsentPrompt {
+    visible: AppController.consentPromptVisible
+    toolName: AppController.consentPromptTool
+    onConfirm: AppController.confirmConsent()
+    onCancel: AppController.cancelConsent()
+  }
 }
