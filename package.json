@@ -3,6 +3,7 @@
   "private": true,
   "packageManager": "pnpm@9.0.0",
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "turbo": "^2.0.0",
     "typescript": "^5.4.0"
   },
@@ -16,6 +17,13 @@
     "e2e:artifacts": "node tools/e2e/run-mcp-artifacts.mjs artifacts/current",
     "e2e:artifacts:reference": "node tools/e2e/run-mcp-artifacts.mjs artifacts/reference",
     "cam:demo": "node tools/cam/run-demo.mjs",
-    "openrpc:generate": "node tools/openrpc/generate-openrpc.mjs"
+    "openrpc:generate": "node tools/openrpc/generate-openrpc.mjs",
+    "changeset": "pnpm exec changeset",
+    "release:prep": "pnpm exec changeset version",
+    "release:publish": "pnpm exec changeset publish",
+    "perf:test": "cargo test -p nest planar_best_fit_stays_within_budget",
+    "security:secrets": "bash ci/security/run-secret-scan.sh",
+    "security:sbom": "bash ci/security/generate-sbom.sh",
+    "security:check": "pnpm run security:secrets && pnpm run security:sbom"
   }
 }

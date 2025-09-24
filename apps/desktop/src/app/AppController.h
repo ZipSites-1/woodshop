@@ -11,6 +11,7 @@
 #include "services/McpSession.h"
 #include "services/OfflineCache.h"
 #include "services/OcctViewerBridge.h"
+#include "services/ConsentState.h"
 
 class AppController : public QObject
 {
@@ -21,6 +22,8 @@ class AppController : public QObject
   Q_PROPERTY(OfflineCache* offlineCache READ offlineCache CONSTANT)
   Q_PROPERTY(McpSession* mcpSession READ mcpSession CONSTANT)
   Q_PROPERTY(OcctViewerBridge* viewerBridge READ viewerBridge CONSTANT)
+  Q_PROPERTY(bool consentPromptVisible READ consentPromptVisible NOTIFY consentPromptVisibleChanged)
+  Q_PROPERTY(QString consentPromptTool READ consentPromptTool NOTIFY consentPromptToolChanged)
 
 public:
   explicit AppController(QObject* parent = nullptr);
@@ -30,6 +33,8 @@ public:
 
   Q_INVOKABLE void sendChatMessage(const QString& message);
   Q_INVOKABLE QString runTool(const QString& toolName, const QVariantMap& input, const QString& messageId = QString());
+  Q_INVOKABLE void confirmConsent();
+  Q_INVOKABLE void cancelConsent();
   Q_INVOKABLE void undo();
   Q_INVOKABLE void redo();
   Q_INVOKABLE void gotoRevision(int index);
@@ -41,9 +46,13 @@ public:
   OfflineCache* offlineCache();
   McpSession* mcpSession();
   OcctViewerBridge* viewerBridge();
+  [[nodiscard]] bool consentPromptVisible() const;
+  [[nodiscard]] QString consentPromptTool() const;
 
 signals:
   void initialized();
+  void consentPromptVisibleChanged();
+  void consentPromptToolChanged();
 
 private:
   void connectSignals();
@@ -52,6 +61,10 @@ private:
   void persistQueue();
   void enqueueCall(const QVariantMap& payload);
   void flushQueue();
+  [[nodiscard]] bool requiresConsent(const QString& toolName) const;
+  QString handleConsentProtectedCall(const QString& toolName, const QVariantMap& input, const QString& messageId);
+  QString dispatchToolCall(const QString& toolName, const QVariantMap& input, const QString& messageId);
+  void resetConsentState();
 
   ChatModel m_chatModel;
   ActionCardModel m_actionCardModel;
@@ -59,6 +72,7 @@ private:
   OfflineCache m_offlineCache;
   McpSession m_mcpSession;
   OcctViewerBridge m_viewerBridge;
+  ConsentState m_consent;
 
   QList<QVariantMap> m_queuedCalls;
   QHash<QString, QString> m_requestToCard;

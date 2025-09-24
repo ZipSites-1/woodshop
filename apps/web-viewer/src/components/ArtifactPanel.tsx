@@ -1,4 +1,11 @@
 import React, { useMemo, useState } from "react";
+import { ConsentDialog } from "./ConsentDialog";
+import {
+  clearConsentToken,
+  getConsentToken,
+  issueConsentToken,
+  type ConsentScope,
+} from "../state/consentStore";
 
 type ArtifactType = "pdf" | "svg" | "dxf";
 
@@ -57,11 +64,55 @@ const buttonStyle: React.CSSProperties = {
 
 export const ArtifactPanel: React.FC = () => {
   const [selectedId, setSelectedId] = useState<string>(SAMPLE_ARTIFACTS[0].id);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [pendingTool, setPendingTool] = useState<string | null>(null);
+  const [pendingScope, setPendingScope] = useState<ConsentScope | null>(null);
+  const [actionLog, setActionLog] = useState<string | null>(null);
 
   const selectedArtifact = useMemo(
     () => SAMPLE_ARTIFACTS.find((artifact) => artifact.id === selectedId),
     [selectedId]
   );
+
+  function simulateAction(toolName: string, token: string) {
+    setActionLog(`Simulated ${toolName} with consent token ${token.slice(0, 6)}…`);
+  }
+
+  function handleConsentAction(toolName: string, scope: ConsentScope) {
+    const existing = getConsentToken();
+    if (existing && existing.toolName === toolName && existing.scope === scope) {
+      simulateAction(toolName, existing.token);
+      clearConsentToken();
+      return;
+    }
+
+    setPendingTool(toolName);
+    setPendingScope(scope);
+    setDialogOpen(true);
+    setActionLog(`Consent required before executing ${toolName}.`);
+  }
+
+  function handleConsentConfirm() {
+    if (!pendingTool || !pendingScope) {
+      setDialogOpen(false);
+      return;
+    }
+    const entry = issueConsentToken(pendingScope, pendingTool);
+    setDialogOpen(false);
+    simulateAction(pendingTool, entry.token);
+    clearConsentToken();
+    setPendingTool(null);
+    setPendingScope(null);
+  }
+
+  function handleConsentCancel() {
+    setDialogOpen(false);
+    if (pendingTool) {
+      setActionLog(`${pendingTool} aborted before consent.`);
+    }
+    setPendingTool(null);
+    setPendingScope(null);
+  }
 
   return (
     <aside
@@ -116,6 +167,38 @@ export const ArtifactPanel: React.FC = () => {
           <p style={{ margin: 0, color: "#757575" }}>Select an artifact to preview.</p>
         )}
       </section>
+
+      <section style={{ display: "grid", gap: "12px" }}>
+        <h4 style={{ margin: 0 }}>Consent-gated actions</h4>
+        <p style={{ margin: 0, color: "#616161", fontSize: "0.85rem" }}>
+          Demo buttons simulate operations that require explicit consent before writing
+          artifacts or posting machine code.
+        </p>
+        <button
+          type="button"
+          onClick={() => handleConsentAction("export_artifacts", "artifact.write")}
+          style={buttonStyle}
+        >
+          Generate artifact bundle (requires consent)
+        </button>
+        <button
+          type="button"
+          onClick={() => handleConsentAction("postprocess_grbl", "machine.post")}
+          style={buttonStyle}
+        >
+          Postprocess to GRBL (requires consent)
+        </button>
+        {actionLog ? (
+          <p style={{ margin: 0, color: "#0f172a", fontSize: "0.85rem" }}>{actionLog}</p>
+        ) : null}
+      </section>
+
+      <ConsentDialog
+        open={dialogOpen}
+        toolName={pendingTool ?? ""}
+        onConfirm={handleConsentConfirm}
+        onCancel={handleConsentCancel}
+      />
     </aside>
   );
 };
