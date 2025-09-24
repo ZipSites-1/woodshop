@@ -1,0 +1,32 @@
+{
+  "project_id": "proj_demo",
+  "since_revision_id": "rev_0001",
+  "until_revision_id": "rev_0003",
+  "summary": "Shelf width increased and dados added.",
+  "entries": [
+    {
+      "revision_id": "rev_0002",
+      "summary": "Resized cabinet to 1200 mm width.",
+      "timestamp": "2025-09-23T09:15:00Z",
+      "author": "assistant"
+    },
+    {
+      "revision_id": "rev_0003",
+      "summary": "Added dados for shelves.",
+      "timestamp": "2025-09-23T09:18:00Z",
+      "author": "assistant",
+      "warnings": [
+        "Shelf dado depth reduced to 9 mm to avoid breakthrough"
+      ]
+    }
+  ],
+  "engine_versions": {
+    "occt": "0.26.0",
+    "nest": "0.18.3",
+    "cam": "0.21.2",
+    "wood": "0.9.0",
+    "schemas": "0.3.0"
+  },
+  "inputs_hash": "e53dd2a0",
+  "seed": 0
+}

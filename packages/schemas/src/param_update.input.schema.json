@@ -19,6 +19,9 @@
         { "$ref": "./common.schema.json#/$defs/seedInput" }
       ]
     },
+    "idempotency_key": {
+      "$ref": "./common.schema.json#/$defs/idempotencyKey"
+    },
     "current": {
       "allOf": [
         { "$ref": "./common.schema.json#/$defs/projectParameters" }

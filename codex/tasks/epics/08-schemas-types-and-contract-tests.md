@@ -19,8 +19,8 @@
 - /codex/tasks/todo/schemas-backcompat-contract-tests.yaml
 
 ### V1
-- /codex/tasks/todo/schemas-governance-tools-undo-redo-explain.yaml
-- /codex/tasks/todo/schemas-openrpc-generation.yaml
+- [x] /codex/tasks/todo/schemas-governance-tools-undo-redo-explain.yaml
+- [x] /codex/tasks/todo/schemas-openrpc-generation.yaml
 
 ### V1.1
-- /codex/tasks/todo/schemas-idempotency-keys-and-error-codes.yaml
+- [x] /codex/tasks/todo/schemas-idempotency-keys-and-error-codes.yaml

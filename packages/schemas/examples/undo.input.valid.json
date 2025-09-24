@@ -1,0 +1,7 @@
+{
+  "project_id": "proj_demo",
+  "revision_id": "rev_0002",
+  "seed": 41,
+  "idempotency_key": "undo-rev_0002",
+  "reason": "Revert accidental panel resize"
+}

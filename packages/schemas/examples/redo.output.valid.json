@@ -1,0 +1,15 @@
+{
+  "project_id": "proj_demo",
+  "revision_id": "rev_0003",
+  "previous_revision_id": "rev_0001",
+  "engine_versions": {
+    "occt": "0.26.0",
+    "nest": "0.18.3",
+    "cam": "0.21.2",
+    "wood": "0.9.0",
+    "schemas": "0.3.0"
+  },
+  "inputs_hash": "5bcd9c41",
+  "summary": "Reapplied shelf resize and joinery from rev_0003",
+  "seed": 0
+}

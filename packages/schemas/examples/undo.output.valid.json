@@ -1,0 +1,15 @@
+{
+  "project_id": "proj_demo",
+  "revision_id": "rev_0001",
+  "previous_revision_id": "rev_0002",
+  "engine_versions": {
+    "occt": "0.26.0",
+    "nest": "0.18.3",
+    "cam": "0.21.2",
+    "wood": "0.9.0",
+    "schemas": "0.3.0"
+  },
+  "inputs_hash": "b82d5efc",
+  "summary": "Restored revision rev_0001 (pre-shelf resize)",
+  "seed": 0
+}

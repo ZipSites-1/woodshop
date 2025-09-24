@@ -15,6 +15,13 @@
     "seedOutput": {
       "type": "integer"
     },
+    "idempotencyKey": {
+      "type": "string",
+      "description": "Client-supplied token to guarantee idempotent processing of side-effecting requests.",
+      "minLength": 8,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
     "engineVersions": {
       "type": "object",
       "additionalProperties": false,
@@ -166,6 +173,49 @@
         "message": { "type": "string" }
       },
       "required": ["part_id", "severity", "message"]
+    },
+    "errorHint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "message": { "type": "string" },
+        "action": { "type": "string" }
+      },
+      "required": ["message"]
+    },
+    "toolErrorCode": {
+      "type": "string",
+      "enum": [
+        "INVALID_INPUT",
+        "INVALID_OUTPUT",
+        "UNEXPECTED_ERROR",
+        "SCHEMA_VALIDATION_ERROR",
+        "UNAUTHORIZED",
+        "CONSENT_REQUIRED",
+        "ENGINE_ERROR",
+        "INFEASIBLE",
+        "TIMEOUT",
+        "CANCELLED",
+        "CONFLICT",
+        "UNKNOWN_SPECIES",
+        "UNSUPPORTED_CONTROLLER"
+      ]
+    },
+    "toolError": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "code": { "$ref": "#/$defs/toolErrorCode" },
+        "message": { "type": "string" },
+        "details": {
+          "type": "object"
+        },
+        "hints": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/errorHint" }
+        }
+      },
+      "required": ["code", "message"]
     },
     "projectParameters": {
       "type": "object",

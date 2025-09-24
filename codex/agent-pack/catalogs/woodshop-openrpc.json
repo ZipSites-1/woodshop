@@ -335,6 +335,102 @@
         "description": "Example input/output",
         "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
       }
+    },
+    {
+      "name": "explain_change",
+      "summary": "Explain Change",
+      "description": "Summarize revisions between two points with human-readable diffs.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/explain_change.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/explain_change.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "undo",
+      "summary": "Undo Revision",
+      "description": "Restore a previous project revision in a deterministic manner.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/undo.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/undo.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
+    },
+    {
+      "name": "redo",
+      "summary": "Redo Revision",
+      "description": "Reapply a previously undone revision.",
+      "params": [
+        {
+          "name": "input",
+          "schema": {
+            "$ref": "https://woodshop.dev/schemas/redo.input.json"
+          },
+          "required": true,
+          "description": "Input payload matching the MCP JSON Schema."
+        }
+      ],
+      "result": {
+        "name": "result",
+        "description": "Tool response as defined by the MCP JSON Schema.",
+        "schema": {
+          "$ref": "https://woodshop.dev/schemas/redo.output.json"
+        }
+      },
+      "errors": [],
+      "tags": [
+        {
+          "name": "deterministic"
+        }
+      ],
+      "externalDocs": {
+        "description": "Example input/output",
+        "url": "https://github.com/ZipSites-1/woodshop/tree/main/codex/agent-pack/catalogs/woodshop-tools.json"
+      }
     }
   ],
   "components": {
@@ -366,6 +462,9 @@
               }
             ],
             "description": "Deterministic seed for downstream operations"
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           }
         },
         "required": [
@@ -472,6 +571,9 @@
                 "$ref": "./common.schema.json#/$defs/seedInput"
               }
             ]
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           },
           "current": {
             "allOf": [
@@ -728,6 +830,9 @@
                 "$ref": "./common.schema.json#/$defs/seedInput"
               }
             ]
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           },
           "operations": {
             "type": "array",
@@ -1434,6 +1539,9 @@
               }
             ]
           },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
+          },
           "views": {
             "type": "array",
             "minItems": 1,
@@ -1769,6 +1877,9 @@
                 "$ref": "./common.schema.json#/$defs/seedInput"
               }
             ]
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
           },
           "safe_z_mm": {
             "type": "number",
@@ -2227,6 +2338,9 @@
               }
             ]
           },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
+          },
           "controller": {
             "type": "string",
             "enum": [
@@ -2441,6 +2555,267 @@
           "seed",
           "engine_versions",
           "revision_id",
+          "inputs_hash"
+        ]
+      },
+      "explain_change.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/explain_change.input.json",
+        "title": "ExplainChangeInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "$ref": "./common.schema.json#/$defs/projectId"
+          },
+          "since_revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "Revision identifier to diff from."
+          },
+          "until_revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "Optional upper bound (defaults to current head)."
+          },
+          "include_metadata": {
+            "type": "boolean",
+            "description": "Whether to include per-step metadata blocks in the response.",
+            "default": false
+          },
+          "max_entries": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Limit the number of change entries returned."
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedInput"
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
+          }
+        },
+        "required": [
+          "project_id",
+          "since_revision_id"
+        ]
+      },
+      "explain_change.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/explain_change.output.json",
+        "title": "ExplainChangeOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "$ref": "./common.schema.json#/$defs/projectId"
+          },
+          "since_revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "until_revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId"
+          },
+          "summary": {
+            "type": "string",
+            "description": "High-level explanation of changes across the range."
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "revision_id": {
+                  "$ref": "./common.schema.json#/$defs/revisionId"
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "author": {
+                  "type": "string"
+                },
+                "warnings": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "revision_id",
+                "summary"
+              ]
+            }
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedOutput"
+          }
+        },
+        "required": [
+          "project_id",
+          "since_revision_id",
+          "engine_versions",
+          "inputs_hash",
+          "entries"
+        ]
+      },
+      "undo.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/undo.input.json",
+        "title": "UndoInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "$ref": "./common.schema.json#/$defs/projectId"
+          },
+          "current_revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "Revision that is currently active (for conflict detection)."
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "Revision to restore as the current project state."
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedInput"
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional operator note for provenance."
+          }
+        },
+        "required": [
+          "project_id",
+          "revision_id"
+        ]
+      },
+      "undo.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/undo.output.json",
+        "title": "UndoOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "$ref": "./common.schema.json#/$defs/projectId"
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "New head revision after undo is applied."
+          },
+          "previous_revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "Revision that was current before the undo operation."
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedOutput"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Human-readable description of the reverted change."
+          }
+        },
+        "required": [
+          "project_id",
+          "revision_id",
+          "previous_revision_id",
+          "engine_versions",
+          "inputs_hash"
+        ]
+      },
+      "redo.input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/redo.input.json",
+        "title": "RedoInput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "$ref": "./common.schema.json#/$defs/projectId"
+          },
+          "current_revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "Revision that is currently active (for conflict detection)."
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "Revision to reapply on top of the current head."
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedInput"
+          },
+          "idempotency_key": {
+            "$ref": "./common.schema.json#/$defs/idempotencyKey"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional operator note for provenance."
+          }
+        },
+        "required": [
+          "project_id",
+          "revision_id"
+        ]
+      },
+      "redo.output": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://woodshop.dev/schemas/redo.output.json",
+        "title": "RedoOutput",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "project_id": {
+            "$ref": "./common.schema.json#/$defs/projectId"
+          },
+          "revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "New head revision after redo is applied."
+          },
+          "previous_revision_id": {
+            "$ref": "./common.schema.json#/$defs/revisionId",
+            "description": "Revision that was current before the redo operation."
+          },
+          "engine_versions": {
+            "$ref": "./common.schema.json#/$defs/engineVersions"
+          },
+          "inputs_hash": {
+            "$ref": "./common.schema.json#/$defs/inputsHash"
+          },
+          "seed": {
+            "$ref": "./common.schema.json#/$defs/seedOutput"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Human-readable description of the redone change."
+          }
+        },
+        "required": [
+          "project_id",
+          "revision_id",
+          "previous_revision_id",
+          "engine_versions",
           "inputs_hash"
         ]
       }

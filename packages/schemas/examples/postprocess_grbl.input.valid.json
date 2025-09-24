@@ -1,5 +1,7 @@
 {
   "project_id": "proj_demo",
+  "seed": 1,
+  "idempotency_key": "postprocess-grbl-20250923",
   "controller": "grbl",
   "confirm_write": true,
   "program": {
