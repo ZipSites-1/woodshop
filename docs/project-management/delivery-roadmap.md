@@ -2,7 +2,7 @@
 
 This document tracks progress across the staged delivery sequence defined in the playbook. Update it during stage-gate reviews and whenever milestones change state.
 
-## Snapshot (update date: YYYY-MM-DD)
+## Snapshot (update date: 2025-09-25)
 | Order | Epic / Workstream | Stage | Owner | Status | Evidence / Links |
 |---|---|---|---|---|---|
 | 1 | Foundations & Repo Health (`codex/tasks/epics/00-foundations-and-repo-health.md`) | N/A | Product Lead | ✅ Complete | `codex/index-tasklist.md` row for epic 00 checked |
@@ -10,11 +10,11 @@ This document tracks progress across the staged delivery sequence defined in the
 | 3 | WASM Viewer & OCCT Bindings (`codex/tasks/epics/02-wasm-viewer-and-occt-bindings.md`) | Discovery | Technical Lead | ☐ Outstanding | Blocked by epic 01 |
 | 4 | Nesting Engine v1 (`codex/tasks/epics/03-nesting-engine-v1.md`) | Planning | Nesting Lead | ☐ Outstanding | Requires integration with Rust engine |
 | 4 | CAM Engine & GRBL Post (`codex/tasks/epics/04-cam-engine-and-grbl-post.md`) | Verification | CAM Lead | ◐ In Progress | Contract tests in `pnpm -w test:mcp` |
-| 5 | MCP Server & Tool Registry (`codex/tasks/epics/05-mcp-server-and-tool-registry.md`) | Verification | MCP Lead | ◐ In Progress | Awaiting deterministic backends |
-| 6 | Desktop App: Chat & Viewer (`codex/tasks/epics/06-desktop-app-chat-and-viewer.md`) | Planning | Desktop Lead | ☐ Outstanding | MCP dependency noted |
+| 5 | MCP Server & Tool Registry (`codex/tasks/epics/05-mcp-server-and-tool-registry.md`) | Verification | MCP Lead | ◐ In Progress | Workstream D spec: `docs/project-management/cloud-batches/specs/mcp-integration.md` |
+| 6 | Desktop App: Chat & Viewer (`codex/tasks/epics/06-desktop-app-chat-and-viewer.md`) | Planning | Desktop Lead | ☐ Outstanding | Workstream E spec: `docs/project-management/cloud-batches/specs/desktop-mcp-integration.md` |
 | 6 | Web Viewer: Artifacts & Performance (`codex/tasks/epics/07-web-viewer-artifacts-and-performance.md`) | Verification | Web Lead | ✅ Complete | Reference artifacts in `artifacts/demo` |
-| 7 | Security, Secrets & MCP Permissions (`codex/tasks/epics/10-security-secrets-and-mcp-permissions.md`) | Discovery | Security Engineer | ☐ Outstanding | Allow-list/consent tooling pending |
-| 7 | Release, Versioning & Docs (`codex/tasks/epics/11-release-versioning-and-docs.md`) | Discovery | Documentation Steward | ☐ Outstanding | Changesets/changelog work pending |
+| 7 | Security, Secrets & MCP Permissions (`codex/tasks/epics/10-security-secrets-and-mcp-permissions.md`) | Discovery | Security Engineer | ☐ Outstanding | Workstream F spec: `docs/project-management/cloud-batches/specs/security-governance.md` |
+| 7 | Release, Versioning & Docs (`codex/tasks/epics/11-release-versioning-and-docs.md`) | Discovery | Documentation Steward | ☐ Outstanding | Workstream F spec: `docs/project-management/cloud-batches/specs/security-governance.md` |
 
 ## Milestone Detail
 
@@ -54,19 +54,19 @@ This document tracks progress across the staged delivery sequence defined in the
 
 ### 5. MCP Server & Tool Registry — ◐ In Progress
 - Remaining Work: Replace stub data with real engine integrations, finalize provenance, extend contract tests.
-- **Planning:** Map each MCP tool to its engine dependency; create rollout plan for provenance enhancements and consent enforcement; align with desktop integration milestones.
-- **Scaffolding:** Implement feature flags or adapters for swapping stub vs. real engines; expand schema validation coverage; scaffold telemetry/logging hooks for provenance data.
-- **Coding Start:** Only enable coding on new MCP tool features once the dependency mapping and scaffolding layers are approved.
+- **Planning:** Completed. Design notes, feature-flag strategy, and fixture plan captured in `docs/project-management/cloud-batches/specs/mcp-integration.md`.
+- **Scaffolding:** Feature flags, provenance metadata, and fixture regeneration path documented; coding teams should now execute adapter implementations and refresh reference data.
+- **Coding Start:** Proceed with Workstream D Coding tasks, then report outcomes + diffs back into the next stage-gate review.
 - **Cloud Batch Reference:**
   - Batch 01 — `docs/project-management/cloud-batches/batch-01.md` (Workstream A)
   - Batch 02 — `docs/project-management/cloud-batches/batch-02.md` (Workstream D)
 
 ### 6. Surface Apps & Agent Pack — Mixed
-- Desktop App: still relying on stub MCP session; integrate real server and viewer bridge.
+- Desktop App: now unblocked by design; integration plan and configuration matrix are recorded in `docs/project-management/cloud-batches/specs/desktop-mcp-integration.md`.
 - Web Viewer: epic 07 complete; monitor for regressions.
-- **Planning:** Produce sequencing plan for desktop integration (chat, viewer, consent flows); outline agent-pack updates once server V1 is live; set acceptance criteria for cross-surface parity.
-- **Scaffolding:** Introduce environment config for real MCP endpoints; set up mock sessions for automated UI tests; prepare documentation templates for agent-pack updates.
-- **Coding Start:** Commence desktop/agent coding after planning deliverables and scaffolding environments/configs are ready.
+- **Planning:** Completed for desktop MCP wiring (Workstream E). Coordinate remaining agent-pack scope once desktop Coding tasks validate transport + viewer bridge.
+- **Scaffolding:** Environment configuration, consent handling, and artifact bridge expectations documented. Desktop team should enter Coding, execute Phases 0–3, then feed demo + test results back to stage-gate notes.
+- **Coding Start:** Commence desktop/agent Coding work immediately, ensuring Workstream D fixtures are in place and telemetry hooks report consent + artifact status.
 - **Cloud Batch Reference:**
   - Batch 01 — `docs/project-management/cloud-batches/batch-01.md` (Workstream B)
   - Batch 02 — `docs/project-management/cloud-batches/batch-02.md` (Workstream E)
@@ -74,9 +74,9 @@ This document tracks progress across the staged delivery sequence defined in the
 ### 7. Security / Governance / Release — ☐ Outstanding
 - Security (Epic 10): implement tool allow-list, consent confirmations, SBOM updates.
 - Release (Epic 11): establish changeset workflow, changelog automation, ADR cadence.
-- **Planning:** Draft security review checklist; determine release cadence and gating criteria; identify compliance artifacts required pre-GA.
-- **Scaffolding:** Create allow-list configuration files; set up automated changeset enforcement; scaffold ADR templates and release note generators.
-- **Coding Start:** Begin implementing security and release automation once planning outputs and scaffolding artifacts are complete and reviewed.
+- **Planning:** Completed via `docs/project-management/cloud-batches/specs/security-governance.md`, which defines governance blueprint, consent policy, SBOM cadence, and release tooling scaffolds.
+- **Scaffolding:** Allow-list configs, consent token storage, SBOM scripts, and release automation entry points identified; Coding teams must now implement enforcement, create missing docs, and wire CI jobs.
+- **Coding Start:** Begin Workstream F Coding activities, then capture enforcement status, SBOM artifacts, and release-checklist updates in the next stage-gate review package.
 - **Cloud Batch Reference:**
   - Batch 01 — `docs/project-management/cloud-batches/batch-01.md` (Workstream C)
   - Batch 02 — `docs/project-management/cloud-batches/batch-02.md` (Workstream F)
