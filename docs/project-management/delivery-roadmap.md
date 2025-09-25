@@ -38,7 +38,9 @@ This document tracks progress across the staged delivery sequence defined in the
 - **Planning:** Sequence viewer tasks once OCCT bindings are ready; sync with security on CSP and MIME constraints; document performance budgets and telemetry hooks.
 - **Scaffolding:** Generate initial WASM loader structure; create placeholder viewer components; set up integration tests that consume synthetic geometry.
 - **Coding Start:** Begin viewer feature development once the planning artifacts and scaffolding prototypes above are completed.
-- **Cloud Batch Reference:** See `docs/project-management/cloud-batches/batch-01.md` (Workstream B).
+- **Cloud Batch Reference:**
+  - Batch 01 — `docs/project-management/cloud-batches/batch-01.md` (Workstream B)
+  - Batch 02 — `docs/project-management/cloud-batches/batch-02.md` (Workstream E)
 
 ### 4. Engines — Mixed
 - Nesting v1: outstanding integration with Rust engine to replace JS skyline implementation.
@@ -46,13 +48,18 @@ This document tracks progress across the staged delivery sequence defined in the
 - **Planning:** Finalize engine API surfaces required by MCP; schedule benchmarking windows; coordinate with QA on artifact diffs and determinism criteria.
 - **Scaffolding:** Build shared fixtures for nesting/CAM comparisons; provision benchmark harnesses (`cargo bench` / scripted runs); prepare mock inputs for MCP contract tests.
 - **Coding Start:** Proceed with engine integration work after planning approvals and scaffolding (fixtures/bench harnesses) are in place.
-- **Cloud Batch Reference:** See `docs/project-management/cloud-batches/batch-01.md` (Workstream C).
+- **Cloud Batch Reference:**
+  - Batch 01 — `docs/project-management/cloud-batches/batch-01.md` (Workstream C)
+  - Batch 02 — `docs/project-management/cloud-batches/batch-02.md` (Workstream F)
 
 ### 5. MCP Server & Tool Registry — ◐ In Progress
 - Remaining Work: Replace stub data with real engine integrations, finalize provenance, extend contract tests.
 - **Planning:** Map each MCP tool to its engine dependency; create rollout plan for provenance enhancements and consent enforcement; align with desktop integration milestones.
 - **Scaffolding:** Implement feature flags or adapters for swapping stub vs. real engines; expand schema validation coverage; scaffold telemetry/logging hooks for provenance data.
 - **Coding Start:** Only enable coding on new MCP tool features once the dependency mapping and scaffolding layers are approved.
+- **Cloud Batch Reference:**
+  - Batch 01 — `docs/project-management/cloud-batches/batch-01.md` (Workstream A)
+  - Batch 02 — `docs/project-management/cloud-batches/batch-02.md` (Workstream D)
 
 ### 6. Surface Apps & Agent Pack — Mixed
 - Desktop App: still relying on stub MCP session; integrate real server and viewer bridge.
@@ -60,6 +67,9 @@ This document tracks progress across the staged delivery sequence defined in the
 - **Planning:** Produce sequencing plan for desktop integration (chat, viewer, consent flows); outline agent-pack updates once server V1 is live; set acceptance criteria for cross-surface parity.
 - **Scaffolding:** Introduce environment config for real MCP endpoints; set up mock sessions for automated UI tests; prepare documentation templates for agent-pack updates.
 - **Coding Start:** Commence desktop/agent coding after planning deliverables and scaffolding environments/configs are ready.
+- **Cloud Batch Reference:**
+  - Batch 01 — `docs/project-management/cloud-batches/batch-01.md` (Workstream B)
+  - Batch 02 — `docs/project-management/cloud-batches/batch-02.md` (Workstream E)
 
 ### 7. Security / Governance / Release — ☐ Outstanding
 - Security (Epic 10): implement tool allow-list, consent confirmations, SBOM updates.
@@ -67,6 +77,9 @@ This document tracks progress across the staged delivery sequence defined in the
 - **Planning:** Draft security review checklist; determine release cadence and gating criteria; identify compliance artifacts required pre-GA.
 - **Scaffolding:** Create allow-list configuration files; set up automated changeset enforcement; scaffold ADR templates and release note generators.
 - **Coding Start:** Begin implementing security and release automation once planning outputs and scaffolding artifacts are complete and reviewed.
+- **Cloud Batch Reference:**
+  - Batch 01 — `docs/project-management/cloud-batches/batch-01.md` (Workstream C)
+  - Batch 02 — `docs/project-management/cloud-batches/batch-02.md` (Workstream F)
 
 ## Updating This Document
 1. Adjust the snapshot table with the latest stage, status, and evidence links.
